@@ -1,11 +1,23 @@
+/* rosybrown4 #8b6969 darker ##6C5151 #4E3B3B*/
+/* palevioletred4 #8b475d */
+
+@font-face {
+  font-family: 'Monoton';
+  src: url('./Monoton/Monoton-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'M_PLUS_1';
+  src: url('./M_PLUS_1/MPLUS1-VariableFont_wght.ttf') format('truetype');
+}
+
 .nav {
   /* flex box layout */
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   margin: 0 0 30px;
-  background-color: #00acb0;
+  background-color: #373064;
   overflow: hidden;
 }
 
@@ -14,20 +26,31 @@
 }
 
 .nav-title {
-  font-size: 24px;
+  font-family: 'Monoton', cursive;
+  font-size: 31px;
   font-weight: 700;
-  color: #f2f2f2;
+  color: #f4364c;
+  text-shadow:
+  0 0 7px #fff,
+  0 0 10px #fff,
+  0 0 21px #fff,
+  0 0 42px #fcd299,
+  0 0 82px #fcd299,
+  0 0 92px #fcd299,
+  0 0 102px #fcd299;
+  /* 0 0 151px #fcd299; */
   padding-left: 10px;
   margin: 0;
 }
 
 .navLink {
   display: inline-block;
-  color: #f2f2f2;
-  background-color: #00acb0;
+  color: #fcd299;
+  background-color: #373064;
   text-align: center;
   padding: 24px 10px;
   text-decoration: none;
+  font-family: 'M_PLUS_1', cursive;
   font-size: 15px;
 
   /* these last two make the logout button in
@@ -38,5 +61,5 @@
 }
 
 .navLink:hover {
-  background-color: #008183;
+  background-color: #483F83;
 }
