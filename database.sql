@@ -3,34 +3,39 @@
 -- You must use double quotes in every query that user is in:
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
-CREATE TABLE "user" (
+CREATE TABLE "users" (
     "id" SERIAL PRIMARY KEY,
-    "name" VARCHAR (200) UNIQUE NOT NULL,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
+    "email" VARCHAR (255) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
-    "role" VARCHAR (10),
-    "date_added" DATE
+    "role" VARCHAR (10)
 );
 
-CREATE TABLE "guest_list" (
+CREATE TABLE "guests" (
     "id" SERIAL PRIMARY KEY,
-    "name" VARCHAR (200) UNIQUE NOT NULL,
-    "user_id" INT REFERENCES "user" ON DELETE CASCADE,
-    "attending" VARCHAR (10),
-    "notes_attending" VARCHAR (1000),
-    "diet_restrictions" BOOLEAN,
-    "notes_diet_restrictions" VARCHAR (1000),
-    "add_friends" BOOLEAN,
-    "notes_add_friends" VARCHAR (1000),
-    "sleepover" BOOLEAN,
-    "notes_general" VARCHAR (1000),
-    "last_updated" DATE
+    "user_id" INT REFERENCES "user",
+    "name" VARCHAR (255) UNIQUE NOT NULL,
+    "attending" BOOLEAN,
+    "perhaps_attending" VARCHAR (1000),
+    "dietary_restrictions" BOOLEAN,
+    "dietary_deets" VARCHAR (1000),
+    "additional_guests" BOOLEAN,
+    "additional_guests_deets" VARCHAR (1000),
+    "parking" BOOLEAN,
+    "overnight_parking" BOOLEAN,
+    "duties" VARCHAR (500),
+    "other_notes" VARCHAR (1000),
+    "welcome_message" VARCHAR (1000)
 );
 
 CREATE TABLE "pending" (
     "id" SERIAL PRIMARY KEY,
-    "name" VARCHAR (200) UNIQUE NOT NULL,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL,
-    "date_added" DATE
+    "user_id" INT REFERENCES "user",
+    "name" VARCHAR (255) NOT NULL,
+    "resolved" BOOLEAN DEFAULT False,
+    "denial_message" VARCHAR (1000)
 );
+
+-- test data:
+-- INSERT INTO "guests" (name) values ('Elizabeth Aadland'), ('Kendall Shayler');
+-- INSERT INTO "pending" (name, resolved) values ('Lisa Brancaccio', True), ('Brian Franson', False);
+
