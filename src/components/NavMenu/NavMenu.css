@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'MPLUS1';
+  src: url('./MPLUS1/static/MPLUS1-SemiBold.ttf') format('truetype');
+}
+
+/* .nav a {
+  text-decoration: none;
+} */
+
+
+.navLink {
+  display: inline-block;
+  color: #fcd299;
+  background-color: #373064;
+  text-align: center;
+  padding:15px 10px;
+  text-decoration: none;
+  font-family: 'MPLUS1', sans-serif;
+  font-size: 1em;
+
+  /* these last two make the logout button in
+  the nav bar look like another link */
+  border: none;
+  cursor: pointer;
+  outline: 0;
+}
+
+.navLink:hover {
+  background-color: #483F83;
+}

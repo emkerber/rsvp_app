@@ -6,55 +6,62 @@
   src: url('./Monoton/Monoton-Regular.ttf') format('truetype');
 }
 
-@font-face {
-  font-family: 'M_PLUS_1';
-  src: url('./M_PLUS_1/MPLUS1-SemiBold.ttf') format('truetype');
-}
+/* @font-face {
+  font-family: 'MPLUS1';
+  src: url('./MPLUS1/static/MPLUS1-SemiBold.ttf') format('truetype');
+} */
+
+/* @media screen and (max-width: 100px) {
+  width: 100%;
+} */
+
+/* .container {
+  width: 100%;
+} */
 
 .nav {
   /* flex box layout */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 0 30px;
   background-color: #373064;
   overflow: hidden;
+
 }
 
-.nav a {
+/* .nav a {
   text-decoration: none;
-}
+} */
 
 .nav-title {
-  font-family: 'Monoton', cursive;
-  font-size: 31px;
-  font-weight: 700;
+  font-family: 'Monoton', sans-serif;
+  font-size: 2em;
+  font-weight: 100;
   color: #f4364c;
   text-shadow:
   0 0 7px #fff,
   0 0 10px #fff,
-  0 0 21px #fff,
+  0 0 21px #fcd299,
   0 0 42px #fcd299,
-  0 0 82px #fcd299,
-  0 0 92px #fcd299,
-  0 0 102px #fcd299;
-  /* 0 0 151px #fcd299; */
-  padding-left: 10px;
-  margin: 0;
+  0 0 82px goldenrod,
+  0 0 92px goldenrod,
+  0 0 102px goldenrod,
+  0 0 151px #fcd299;
+  margin-left: 1em;
 }
 
-.navLink {
+/* .navLink {
   display: inline-block;
   color: #fcd299;
   background-color: #373064;
   text-align: center;
-  padding: 24px 10px;
+  padding:15px 10px;
   text-decoration: none;
-  font-family: 'M_PLUS_1', cursive;
-  font-size: 15px;
+  font-family: 'MPLUS1', sans-serif;
+  font-size: 1em;
 
-  /* these last two make the logout button in
-  the nav bar look like another link */
+  -- these last two make the logout button in
+  -- the nav bar look like another link 
   border: none;
   cursor: pointer;
   outline: 0;
@@ -62,4 +69,4 @@
 
 .navLink:hover {
   background-color: #483F83;
-}
+} */

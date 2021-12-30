@@ -1,19 +1,50 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import './Nav.css';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+// import LogOutButton from '../LogOutButton/LogOutButton';
+import './Nav.css';
+import NavMenu from '../NavMenu/NavMenu.jsx';
 
 function Nav() {
   const user = useSelector((store) => store.user);
+  const [openMenu, setOpenMenu] = React.useState(false);
+  const prevOpenMenu = React.useRef(openMenu);
+  const anchorRef = React.useRef(null);
+
+  const handleToggle = () => {
+    setOpenMenu((prevOpenMenu) => !prevOpenMenu);
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpenMenu(false);
+  };
+
+  function handleListKeyDown(event) {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      setOpenMenu(false);
+    } else if (event.key === 'Escape') {
+      setOpenMenu(false);
+    }
+  }
+
+  // return focus to the button when we transitioned from !openMenu -> openMenu
+  React.useEffect(() => {
+    if (prevOpenMenu.current === true && openMenu === false) {
+      anchorRef.current.focus();
+    }
+    prevOpenMenu.current = openMenu;
+  }, [openMenu]);
 
   return (
     <div className="nav">
-      <Link to="/home">
-        <h2 className="nav-title">BRINGOL</h2>
-      </Link>
+      <h2 className="nav-title">BRINGOL</h2>
       <div>
-        {/* If no user is logged in, show these links */}
+        {/* If no user is logged in, show Back link to NameCollector/landing page */}
         {user.id === null &&
           // If there's no user, show login/registration links
           <Link className="navLink" to="/login">
@@ -21,24 +52,14 @@ function Nav() {
           </Link>
         }
 
-        {/* If a user is logged in, show these links */}
+        {/* If a user is logged in, show the nav menu */}
         {user.id && (
-          <>
-            <Link className="navLink" to="/user">
-              Home
-            </Link>
-
-            <Link className="navLink" to="/info">
-              Info Page
-            </Link>
-
-            <LogOutButton className="navLink" />
-          </>
+          <NavMenu/>
         )}
 
-        <Link className="navLink" to="/about">
+        {/* <Link className="navLink" to="/about">
           About
-        </Link>
+        </Link> */}
       </div>
     </div>
   );
