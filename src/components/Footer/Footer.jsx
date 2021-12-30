@@ -1,4 +1,5 @@
 import React from 'react';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import './Footer.css';
 
 // This is one of our simplest components
@@ -7,7 +8,12 @@ import './Footer.css';
 // or even care what the redux state is, so it doesn't need 'connect()'
 
 function Footer() {
-  return <footer>&copy; Prime Digital Academy</footer>;
+  return (
+    <footer>
+      <FavoriteIcon id="heart"/>
+      <span>The Bringol concept and this site were developed with love by Liz Kerber.</span>
+    </footer>
+  );
 }
 
 export default Footer;

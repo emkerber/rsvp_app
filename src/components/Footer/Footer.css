@@ -1,5 +1,22 @@
+@font-face {
+  font-family: 'MPLUS1';
+  src: url('./MPLUS1-Regular.ttf') format('truetype');
+}
+
+#heart {
+  float: left;
+  position: relative;
+  margin-bottom: 50%;
+  color: #f4364c;
+}
+
 footer {
+  display: block;
   margin-top: 80px;
   padding: 20px;
   text-align: center;
+  font-family: 'MPLUS1', sans-serif;
+  font-size: 0.7em;
+  color: #fcd299;
+  background-color: #373064;
 }
