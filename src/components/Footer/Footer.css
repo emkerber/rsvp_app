@@ -3,13 +3,6 @@
   src: url('./MPLUS1-Regular.ttf') format('truetype');
 }
 
-#heart {
-  float: left;
-  position: relative;
-  margin-bottom: 50%;
-  color: #f4364c;
-}
-
 footer {
   display: block;
   margin-top: 80px;
@@ -19,4 +12,16 @@ footer {
   font-size: 0.7em;
   color: #fcd299;
   background-color: #373064;
+}
+
+#heart-left {
+  color: #f4364c;
+  font-size: 1.2em;
+  float: left;
+}
+
+#heart-right {
+  color: #f4364c;
+  font-size: 1.2em;
+  float: right;
 }

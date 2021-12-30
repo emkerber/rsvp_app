@@ -10,8 +10,9 @@ import './Footer.css';
 function Footer() {
   return (
     <footer>
-      <FavoriteIcon id="heart"/>
+      <FavoriteIcon id="heart-left"/>
       <span>The Bringol concept and this site were developed with love by Liz Kerber.</span>
+      <FavoriteIcon id="heart-right"/>
     </footer>
   );
 }
