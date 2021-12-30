@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'MPLUS1';
+  src: url('./MPLUS1-Regular.ttf') format('truetype');
+}
+
 html,
 body,
 #react-root {
@@ -5,8 +10,9 @@ body,
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'MPLUS1', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;
+  background-image: url("goldGlitter.jpeg");
 }
 
 img {
