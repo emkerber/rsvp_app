@@ -13,12 +13,18 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
-import AboutPage from '../AboutPage/AboutPage';
+import ThankYou from '../ThankYou/ThankYou';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import GuestGuestList from '../GuestGuestList/GuestGuestList';
+import Pending from '../Pending/Pending';
+import Denied from '../Denied/Denied';
+import AdminGuestList from '../AdminGuestList/AdminGuestList';
+import AdminAddRemove from '../AdminAddRemove/AdminAddRemove';
+import AdminPending from '../AdminPending/AdminPending';
 
 import './App.css';
 
@@ -39,13 +45,13 @@ function App() {
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
 
-          {/* Visiting localhost:3000/about will show the about page. */}
+          {/* Visiting localhost:3000/thanks will show the ThankYou page. */}
           <Route
-            // shows AboutPage at all times (logged in or not)
+            // shows ThankYou at all times (logged in or not)
             exact
-            path="/about"
+            path="/thanks"
           >
-            <AboutPage />
+            <ThankYou />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
@@ -66,6 +72,54 @@ function App() {
             path="/info"
           >
             <InfoPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows GuestGuestList else shows LoginPage
+            exact
+            path="/list"
+          >
+            <GuestGuestList />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows AdminGuestList else shows LoginPage
+            exact
+            path="/admin/guests"
+          >
+            <AdminGuestList />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows AdminAddRemove else shows LoginPage
+            exact
+            path="/admin/edit"
+          >
+            <AdminAddRemove />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows AdminPending else shows LoginPage
+            exact
+            path="/admin/approve"
+          >
+            <AdminPending />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows Pending else shows LoginPage
+            exact
+            path="/pending"
+          >
+            <Pending />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows Denied else shows LoginPage
+            exact
+            path="/nope"
+          >
+            <Denied />
           </ProtectedRoute>
 
           <Route
