@@ -1,7 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-// import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import NavMenu from '../NavMenu/NavMenu.jsx';
 
@@ -44,18 +42,18 @@ function Nav() {
     <div className="nav">
       <h2 className="nav-title">BRINGOL</h2>
       <div>
-        {/* If no user is logged in, show Back link to NameCollector/landing page */}
-        {user.id === null &&
+        {/* If no user is logged in, show Back link to landing page */}
+        {/* {user.id === null &&
           // If there's no user, show login/registration links
           <Link className="navLink" to="/login">
             Login / Register
           </Link>
-        }
+        } */}
 
         {/* If a user is logged in, show the nav menu */}
-        {user.id && (
+        {/* {user.id && (
           <NavMenu/>
-        )}
+        )} */}
 
         {/* <Link className="navLink" to="/about">
           About
