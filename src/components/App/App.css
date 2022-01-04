@@ -24,9 +24,12 @@ img {
 Container
 -------------------------------------------------------------------------------- */
 
-.container {
-  margin: 20px;
+.container, .paper-container {
   background-color: goldenrod;
+}
+
+.paper-container {
+  margin: 15px;
 }
 
 /* --------------------------------------------------------------------------------
