@@ -1,6 +1,9 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
+import name from './name.reducer';
+import guestList from './guestList.reducer';
+import pendingList from './pendingList.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -11,6 +14,9 @@ import user from './user.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
+  name, // user's name that's entered on landing page
+  guestList, // array of names in guests table
+  pendingList, // array of names in pending table
 });
 
 export default rootReducer;
