@@ -37,5 +37,6 @@ CREATE TABLE "pending" (
 
 -- test data:
 -- INSERT INTO "guests" (name) values ('Elizabeth Aadland'), ('Kendall Shayler');
--- INSERT INTO "pending" (name, resolved) values ('Lisa Brancaccio', True), ('Brian Franson', False);
-
+-- INSERT INTO "pending" (name, resolved, denial_message) 
+--   VALUES ('Lisa Brancaccio', True, 'You haven''t been very nice to me, so you''re not invited to my party.'), 
+--   ('Brian Franson', True, 'You haven''t been very nice to me, so you''re not invited to my party.');

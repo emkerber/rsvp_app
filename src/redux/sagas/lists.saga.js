@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+// might not use these?
+
 function* fetchGuestList() {
   try {
     yield put({ type: 'EMPTY_GUEST_LIST' });

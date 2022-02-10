@@ -2,7 +2,7 @@ const nameReducer = (state = '', action) => {
   switch (action.type) {
     case 'SET_NAME':
       return action.payload;
-    case 'UNSET_NAME':
+    case 'CLEAR_NAME':
       return '';
     default:
       return state;
