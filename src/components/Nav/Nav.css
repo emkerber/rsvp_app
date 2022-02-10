@@ -44,7 +44,7 @@
   align-items: center;
   background-color: #373064;
   overflow: hidden;
-
+  /* width: 100%; */
 }
 
 /* .nav a {

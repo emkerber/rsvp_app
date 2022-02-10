@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 
+// might not use any of this??
+
 const guestList = (state = [], action) => {
   switch (action.type) {
     case 'SET_GUEST_LIST':
