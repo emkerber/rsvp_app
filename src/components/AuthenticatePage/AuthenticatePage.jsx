@@ -5,12 +5,13 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import LoginPage from '../LoginPage/LoginPage';
 
 function Authenticate() {
-  // create this:
-  const user = useSelector((store) => store.user);
+  const responses = useSelector((store) => store.responses);
 
-  if (user.name === 'none') {
+  if (!responses.user_id) {
+    console.log('no user id');
     return <RegisterPage />
   } else {
+    console.log('yes user id!');
     return <LoginPage />
   }
 }
