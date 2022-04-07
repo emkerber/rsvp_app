@@ -5,7 +5,7 @@ const pool = require('../modules/pool');
 
 router.post('/', (req, res) => {
   const name = [req.body.fullName];
-  const queryText = `INSERT INTO visits (name) VALUES ($1);`;
+  const queryText = `INSERT INTO visits (name, whenithappened) VALUES ($1, CURRENT_TIMESTAMP);`;
   pool
     .query(queryText, name)
     .then(() => res.sendStatus(201))

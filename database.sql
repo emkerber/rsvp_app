@@ -37,7 +37,8 @@ CREATE TABLE "pending" (
 
 CREATE TABLE "visits" (
     "id" SERIAL PRIMARY KEY,
-    "name" VARCHAR(255)
+    "name" VARCHAR(255),
+    "whenithappened" TIMESTAMPTZ
 );
 
 -- test data:
