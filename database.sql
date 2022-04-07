@@ -35,6 +35,12 @@ CREATE TABLE "pending" (
     "denial_message" VARCHAR (1000)
 );
 
+CREATE TABLE "visits" (
+    "id" SERIAL PRIMARY KEY,
+    "name" VARCHAR(255),
+    "whenithappened" TIMESTAMPTZ
+);
+
 -- test data:
 -- INSERT INTO "guests" (name) values ('Elizabeth Aadland'), ('Kendall Shayler');
 -- INSERT INTO "pending" (name, resolved, denial_message) 

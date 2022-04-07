@@ -47,6 +47,20 @@ function App() {
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
 
+            <Route
+              exact
+              path="/home"
+            >
+              {user.id ?
+                // If the user is already logged in, 
+                // redirect them to the /user page
+                <Redirect to="/user" />
+                :
+                // Otherwise, show the Landing page
+                <LandingPage />
+              }
+            </Route>
+            
             {/* For protected routes, the view could show one of several things on the same route.
               Visiting localhost:3000/user will show the UserPage if the user is logged in.
               If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
@@ -135,20 +149,6 @@ function App() {
                 :
                 // Otherwise, show the login/registration page
                 <AuthenticatePage />
-              }
-            </Route>
-
-            <Route
-              exact
-              path="/home"
-            >
-              {user.id ?
-                // If the user is already logged in, 
-                // redirect them to the /user page
-                <Redirect to="/user" />
-                :
-                // Otherwise, show the Landing page
-                <LandingPage />
               }
             </Route>
 
