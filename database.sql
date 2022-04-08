@@ -1,19 +1,15 @@
-
--- USER is a reserved keyword with Postgres
--- You must use double quotes in every query that user is in:
--- ex. SELECT * FROM "user";
--- Otherwise you will have errors!
 CREATE TABLE "users" (
     "id" SERIAL PRIMARY KEY,
-    "email" VARCHAR (255) UNIQUE NOT NULL,
+    "username" VARCHAR (255) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
     "role" VARCHAR (10)
 );
 
 CREATE TABLE "guests" (
     "id" SERIAL PRIMARY KEY,
-    "user_id" INT REFERENCES "user",
+    "user_id" INT REFERENCES "users",
     "name" VARCHAR (255) UNIQUE NOT NULL,
+    "email" VARCHAR (255),
     "attending" BOOLEAN,
     "perhaps_attending" VARCHAR (1000),
     "dietary_restrictions" BOOLEAN,
@@ -27,9 +23,9 @@ CREATE TABLE "guests" (
     "welcome_message" VARCHAR (1000)
 );
 
-CREATE TABLE "pending" (
+CREATE TABLE "pendings" (
     "id" SERIAL PRIMARY KEY,
-    "user_id" INT REFERENCES "user",
+    "user_id" INT REFERENCES "users",
     "name" VARCHAR (255) NOT NULL,
     "resolved" BOOLEAN DEFAULT False,
     "denial_message" VARCHAR (1000)
@@ -43,6 +39,6 @@ CREATE TABLE "visits" (
 
 -- test data:
 -- INSERT INTO "guests" (name) values ('Elizabeth Aadland'), ('Kendall Shayler');
--- INSERT INTO "pending" (name, resolved, denial_message) 
+-- INSERT INTO "pendings" (name, resolved, denial_message) 
 --   VALUES ('Lisa Brancaccio', True, 'You haven''t been very nice to me, so you''re not invited to my party.'), 
 --   ('Brian Franson', True, 'You haven''t been very nice to me, so you''re not invited to my party.');
