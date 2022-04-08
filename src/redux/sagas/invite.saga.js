@@ -20,7 +20,7 @@ function* checkInvite(action) {
     for (let person of guestList.data) {
       if (person.name === currentName) {
         yield put({ type: 'SET_INVITE_STATUS', payload: 'guest' });
-        yield put({ type: 'SET_RESPONSES', payload: person }); // TODO why??
+        yield put({ type: 'SET_RESPONSES', payload: person }); // for collecting a guest's responses, and storing their name in redux
         console.log('Guest!');
         return true;
       }
@@ -36,7 +36,7 @@ function* checkInvite(action) {
     // if not resolved, then set invite-status reducer to 'pending'
     for (let person of pendingList.data) {
       if (person.name === currentName) {
-        yield put({ type: 'SET_RESPONSES', payload: person }); // TODO why??
+        yield put({ type: 'SET_RESPONSES', payload: person }); // for collecting a guest's responses, and storing their name in redux
         if (person.resolved) {
           yield put({ type: 'SET_INVITE_STATUS', payload: 'nope' });
           console.log('no thx');
