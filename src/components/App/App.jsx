@@ -44,21 +44,35 @@ function App() {
         <Nav />
         <Paper className="paper-container" elevation={6}>
           <Switch>
-            {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            <Redirect exact from="/" to="/home" />
 
             <Route
               exact
-              path="/home"
+              path="/"
+            >
+              <LandingPage />
+            </Route>
+
+            <Route
+              exact
+              path="/authenticate"
             >
               {user.id ?
                 // If the user is already logged in, 
-                // redirect them to the /user page
+                // redirect to the /user page
                 <Redirect to="/user" />
                 :
-                // Otherwise, show the Landing page
-                <LandingPage />
+                // Otherwise, show the login/registration page
+                <AuthenticatePage />
               }
+            </Route>
+            
+            {/* Visiting localhost:3000/thanks will show the ThankYou page. */}
+            <Route
+              // shows ThankYou at all times (logged in or not)
+              exact
+              path="/thanks"
+            >
+              <ThankYou />
             </Route>
             
             {/* For protected routes, the view could show one of several things on the same route.
@@ -129,32 +143,12 @@ function App() {
               <Denied />
             </ProtectedRoute>
 
-            {/* Visiting localhost:3000/thanks will show the ThankYou page. */}
-            <Route
-              // shows ThankYou at all times (logged in or not)
-              exact
-              path="/thanks"
-            >
-              <ThankYou />
-            </Route>
-
-            <Route
-              exact
-              path="/authenticate"
-            >
-              {user.id ?
-                // If the user is already logged in, 
-                // redirect to the /user page
-                <Redirect to="/user" />
-                :
-                // Otherwise, show the login/registration page
-                <AuthenticatePage />
-              }
-            </Route>
-
-            {/* If none of the other routes matched, we will show a 404. */}
+            {/* If none of the other routes matched, 
+            we will show the Landing Page, 
+            with a subtle "404" above it. */}
             <Route>
-              <h1>Four oh four.</h1>
+              <p>404</p>
+              <LandingPage />
             </Route>
 
           </Switch>
