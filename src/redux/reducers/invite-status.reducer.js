@@ -3,7 +3,7 @@ const inviteStatus = (state = 'none', action) => {
     // payload can be can be 'guest', 'pending', 'nope', or 'none'
     case 'SET_INVITE_STATUS': 
       return action.payload;
-    case 'REVERT_INVITE_STATUS':
+    case 'UNSET_INVITE_STATUS':
       return 'none';
     default:
       return state;
