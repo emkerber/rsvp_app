@@ -7,6 +7,7 @@ CREATE TABLE "users" (
 
 CREATE TABLE "guests" (
     "id" SERIAL PRIMARY KEY,
+    "party_id" INT REFERENCES "parties",
     "user_id" INT REFERENCES "users",
     "name" VARCHAR (255) UNIQUE NOT NULL,
     "email" VARCHAR (255),
@@ -25,10 +26,19 @@ CREATE TABLE "guests" (
 
 CREATE TABLE "pendings" (
     "id" SERIAL PRIMARY KEY,
+    "party_id" INT REFERENCES "parties",
     "user_id" INT REFERENCES "users",
     "name" VARCHAR (255) NOT NULL,
     "resolved" BOOLEAN DEFAULT False,
     "denial_message" VARCHAR (1000)
+);
+
+CREATE TABLE "parties" (
+    "id" SERIAL PRIMARY KEY,
+    "title" VARCHAR (250),
+    "theme" VARCHAR (250),
+    "date" DATE,
+    "location" VARCHAR (250)
 );
 
 CREATE TABLE "visits" (
