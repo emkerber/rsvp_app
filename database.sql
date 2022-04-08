@@ -52,3 +52,5 @@ CREATE TABLE "visits" (
 -- INSERT INTO "pendings" (name, resolved, denial_message) 
 --   VALUES ('Lisa Brancaccio', True, 'You haven''t been very nice to me, so you''re not invited to my party.'), 
 --   ('Brian Franson', True, 'You haven''t been very nice to me, so you''re not invited to my party.');
+-- INSERT INTO "parties" (title, theme, date, location) 
+--   VALUES ('Bringol', 'my birthday', '12-17-2022', 'Edina, MN');
