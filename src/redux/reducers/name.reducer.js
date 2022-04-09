@@ -1,3 +1,5 @@
+// might not use this??
+
 const nameReducer = (state = '', action) => {
   switch (action.type) {
     case 'SET_NAME':
