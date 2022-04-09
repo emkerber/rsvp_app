@@ -15,6 +15,8 @@ router.get('/', (req, res) => {
 });
 
 // // does this work?? am I using it?? not sure about either
+// // if I do use this, 
+// //  TODO name is in req.body, not in params
 // router.get('/:name', (req, res) => {
 //   const name = req.params.name;
 //   const queryText = `SELECT "name" FROM "guests" WHERE "name" = $1;`;
