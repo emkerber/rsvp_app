@@ -1,15 +1,19 @@
 import React from 'react';
+import LoginText from '../LoginText/LoginText';
 import LoginForm from '../LoginForm/LoginForm';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
 function LoginPage() {
-  const history = useHistory();
+  // const history = useHistory();
 
   return (
     <div>
+
+      <LoginText />
+
       <LoginForm />
 
-      <center>
+      {/* <center>
         <button
           type="button"
           className="btn btn_asLink"
@@ -19,7 +23,7 @@ function LoginPage() {
         >
           Register
         </button>
-      </center>
+      </center> */}
     </div>
   );
 }

@@ -6,7 +6,7 @@ const guestList = (state = [], action) => {
   switch (action.type) {
     case 'SET_GUEST_LIST':
       return action.payload;
-    case 'EMPTY_GUEST_LIST':
+    case 'UNSET_GUEST_LIST':
       return [];
     default:
       return state;
@@ -17,7 +17,7 @@ const pendingList = (state = [], action) => {
   switch (action.type) {
     case 'SET_PENDING_LIST':
       return action.payload;
-    case 'EMPTY_PENDING_LIST':
+    case 'UNSET_PENDING_LIST':
       return [];
     default:
       return state;

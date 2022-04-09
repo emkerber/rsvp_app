@@ -7,8 +7,11 @@ CREATE TABLE "users" (
 
 CREATE TABLE "guests" (
     "id" SERIAL PRIMARY KEY,
+    "party_id" INT REFERENCES "parties",
     "user_id" INT REFERENCES "users",
-    "name" VARCHAR (255) UNIQUE NOT NULL,
+    "first_name" VARCHAR (255) NOT NULL,
+    "last_name" VARCHAR (255) NOT NULL,
+    "full_name" VARCHAR (255) UNIQUE NOT NULL,
     "email" VARCHAR (255),
     "attending" BOOLEAN,
     "perhaps_attending" VARCHAR (1000),
@@ -25,10 +28,21 @@ CREATE TABLE "guests" (
 
 CREATE TABLE "pendings" (
     "id" SERIAL PRIMARY KEY,
+    "party_id" INT REFERENCES "parties",
     "user_id" INT REFERENCES "users",
-    "name" VARCHAR (255) NOT NULL,
+    "first_name" VARCHAR (255) NOT NULL,
+    "last_name" VARCHAR (255) NOT NULL,
+    "full_name" VARCHAR (255) UNIQUE NOT NULL,
     "resolved" BOOLEAN DEFAULT False,
     "denial_message" VARCHAR (1000)
+);
+
+CREATE TABLE "parties" (
+    "id" SERIAL PRIMARY KEY,
+    "title" VARCHAR (250),
+    "theme" VARCHAR (250),
+    "date" DATE,
+    "location" VARCHAR (250)
 );
 
 CREATE TABLE "visits" (
@@ -38,7 +52,10 @@ CREATE TABLE "visits" (
 );
 
 -- test data:
--- INSERT INTO "guests" (name) values ('Elizabeth Aadland'), ('Kendall Shayler');
--- INSERT INTO "pendings" (name, resolved, denial_message) 
---   VALUES ('Lisa Brancaccio', True, 'You haven''t been very nice to me, so you''re not invited to my party.'), 
---   ('Brian Franson', True, 'You haven''t been very nice to me, so you''re not invited to my party.');
+-- INSERT INTO "guests" (first_name, last_name, full_name) 
+--   VALUES ('Liz', 'Kerber', 'Liz Kerber'), ('Elizabeth', 'Aadland', 'Elizabeth Aadland'), ('Kendall', 'Shayler', 'Kendall Shayler');
+-- INSERT INTO "pendings" (first_name, last_name, full_name, resolved, denial_message) 
+--   VALUES ('Lisa', 'Brancaccio', 'Lisa Brancaccio', True, 'You haven''t been very nice to me, so you''re not invited to my party.'), 
+--   ('Brain', 'Franson', 'Brian Franson', True, 'You haven''t been very nice to me, so you''re not invited to my party.');
+-- INSERT INTO "parties" (title, theme, date, location) 
+--   VALUES ('Bringol', 'my birthday', '12-17-2022', 'Edina, MN');

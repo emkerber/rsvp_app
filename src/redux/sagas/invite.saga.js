@@ -4,7 +4,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* checkInvite(action) {
   try {   
     // the concatenated first and last names that were entered on the Landing Page
-    const currentName = action.payload.fullName;
+    const currentFullName = action.payload.fullName;
 
     const config = {
       headers: { 'Content-Type': 'application/json' },
@@ -18,7 +18,7 @@ function* checkInvite(action) {
     // if a name on the guest list matches the currentName entered on the DOM
     // then set invite-status reducer to 'guest'
     for (let person of guestList.data) {
-      if (person.name === currentName) {
+      if (person.full_name === currentFullName) {
         yield put({ type: 'SET_INVITE_STATUS', payload: 'guest' });
         yield put({ type: 'SET_RESPONSES', payload: person }); // for collecting a guest's responses, and storing their name in redux
         console.log('Guest!');
@@ -35,7 +35,7 @@ function* checkInvite(action) {
     // if resolved, then set invite-status reducer to 'nope'
     // if not resolved, then set invite-status reducer to 'pending'
     for (let person of pendingList.data) {
-      if (person.name === currentName) {
+      if (person.full_name === currentFullName) {
         yield put({ type: 'SET_RESPONSES', payload: person }); // for collecting a guest's responses, and storing their name in redux
         if (person.resolved) {
           yield put({ type: 'SET_INVITE_STATUS', payload: 'nope' });
