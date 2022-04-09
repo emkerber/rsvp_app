@@ -1,12 +1,16 @@
 import React from 'react';
+import LoginText from '../LoginText/LoginText';
 import LoginForm from '../LoginForm/LoginForm';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
 function LoginPage() {
-  const history = useHistory();
+  // const history = useHistory();
 
   return (
     <div>
+
+      <LoginText />
+
       <LoginForm />
 
       {/* <center>
