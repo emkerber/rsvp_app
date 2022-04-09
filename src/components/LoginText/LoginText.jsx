@@ -12,7 +12,7 @@ function LoginText() {
     switch (inviteStatus) {
       case 'guest':
         setVerbiageOne('OH!');
-        setVerbiageTwo(`How lovely to see you here again, ${name}!`);
+        setVerbiageTwo(`How lovely to see you here again, ${firstName}!`);
         break;
       case 'pending':
         setVerbiageOne('Hello again!');
