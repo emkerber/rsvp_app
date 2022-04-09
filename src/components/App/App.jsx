@@ -38,6 +38,10 @@ function App() {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch({ type: 'FETCH_PARTY' });
+  }, []);
+
   return (
     <Router>
       <div>
