@@ -56,6 +56,6 @@ CREATE TABLE "visits" (
 --   VALUES ('Liz', 'Kerber', 'Liz Kerber'), ('Elizabeth', 'Aadland', 'Elizabeth Aadland'), ('Kendall', 'Shayler', 'Kendall Shayler');
 -- INSERT INTO "pendings" (first_name, last_name, full_name, resolved, denial_message) 
 --   VALUES ('Lisa', 'Brancaccio', 'Lisa Brancaccio', True, 'You haven''t been very nice to me, so you''re not invited to my party.'), 
---   ('Brain', 'Franson', 'Brian Franson', True, 'You haven''t been very nice to me, so you''re not invited to my party.');
+--   ('Brian', 'Franson', 'Brian Franson', True, 'You haven''t been very nice to me, so you''re not invited to my party.');
 -- INSERT INTO "parties" (title, theme, date, location) 
 --   VALUES ('Bringol', 'my birthday', '12-17-2022', 'Edina, MN');
