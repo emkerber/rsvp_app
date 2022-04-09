@@ -1,9 +1,9 @@
-const responses = (state = { name: '' }, action) => {
+const responses = (state = { full_name: '' }, action) => {
   switch (action.type) {
     case 'SET_RESPONSES': 
       return action.payload;
     case 'UNSET_RESPONSES':
-      return { name: '' };
+      return { full_name: '' };
     default:
       return state;
   }
