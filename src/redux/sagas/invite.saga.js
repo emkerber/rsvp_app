@@ -1,53 +1,61 @@
+import { PersonTwoTone } from '@mui/icons-material';
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
 function* checkInvite(action) {
   try {   
     // the concatenated first and last names that were entered on the Landing Page
-    const currentFullName = action.payload.fullName;
+    const currentFirstName = action.payload.firstName;
+    const currentLastName = action.payload.lastName;
 
     const config = {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     };
 
-    // get guest list in db
-    const guestList = yield axios.get('/api/guestList', config);
+    // search guest list in db
+    const guestResult = yield axios.get(`/api/guestList/${currentFirstName}/${currentLastName}`, config);
     
-    // loop through guest list
-    // if a name on the guest list matches the currentName entered on the DOM
-    // then set invite-status reducer to 'guest'
-    for (let person of guestList.data) {
-      if (person.full_name === currentFullName) {
-        yield put({ type: 'SET_INVITE_STATUS', payload: 'guest' });
-        yield put({ type: 'SET_RESPONSES', payload: person }); // for collecting a guest's responses, and storing their name in redux
-        console.log('Guest!');
+    // if a row is returned
+    if (guestResult.data.length > 0) {
+      // then they are on the guest list
+
+      // store guest's form responses in redux
+      yield put({ type: 'SET_RESPONSES', payload: guestResult.data[0] });
+
+      // set invite-status reducer to 'guest'
+      yield put({ type: 'SET_INVITE_STATUS', payload: 'guest' });
+      console.log('Guest!');
+
+      return true;
+    }
+    
+    // search pending list in db
+    const pendingResult = yield axios.get(`/api/pendingList/${currentFirstName}/${currentLastName}`, config);
+
+    // if a row is returned
+    if (pendingResult.data.length > 0) {
+      // then they are on the pending list
+      // store person's saved info in redux
+      yield put({ type: 'SET_RESPONSES', payload: pendingResult.data[0] });
+
+      // if the person's pending status is resolved (and they weren't previously found on the guest list)
+      if (pendingResult.data[0].resolved) {
+        // then they are decidedly not invited
+        yield put({ type: 'SET_INVITE_STATUS', payload: 'nope' });
+        console.log('no thx');
+        
+        return true;
+      
+      } else { 
+        // if their pending status has not yet been resolved
+        yield put({ type: 'SET_INVITE_STATUS', payload: 'pending' });
+        console.log('Limbo!');
+        
         return true;
       }
     }
-    
-    // get pending list in db
-    const pendingList = yield axios.get('/api/pendingList', config);
-
-    // loop through pending list
-    // if a name on the pending list matches the currentName entered on the DOM
-    // then check if their pending status is resolved
-    // if resolved, then set invite-status reducer to 'nope'
-    // if not resolved, then set invite-status reducer to 'pending'
-    for (let person of pendingList.data) {
-      if (person.full_name === currentFullName) {
-        yield put({ type: 'SET_RESPONSES', payload: person }); // for collecting a guest's responses, and storing their name in redux
-        if (person.resolved) {
-          yield put({ type: 'SET_INVITE_STATUS', payload: 'nope' });
-          console.log('no thx');
-          return true;
-        } else {
-          yield put({ type: 'SET_INVITE_STATUS', payload: 'pending' });
-          console.log('Limbo!');
-          return true;
-        }
-      }
-    }
+ 
 
     // if the name entered on the Landing Page does not match a name on the guest list nor the pending list,
     // then set invite-status-reducer to 'none'

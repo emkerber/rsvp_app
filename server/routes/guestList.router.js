@@ -2,12 +2,25 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+// GET a guest's responses, if they exist
+router.get('/:firstName/:lastName', (req, res) => {
+  const queryText = `SELECT * FROM "guests" WHERE first_name = $1 AND last_name = $2;`;
+  pool
+    .query(queryText, [req.params.firstName, req.params.lastName])
+    .then((result) => res.send(result.rows)) // should be one row or no rows
+    .catch((err) => {
+      console.log('Failed to get guest', queryText, err);
+      res.sendStatus(500);
+    })
+
+})
+
 // GET the whole guest list
-router.get('/', (req, res) => {
+router.get('/all', (req, res) => {
   const queryText = `SELECT * FROM "guests"`;
   pool
     .query(queryText, [])
-    .then((result) => res.send(result.rows)) // should send some data instead!!
+    .then((result) => res.send(result.rows))
     .catch((err) => {
       console.log('Failed to get guest list', err);
       res.sendStatus(500);
