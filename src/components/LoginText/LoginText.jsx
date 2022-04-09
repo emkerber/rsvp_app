@@ -6,7 +6,7 @@ function LoginText() {
   const [verbiageTwo, setVerbiageTwo] = useState('');
 
   const inviteStatus = useSelector((store) => store.inviteStatus);
-  const name = useSelector((store) => store.responses.name);
+  const firstName = useSelector((store) => store.responses.first_name);
 
   const checkStatus = () => {
     switch (inviteStatus) {
