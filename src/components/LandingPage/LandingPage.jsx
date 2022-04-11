@@ -30,18 +30,22 @@ function LandingPage() {
 
     // TO DO trim whitespace off firstName and lastName
 
-    let fullName = { fullName: `${firstName} ${lastName}` };
+    let names = { 
+      firstName: firstName,
+      lastName: lastName,
+      fullName: `${firstName} ${lastName}` 
+    };
     
-    dispatch({ type: 'SET_NAME', payload: fullName });
+    // dispatch({ type: 'SET_NAME', payload: fullName });
 
     // TO DO set store.userExists
 
     // will run invite saga
     // and will ultimately set store.inviteStatus
-    dispatch({ type: 'CHECK_INVITE', payload: fullName });
+    dispatch({ type: 'CHECK_INVITE', payload: names });
 
     // save the name entered to the visits table
-    dispatch({ type: 'SAVE_VISIT', payload: fullName });
+    dispatch({ type: 'SAVE_VISIT', payload: names });
 
     // go to /authenticate after checking name
     history.push('/authenticate');

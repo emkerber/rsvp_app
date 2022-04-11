@@ -1,3 +1,4 @@
+import { StrikethroughS } from '@mui/icons-material';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -5,6 +6,8 @@ function RegisterForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector((store) => store.errors);
+  const inviteStatus = useSelector((store) => store.inviteStatus);
+  const responses = useSelector((store) => store.responses);
   const dispatch = useDispatch();
 
   const registerUser = (event) => {
@@ -15,6 +18,8 @@ function RegisterForm() {
       payload: {
         username: username,
         password: password,
+        inviteStatus: inviteStatus,
+        fullName: responses.full_name,
       },
     });
   }; // end registerUser
