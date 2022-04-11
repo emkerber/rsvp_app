@@ -11,21 +11,32 @@ router.get('/:firstName/:lastName', (req, res) => {
     .catch((err) => {
       console.log('Failed to get guest', queryText, err);
       res.sendStatus(500);
-    })
+    });
+});
 
-})
-
-// GET the whole guest list
-router.get('/all', (req, res) => {
-  const queryText = `SELECT * FROM "guests"`;
+// if a new user is on the Guest List, then update guests table with their user_id
+router.put('/new', (req, res) => {
+  const queryText = `UPDATE "guests" SET user_id = $1 WHERE full_name = $2;`;
   pool
-    .query(queryText, [])
-    .then((result) => res.send(result.rows))
+    .query(queryText, [req.body.id, req.body.name])
+    .then((result) => res.sendStatus(200))
     .catch((err) => {
-      console.log('Failed to get guest list', err);
+      console.log('Error updating guests user_id', queryText, err);
       res.sendStatus(500);
     });
 });
+
+// // GET the whole guest list
+// router.get('/all', (req, res) => {
+//   const queryText = `SELECT * FROM "guests"`;
+//   pool
+//     .query(queryText, [])
+//     .then((result) => res.send(result.rows))
+//     .catch((err) => {
+//       console.log('Failed to get guest list', err);
+//       res.sendStatus(500);
+//     });
+// });
 
 // // does this work?? am I using it?? not sure about either
 // // if I do use this, 
