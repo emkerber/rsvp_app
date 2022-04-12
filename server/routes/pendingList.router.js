@@ -13,13 +13,24 @@ router.get('/:firstName/:lastName', (req, res) => {
     });
 });
 
-router.get('/all', (req, res) => {
-  const queryText = `SELECT * FROM "pendings"`;
+// router.get('/all', (req, res) => {
+//   const queryText = `SELECT * FROM "pendings"`;
+//   pool
+//     .query(queryText, [])
+//     .then((result) => res.send(result.rows))
+//     .catch((err) => {
+//       console.log('Failed to get pending list', err);
+//       res.sendStatus(500);
+//     });
+// });
+
+router.put('/register', (req, res) => {
+  const queryText = `UPDATE "pendings" SET user_id = $1 WHERE full_name = $2;`;
   pool
-    .query(queryText, [])
-    .then((result) => res.send(result.rows))
+    .query(queryText, [req.body.id, req.body.name])
+    .then(() => res.sendStatus(200))
     .catch((err) => {
-      console.log('Failed to get pending list', err);
+      console.log('Failure updating pending on register', err);
       res.sendStatus(500);
     });
 });
