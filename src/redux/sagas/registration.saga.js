@@ -1,11 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-const updateGuest = (id, name) => {
-  console.log('in reg saga updateGuest, here are id and name:', id, name);
-  axios.put('/api/guestList/new', {id, name});
-}
-
 // worker Saga: will be fired on "REGISTER" actions
 function* registerUser(action) {
   
@@ -18,16 +13,16 @@ function* registerUser(action) {
     const registerResults = yield axios.post('/api/user/register', action.payload);
     
     // id of new user
-    const userId = registerResults.data[0].id;
+    const id = registerResults.data[0].id;
 
     // full name the user entered
-    const fullName = action.payload.fullName;
+    const name = action.payload.fullName;
 
     switch (action.payload.inviteStatus) {
       // if user is on the guest list
       case 'guest': 
         // then update guest's user id
-        yield updateGuest(userId, fullName);
+        yield axios.put('/api/guestList/register', {id, name});
         break;
     }
     
