@@ -1,11 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-const updateGuest = (id, name) => {
-  console.log('in reg saga updateGuest, here are id and name:', id, name);
-  axios.put('/api/guestList/new', {id, name});
-}
-
 // worker Saga: will be fired on "REGISTER" actions
 function* registerUser(action) {
   
@@ -18,16 +13,35 @@ function* registerUser(action) {
     const registerResults = yield axios.post('/api/user/register', action.payload);
     
     // id of new user
-    const userId = registerResults.data[0].id;
-
+    const id = registerResults.data[0].id;
     // full name the user entered
-    const fullName = action.payload.fullName;
+    const name = action.payload.name.fullName;
+    // // current party id
+    // const party = action.payload.party;
+    // // first name the user entered
+    // const firstName = action.payload.firstName;
+    // // last name the user entered
+    // const lastName = action.payload.lastName;
 
     switch (action.payload.inviteStatus) {
+      
       // if user is on the guest list
       case 'guest': 
         // then update guest's user id
-        yield updateGuest(userId, fullName);
+        yield axios.put('/api/guestList/register', {id, name});
+        break;
+      
+      // if user has been added to pending list by admin
+      // because they are definitely not invited
+      case 'nope':
+        // then update pending person's user id when they register
+        yield axios.put('/api/pendingList/register', {id, name});
+        break;
+
+      // if user is neither on the guest nor pending lists
+      case 'none':
+        // then save their name and user_id to the pending list
+        yield axios.post('/api/pendingList/new', {...action.payload, id});
         break;
     }
     

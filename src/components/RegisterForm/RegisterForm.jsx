@@ -7,7 +7,8 @@ function RegisterForm() {
   const [password, setPassword] = useState('');
   const errors = useSelector((store) => store.errors);
   const inviteStatus = useSelector((store) => store.inviteStatus);
-  const responses = useSelector((store) => store.responses);
+  const name = useSelector((store) => store.name);
+  const party = useSelector((store) => store.party);
   const dispatch = useDispatch();
 
   const registerUser = (event) => {
@@ -15,12 +16,7 @@ function RegisterForm() {
 
     dispatch({
       type: 'REGISTER',
-      payload: {
-        username: username,
-        password: password,
-        inviteStatus: inviteStatus,
-        fullName: responses.full_name,
-      },
+      payload: { username, password, inviteStatus, name, party },
     });
   }; // end registerUser
 

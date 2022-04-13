@@ -25,20 +25,20 @@ function LandingPage() {
   //   history.push('/login');
   // };
 
-  let handleSubmit = (event) => {
+  let handleSubmit = (event) => {  
     event.preventDefault();
 
-    // TO DO trim whitespace off firstName and lastName
-
+    // make sure user entered both names
+    if (!firstName || !lastName) {
+      alert('Please provide both names.');
+      return;
+    }
+    
     let names = { 
       firstName: firstName,
       lastName: lastName,
       fullName: `${firstName} ${lastName}` 
     };
-    
-    // dispatch({ type: 'SET_NAME', payload: fullName });
-
-    // TO DO set store.userExists
 
     // will run invite saga
     // and will ultimately set store.inviteStatus
@@ -46,6 +46,9 @@ function LandingPage() {
 
     // save the name entered to the visits table
     dispatch({ type: 'SAVE_VISIT', payload: names });
+
+    // save entered names in redux
+    dispatch({ type: 'SET_NAME', payload: names });
 
     // go to /authenticate after checking name
     history.push('/authenticate');
@@ -60,13 +63,13 @@ function LandingPage() {
         <TextField 
           className="landing-input"
           variant="standard" 
-          value={firstName} 
+          value={firstName.trim()}
           onChange={(event) => setFirstName(event.target.value)} />
         <div id="landing-input-div" className="landing-input"></div>
         <TextField 
           className="landing-input"
           variant="standard" 
-          value={lastName} 
+          value={lastName.trim()} 
           onChange={(event) => setLastName(event.target.value)} />
         <br/>
         <Button 

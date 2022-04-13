@@ -15,11 +15,11 @@ router.get('/:firstName/:lastName', (req, res) => {
 });
 
 // if a new user is on the Guest List, then update guests table with their user_id
-router.put('/new', (req, res) => {
+router.put('/register', (req, res) => {
   const queryText = `UPDATE "guests" SET user_id = $1 WHERE full_name = $2;`;
   pool
     .query(queryText, [req.body.id, req.body.name])
-    .then((result) => res.sendStatus(200))
+    .then(() => res.sendStatus(200))
     .catch((err) => {
       console.log('Error updating guests user_id', queryText, err);
       res.sendStatus(500);
