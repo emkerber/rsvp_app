@@ -14,9 +14,14 @@ function* registerUser(action) {
     
     // id of new user
     const id = registerResults.data[0].id;
-
     // full name the user entered
-    const name = action.payload.fullName;
+    const name = action.payload.name.fullName;
+    // // current party id
+    // const party = action.payload.party;
+    // // first name the user entered
+    // const firstName = action.payload.firstName;
+    // // last name the user entered
+    // const lastName = action.payload.lastName;
 
     switch (action.payload.inviteStatus) {
       
@@ -31,6 +36,12 @@ function* registerUser(action) {
       case 'nope':
         // then update pending person's user id when they register
         yield axios.put('/api/pendingList/register', {id, name});
+        break;
+
+      // if user is neither on the guest nor pending lists
+      case 'none':
+        // then save their name and user_id to the pending list
+        yield axios.post('/api/pendingList/new', {...action.payload, id});
         break;
     }
     

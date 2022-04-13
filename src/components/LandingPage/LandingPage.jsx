@@ -36,9 +36,8 @@ function LandingPage() {
       fullName: `${firstName} ${lastName}` 
     };
     
-    // dispatch({ type: 'SET_NAME', payload: fullName });
 
-    // TO DO set store.userExists
+    // TO DO set store.userExists ..? maybe? why tho?
 
     // will run invite saga
     // and will ultimately set store.inviteStatus
@@ -46,6 +45,9 @@ function LandingPage() {
 
     // save the name entered to the visits table
     dispatch({ type: 'SAVE_VISIT', payload: names });
+
+    // save entered names in redux
+    dispatch({ type: 'SET_NAME', payload: names });
 
     // go to /authenticate after checking name
     history.push('/authenticate');

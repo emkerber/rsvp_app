@@ -35,4 +35,21 @@ router.put('/register', (req, res) => {
     });
 });
 
+router.post('/new', (req, res) => {
+  const queryText = `
+    INSERT INTO "pendings" (party_id, user_id, first_name, last_name, full_name)
+    VALUES ($1, $2, $3, $4, $5);
+  `;
+  
+  const rb = req.body;
+  
+  pool
+    .query(queryText, [rb.party, rb.id, rb.name.firstName, rb.name.lastName, rb.name.fullName])
+    .then(() => res.sendStatus(201))
+    .catch((err) => {
+      console.log('Big fail inserting into pending on registration', err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;
