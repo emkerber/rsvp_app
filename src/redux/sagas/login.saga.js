@@ -53,6 +53,13 @@ function* logoutUser(action) {
     // remove the client-side user object to let
     // the client-side code know the user is logged out
     yield put({ type: 'UNSET_USER' });
+
+    // also empty the reducers I made
+    yield put({ type: 'UNSET_NAME' });
+    yield put({ type: 'UNSET_INVITE_STATUS' });
+    yield put({ type: 'UNSET_RESPONSES' });
+    yield put({ type: 'UNSET_PARTY' });
+
   } catch (error) {
     console.log('Error with user logout:', error);
   }
