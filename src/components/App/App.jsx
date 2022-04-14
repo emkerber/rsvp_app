@@ -8,6 +8,8 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux';
 
+import IdleTimer from 'react-idle-timer';
+
 import { Box, Paper } from '@mui/material';
 
 import Nav from '../Nav/Nav';
@@ -34,6 +36,12 @@ function App() {
 
   const user = useSelector(store => store.user);
 
+  // when the user has been idle for 15 minutes
+  // log them out and clear reducers
+  const handleOnIdle = () => {
+    dispatch({ type: 'LOGOUT' });
+  };
+
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
@@ -45,6 +53,11 @@ function App() {
   return (
     <Router>
       <div>
+        <IdleTimer 
+          timeout={1000 * 60 * 15}
+          onIdle={handleOnIdle}
+          debounce={250}
+        />
         <Nav />
         <Paper className="paper-container" elevation={6}>
           <Switch>
