@@ -38,6 +38,9 @@ function LandingPage() {
     // save entered names in redux
     dispatch({ type: 'SET_NAME', payload: names });
 
+    // get current party id
+    dispatch({ type: 'FETCH_PARTY' });
+
     // go to Authenticate after checking name
     // which routes to either Register or Login
     history.push('/authenticate');
