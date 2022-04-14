@@ -1,4 +1,3 @@
-import { StrikethroughS } from '@mui/icons-material';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -14,12 +13,15 @@ function RegisterForm() {
   const registerUser = (event) => {
     event.preventDefault();
 
+    // send a buttload of info so the server has all knowledge
     dispatch({
       type: 'REGISTER',
       payload: { username, password, inviteStatus, name, party },
     });
   }; // end registerUser
 
+  // renders username and password inputs
+  // and a Register button
   return (
     <form className="formPanel" onSubmit={registerUser}>
       {errors.registrationMessage && (

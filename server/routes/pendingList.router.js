@@ -1,7 +1,11 @@
+// for querying the pendings table
+
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+// search for the name entered on the Landing Page
+// and if it's found then send back all of their responses
 router.get('/:firstName/:lastName', (req, res) => {
   const queryText = `SELECT * FROM "pendings" WHERE first_name = $1 AND last_name = $2;`;
   pool
@@ -13,6 +17,7 @@ router.get('/:firstName/:lastName', (req, res) => {
     });
 });
 
+// // might use for Admin?
 // router.get('/all', (req, res) => {
 //   const queryText = `SELECT * FROM "pendings"`;
 //   pool
@@ -24,6 +29,9 @@ router.get('/:firstName/:lastName', (req, res) => {
 //     });
 // });
 
+// when inviteStatus is nope
+// and nope user is registering
+// save their new user_id
 router.put('/register', (req, res) => {
   const queryText = `UPDATE "pendings" SET user_id = $1 WHERE full_name = $2;`;
   pool
@@ -35,6 +43,9 @@ router.put('/register', (req, res) => {
     });
 });
 
+// when inviteStatus is none
+// create a new entry in the pendings table
+// while saving the user_id that was generated
 router.post('/new', (req, res) => {
   const queryText = `
     INSERT INTO "pendings" (party_id, user_id, first_name, last_name, full_name)

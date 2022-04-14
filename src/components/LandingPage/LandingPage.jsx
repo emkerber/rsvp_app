@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -6,24 +6,12 @@ import { TextField, Button } from '@mui/material';
 
 import './LandingPage.css';
 
-// CUSTOM COMPONENTS
-// import RegisterForm from '../RegisterForm/RegisterForm';
-
 function LandingPage() {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-
-  useEffect(() => {
-    // dispatch({ type: 'FETCH_GUEST_LIST' });
-    // dispatch({ type: 'FETCH_PENDING_LIST' });
-  }, []);
-
-  // const onLogin = (event) => {
-  //   history.push('/login');
-  // };
 
   let handleSubmit = (event) => {  
     event.preventDefault();
@@ -50,10 +38,13 @@ function LandingPage() {
     // save entered names in redux
     dispatch({ type: 'SET_NAME', payload: names });
 
-    // go to /authenticate after checking name
+    // go to Authenticate after checking name
+    // which routes to either Register or Login
     history.push('/authenticate');
   }
 
+  // renders welcome text, two inputs,
+  // and an Onward (submit) button
   return (
     <div className="container">
       <h1>Oh hello!</h1>

@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { takeLatest } from 'redux-saga/effects';
 
+// whenever a user visits the app they see the Landing Page;
+// after the user enters their name and submits,
+// save their name
 function* saveVisit(action) {
   try {
     const config = {

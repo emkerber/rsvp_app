@@ -1,10 +1,9 @@
-import { PersonTwoTone } from '@mui/icons-material';
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
 function* checkInvite(action) {
   try {   
-    // the concatenated first and last names that were entered on the Landing Page
+    // the first and last names that were entered on the Landing Page
     const currentFirstName = action.payload.firstName;
     const currentLastName = action.payload.lastName;
 

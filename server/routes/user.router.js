@@ -1,3 +1,6 @@
+// queries to users table
+// handles registration, login, and logout
+
 const express = require('express');
 const {
   rejectUnauthenticated,

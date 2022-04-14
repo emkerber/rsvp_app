@@ -1,3 +1,6 @@
+// when a user visits the app, enters their first and last names, and submits,
+// save their name and the time they visited
+
 const express = require('express');
 const router = express.Router();
 
