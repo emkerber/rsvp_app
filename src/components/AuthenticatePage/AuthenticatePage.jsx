@@ -5,10 +5,10 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import LoginPage from '../LoginPage/LoginPage';
 
 function Authenticate() {
-  const responses = useSelector((store) => store.responses);
+  const user_id = useSelector((store) => store.responses.user_id);
 
   // if there is not yet a user_id associated with the name entered on the Landing Page
-  if (!responses.user_id) {
+  if (!user_id) {
     console.log('no user id');
     // then render the Register Page
     return <RegisterPage />
