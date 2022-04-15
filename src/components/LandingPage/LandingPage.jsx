@@ -1,29 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { TextField, Button } from '@mui/material';
 
 import './LandingPage.css';
 
-// CUSTOM COMPONENTS
-// import RegisterForm from '../RegisterForm/RegisterForm';
-
 function LandingPage() {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const party = useSelector(store => store.party);
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-
-  useEffect(() => {
-    // dispatch({ type: 'FETCH_GUEST_LIST' });
-    // dispatch({ type: 'FETCH_PENDING_LIST' });
-  }, []);
-
-  // const onLogin = (event) => {
-  //   history.push('/login');
-  // };
 
   let handleSubmit = (event) => {  
     event.preventDefault();
@@ -33,27 +23,29 @@ function LandingPage() {
       alert('Please provide both names.');
       return;
     }
-    
-    let names = { 
-      firstName: firstName,
-      lastName: lastName,
-      fullName: `${firstName} ${lastName}` 
-    };
 
     // will run invite saga
     // and will ultimately set store.inviteStatus
-    dispatch({ type: 'CHECK_INVITE', payload: names });
+    dispatch({ type: 'CHECK_INVITE', payload: { firstName, lastName, party }});
 
     // save the name entered to the visits table
-    dispatch({ type: 'SAVE_VISIT', payload: names });
+    dispatch({ type: 'SAVE_VISIT', payload: { firstName, lastName }});
 
     // save entered names in redux
-    dispatch({ type: 'SET_NAME', payload: names });
+    dispatch({ type: 'SET_NAME', payload: { firstName, lastName }});
 
-    // go to /authenticate after checking name
+    // go to Authenticate after checking name
+    // which routes to either Register or Login
     history.push('/authenticate');
   }
 
+  useEffect(() => {
+    // get current party id on component load
+    dispatch({ type: 'FETCH_PARTY' });
+  }, []);
+
+  // renders welcome text, two inputs,
+  // and an Onward (submit) button
   return (
     <div className="container">
       <h1>Oh hello!</h1>

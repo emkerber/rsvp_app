@@ -14,45 +14,29 @@ function* registerUser(action) {
     
     // id of new user
     const id = registerResults.data[0].id;
-    // full name the user entered
-    const name = action.payload.name.fullName;
-    // // current party id
-    // const party = action.payload.party;
-    // // first name the user entered
-    // const firstName = action.payload.firstName;
-    // // last name the user entered
-    // const lastName = action.payload.lastName;
 
     switch (action.payload.inviteStatus) {
-      
       // if user is on the guest list
       case 'guest': 
         // then update guest's user id
-        yield axios.put('/api/guestList/register', {id, name});
+        // where name and party id match
+        yield axios.put('/api/guestList/register', {...action.payload, id});
         break;
       
       // if user has been added to pending list by admin
       // because they are definitely not invited
       case 'nope':
-        // then update pending person's user id when they register
-        yield axios.put('/api/pendingList/register', {id, name});
+        // then when they register, update pending person's user id
+        // where name and party id match
+        yield axios.put('/api/pendingList/register', {...action.payload, id});
         break;
 
-      // if user is neither on the guest nor pending lists
+      // if user is neither on the guest list nor pending list
       case 'none':
-        // then save their name and user_id to the pending list
+        // then save their name and party_id and user_id to the pending list
         yield axios.post('/api/pendingList/new', {...action.payload, id});
         break;
     }
-    
-
-      
-
-    // else if they're pending
-      
-      // then update pending user id
-
-      // else save the user as pending
 
     // automatically log a user in after registration
     yield put({ type: 'LOGIN', payload: action.payload });

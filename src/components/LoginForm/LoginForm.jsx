@@ -23,6 +23,8 @@ function LoginForm() {
     }
   }; // end login
 
+  // renders username and password inputs
+  // and a Log In button
   return (
     <form className="formPanel" onSubmit={login}>
       {errors.loginMessage && (

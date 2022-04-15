@@ -1,3 +1,8 @@
+// get the id of the party for which folks are RSVPing
+
+// it's assumed that the most recent party saved to the parties table
+// is the party for which responses are being collected
+
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();

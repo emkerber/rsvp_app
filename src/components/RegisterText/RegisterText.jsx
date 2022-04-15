@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
+// determines the verbiage that renders on the Register view
+// which varies by inviteStatus (guest, nope, none)
+// (inviteStatus will never be pending here)
 function RegisterText() {
   const [verbiageOne, setVerbiageOne] = useState('');
   const [verbiageTwo, setVerbiageTwo] = useState('');

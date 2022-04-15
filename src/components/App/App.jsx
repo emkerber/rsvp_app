@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import IdleTimer from 'react-idle-timer';
 
-import { Box, Paper } from '@mui/material';
+import { Paper } from '@mui/material';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -45,10 +45,6 @@ function App() {
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
-
-  useEffect(() => {
-    dispatch({ type: 'FETCH_PARTY' });
-  }, []);
 
   return (
     <Router>

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
+// determines the verbiage that renders on the Login view
+// which varies by inviteStatus (guest, pending, nope, none)
 function LoginText() {
   const [verbiageOne, setVerbiageOne] = useState('');
   const [verbiageTwo, setVerbiageTwo] = useState('');
 
   const inviteStatus = useSelector((store) => store.inviteStatus);
-  const firstName = useSelector((store) => store.responses.first_name);
+  const firstName = useSelector((store) => store.name.firstName);
 
   const checkStatus = () => {
     switch (inviteStatus) {
