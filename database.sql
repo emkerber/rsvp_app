@@ -11,7 +11,6 @@ CREATE TABLE "guests" (
     "user_id" INT REFERENCES "users",
     "first_name" VARCHAR (255) NOT NULL,
     "last_name" VARCHAR (255) NOT NULL,
-    "full_name" VARCHAR (255) UNIQUE NOT NULL,
     "email" VARCHAR (255),
     "attending" BOOLEAN,
     "perhaps_attending" VARCHAR (1000),
@@ -32,7 +31,6 @@ CREATE TABLE "pendings" (
     "user_id" INT REFERENCES "users",
     "first_name" VARCHAR (255) NOT NULL,
     "last_name" VARCHAR (255) NOT NULL,
-    "full_name" VARCHAR (255) UNIQUE NOT NULL,
     "resolved" BOOLEAN DEFAULT False,
     "denial_message" VARCHAR (1000)
 );
@@ -47,15 +45,16 @@ CREATE TABLE "parties" (
 
 CREATE TABLE "visits" (
     "id" SERIAL PRIMARY KEY,
-    "name" VARCHAR(255),
+    "first_name" VARCHAR(255),
+    "last_name" VARCHAR (255),
     "whenithappened" TIMESTAMPTZ
 );
 
 -- test data:
--- INSERT INTO "guests" (first_name, last_name, full_name) 
---   VALUES ('Liz', 'Kerber', 'Liz Kerber'), ('Elizabeth', 'Aadland', 'Elizabeth Aadland'), ('Kendall', 'Shayler', 'Kendall Shayler');
--- INSERT INTO "pendings" (first_name, last_name, full_name, resolved, denial_message) 
---   VALUES ('Lisa', 'Brancaccio', 'Lisa Brancaccio', True, 'You haven''t been very nice to me, so you''re not invited to my party.'), 
---   ('Brian', 'Franson', 'Brian Franson', True, 'You haven''t been very nice to me, so you''re not invited to my party.');
+-- INSERT INTO "guests" (party_id, first_name, last_name) 
+--   VALUES (3, 'Liz', 'Kerber'), (3, 'Elizabeth', 'Aadland'), (3, 'Kendall', 'Shayler');
+-- INSERT INTO "pendings" (party_id, first_name, last_name, resolved, denial_message) 
+--   VALUES (3, 'Lisa', 'Brancaccio', True, 'You haven''t been very nice to me, so you''re not invited to my party.'), 
+--   (3, 'Brian', 'Franson', True, 'You haven''t been very nice to me, so you''re not invited to my party.');
 -- INSERT INTO "parties" (title, theme, date, location) 
 --   VALUES ('Bringol', 'my birthday', '12-17-2022', 'Edina, MN');

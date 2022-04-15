@@ -3,6 +3,9 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 function* checkInvite(action) {
   try {   
+    // the id of the current party
+    const party = action.payload.party;
+
     // the first and last names that were entered on the Landing Page
     const currentFirstName = action.payload.firstName;
     const currentLastName = action.payload.lastName;
@@ -13,7 +16,7 @@ function* checkInvite(action) {
     };
 
     // search guest list in db
-    const guestResult = yield axios.get(`/api/guestList/${currentFirstName}/${currentLastName}`, config);
+    const guestResult = yield axios.get(`/api/guestList/${party}/${currentFirstName}/${currentLastName}`, config);
     
     // if a row is returned
     if (guestResult.data.length > 0) {
@@ -26,11 +29,11 @@ function* checkInvite(action) {
       yield put({ type: 'SET_INVITE_STATUS', payload: 'guest' });
       console.log('Guest!');
 
-      return true;
+      return;
     }
     
     // search pending list in db
-    const pendingResult = yield axios.get(`/api/pendingList/${currentFirstName}/${currentLastName}`, config);
+    const pendingResult = yield axios.get(`/api/pendingList/${party}/${currentFirstName}/${currentLastName}`, config);
 
     // if a row is returned
     if (pendingResult.data.length > 0) {
@@ -44,14 +47,14 @@ function* checkInvite(action) {
         yield put({ type: 'SET_INVITE_STATUS', payload: 'nope' });
         console.log('no thx');
         
-        return true;
+        return;
       
       } else { 
         // if their pending status has not yet been resolved
         yield put({ type: 'SET_INVITE_STATUS', payload: 'pending' });
         console.log('Limbo!');
         
-        return true;
+        return;
       }
     }
  

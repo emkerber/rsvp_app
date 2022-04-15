@@ -1,7 +1,6 @@
 // state is set to an object with properties:
 // firstName
 // lastName
-// fullName
 
 const nameReducer = (state = {}, action) => {
   switch (action.type) {

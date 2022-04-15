@@ -6,11 +6,18 @@ const router = express.Router();
 
 // search for the name entered on the Landing Page
 // and if it's found then send back all of their responses
-router.get('/:firstName/:lastName', (req, res) => {
-  const queryText = `SELECT * FROM "guests" WHERE first_name = $1 AND last_name = $2;`;
+router.get('/:party/:firstName/:lastName', (req, res) => {
+  const queryText = `
+    SELECT * FROM "guests" 
+    WHERE party_id = $1 
+    AND first_name = $2 AND last_name = $3;
+  `;
+
+  const rp = req.params;
+
   pool
-    .query(queryText, [req.params.firstName, req.params.lastName])
-    .then((result) => res.send(result.rows)) // should be one row or no rows
+    .query(queryText, [rp.party, rp.firstName, rp.lastName])
+    .then((result) => res.send(result.rows)) // will be one row or no rows
     .catch((err) => {
       console.log('Failed to get guest', queryText, err);
       res.sendStatus(500);
@@ -21,9 +28,17 @@ router.get('/:firstName/:lastName', (req, res) => {
 // after they register,
 // update guests table with their user_id
 router.put('/register', (req, res) => {
-  const queryText = `UPDATE "guests" SET user_id = $1 WHERE full_name = $2;`;
+  const queryText = `
+    UPDATE "guests" 
+    SET user_id = $1 
+    WHERE first_name = $2 AND last_name = $3
+    AND party_id = $4;
+  `;
+
+  const rb = req.body;
+
   pool
-    .query(queryText, [req.body.id, req.body.name])
+    .query(queryText, [rb.id, rb.name.firstName, rb.name.lastName, rb.party])
     .then(() => res.sendStatus(200))
     .catch((err) => {
       console.log('Error updating guests user_id', queryText, err);

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { TextField, Button } from '@mui/material';
@@ -9,6 +9,8 @@ import './LandingPage.css';
 function LandingPage() {
   const history = useHistory();
   const dispatch = useDispatch();
+
+  const party = useSelector(store => store.party);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -21,30 +23,26 @@ function LandingPage() {
       alert('Please provide both names.');
       return;
     }
-    
-    let names = { 
-      firstName: firstName,
-      lastName: lastName,
-      fullName: `${firstName} ${lastName}` 
-    };
 
     // will run invite saga
     // and will ultimately set store.inviteStatus
-    dispatch({ type: 'CHECK_INVITE', payload: names });
+    dispatch({ type: 'CHECK_INVITE', payload: { firstName, lastName, party }});
 
     // save the name entered to the visits table
-    dispatch({ type: 'SAVE_VISIT', payload: names });
+    dispatch({ type: 'SAVE_VISIT', payload: { firstName, lastName }});
 
     // save entered names in redux
-    dispatch({ type: 'SET_NAME', payload: names });
-
-    // get current party id
-    dispatch({ type: 'FETCH_PARTY' });
+    dispatch({ type: 'SET_NAME', payload: { firstName, lastName }});
 
     // go to Authenticate after checking name
     // which routes to either Register or Login
     history.push('/authenticate');
   }
+
+  useEffect(() => {
+    // get current party id on component load
+    dispatch({ type: 'FETCH_PARTY' });
+  }, []);
 
   // renders welcome text, two inputs,
   // and an Onward (submit) button
