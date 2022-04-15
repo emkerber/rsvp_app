@@ -1,7 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+
+import NavMenu from './NavMenu.jsx';
+
 import './Nav.css';
-import NavMenu from '../NavMenu/NavMenu.jsx';
 
 function Nav() {
   const user = useSelector((store) => store.user);
