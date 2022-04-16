@@ -6,6 +6,9 @@ import {
   MenuItem,
 } from '@mui/material';
 
+// the hamburger icon
+import DensityMediumIcon from '@mui/icons-material/DensityMedium';
+
 import './NavMenu.css';
 
 function NavMenu() {
@@ -35,14 +38,14 @@ function NavMenu() {
   //   setOpen(false);
   // };
 
-  function handleListKeyDown(event) {
-    if (event.key === 'Tab') {
-      event.preventDefault();
-      setAnchorEl(false);
-    } else if (event.key === 'Escape') {
-      setAnchorEl(false);
-    }
-  }
+  // function handleListKeyDown(event) {
+  //   if (event.key === 'Tab') {
+  //     event.preventDefault();
+  //     setAnchorEl(false);
+  //   } else if (event.key === 'Escape') {
+  //     setAnchorEl(false);
+  //   }
+  // }
 
   // return focus to the button when we transitioned from !open -> open
   // const prevOpen = React.useRef(open);
@@ -56,26 +59,60 @@ function NavMenu() {
 
   return (
     <>
+      <Button
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-expanded={open ? 'true' : undefined}
+        aria-haspopup="true"
+        onClick={handleClick}
+        onClickAway={handleClose}
+      >
+        <DensityMediumIcon className="nav-icon" />
+      </Button>
 
-        <Menu>
-          <MenuItem>Profile</MenuItem>
-          <MenuItem>My account</MenuItem>
-          <MenuItem>Logout</MenuItem>
-        </Menu>
-
-      <div>
-        <Button
-          aria-controls={open ? 'composition-menu' : undefined}
-          aria-expanded={open ? 'true' : undefined}
-          aria-haspopup="true"
-          onClick={handleClick}
-          onClickAway={handleClose}
-        >
-          Dashboard
-        </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button'
+        }}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            mt: 1.5,
+            '& .MuiAvatar-root': {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            '&:before': {
+              content: '""',
+              display: 'inline-block',
+              position: 'absolute',
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: 'background.paper',
+              transform: 'translateY(-50%) rotate(45deg)',
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        <MenuItem>Profile</MenuItem>
+        <MenuItem>My account</MenuItem>
+        <MenuItem>Logout</MenuItem>
+      </Menu>
 
           
-      </div>
     </>
   );
 }
