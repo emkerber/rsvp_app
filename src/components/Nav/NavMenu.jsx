@@ -18,7 +18,7 @@ function NavMenu() {
   const dispatch = useDispatch();
 
   const isAdmin = useSelector(store => store.user.admin);
-  const inviteStatus = useSelector(store => store.inviteStatus);
+  const inviteStatus = useSelector(store => store.invite.inviteStatus);
 
   // const [open, setOpen] = React.useState(false);
   // const anchorRef = React.useRef(null);

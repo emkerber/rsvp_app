@@ -5,7 +5,8 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import LoginPage from '../LoginPage/LoginPage';
 
 function Authenticate() {
-  const user_id = useSelector((store) => store.responses.user_id);
+  // check if a user id has been associated with the name entered
+  const user_id = useSelector((store) => store.invite.responses.user_id);
 
   // if there is not yet a user_id associated with the name entered on the Landing Page
   if (!user_id) {

@@ -25,7 +25,7 @@ function LandingPage() {
     }
 
     // will run invite saga
-    // and will ultimately set store.inviteStatus
+    // and will ultimately set store.invite.inviteStatus
     dispatch({ type: 'CHECK_INVITE', payload: { firstName, lastName, party }});
 
     // save the name entered to the visits table

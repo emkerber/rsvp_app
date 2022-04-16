@@ -5,7 +5,7 @@ function RegisterForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector((store) => store.errors);
-  const inviteStatus = useSelector((store) => store.inviteStatus);
+  const inviteStatus = useSelector((store) => store.invite.inviteStatus);
   const name = useSelector((store) => store.name);
   const party = useSelector((store) => store.party);
   const dispatch = useDispatch();
