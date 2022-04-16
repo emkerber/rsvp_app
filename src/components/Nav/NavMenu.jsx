@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { 
   Button, 
@@ -16,6 +16,9 @@ function NavMenu() {
   // https://mui.com/components/menus/
 
   const dispatch = useDispatch();
+
+  const isAdmin = useSelector(store => store.user.admin);
+  const inviteStatus = useSelector(store => store.inviteStatus);
 
   // const [open, setOpen] = React.useState(false);
   // const anchorRef = React.useRef(null);
@@ -64,6 +67,11 @@ function NavMenu() {
 
   //   prevOpen.current = open;
   // }, [open]);
+
+  // guest: RSVP, Deets, if all responses then Guests, Logout
+  // pending: Logout
+  // none: Logout
+  // admin: Guests, Add/Remove, Pending, Logout
 
   return (
     <>
@@ -114,14 +122,44 @@ function NavMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem>Profile</MenuItem>
-        <MenuItem>My account</MenuItem>
+        
+        {isAdmin && 
+          <>
+            <MenuItem>
+              <Link to="/admin/guests" className="nav-link">Guests</Link>
+            </MenuItem>
+
+            <MenuItem>
+              <Link to="/admin/new-nope" className="nav-link">New / Nope</Link>
+            </MenuItem>
+
+            <MenuItem>
+              <Link to="/admin/pending" className="nav-link">Pending</Link>
+            </MenuItem>
+          </>
+        }
+
+        {inviteStatus === 'guest' &&
+          <>
+            <MenuItem>
+              <Link to="/user" className="nav-link">My RSVP</Link>
+            </MenuItem>
+
+            <MenuItem>
+              <Link to="/deets" className="nav-link">Deets</Link>
+            </MenuItem>
+
+            {/* TODO if all responses then show else hide */}
+            <MenuItem>
+              <Link to="/guest-list" className="nav-link">Guest List</Link>
+            </MenuItem>
+          </>
+        }
+
         <MenuItem onClick={handleLogout}>
-          <Link 
-            to="/"
-            className="nav-link"
-          >Logout</Link>
+          <Link to="/" className="nav-link">Logout</Link>
         </MenuItem>
+      
       </Menu>
 
           
@@ -130,8 +168,3 @@ function NavMenu() {
 }
 
 export default NavMenu;
-
-// guest: RSVP, Deets, if all responses then Guests, Logout
-// nope: Logout
-// pending: Logout
-// admin: Guests, Pending, Add/Remove, Logout
