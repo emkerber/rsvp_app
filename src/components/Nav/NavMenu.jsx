@@ -13,16 +13,12 @@ import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 import './NavMenu.css';
 
 function NavMenu() {
-  // https://mui.com/components/menus/
-
   const dispatch = useDispatch();
 
   const isAdmin = useSelector(store => store.user.admin);
   const inviteStatus = useSelector(store => store.invite.inviteStatus);
   const allResponses = useSelector(store => store.invite.allResponses);
 
-  // const [open, setOpen] = React.useState(false);
-  // const anchorRef = React.useRef(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -38,41 +34,11 @@ function NavMenu() {
     dispatch({ type: 'LOGOUT' });
   }
 
-  // const handleToggle = () => {
-  //   setOpen((prevOpen) => !prevOpen);
-  // };
-
-  // const handleClose = (event) => {
-  //   if (anchorRef.current && anchorRef.current.contains(event.target)) {
-  //     return;
-  //   }
-
-  //   setOpen(false);
-  // };
-
-  // function handleListKeyDown(event) {
-  //   if (event.key === 'Tab') {
-  //     event.preventDefault();
-  //     setAnchorEl(false);
-  //   } else if (event.key === 'Escape') {
-  //     setAnchorEl(false);
-  //   }
-  // }
-
-  // return focus to the button when we transitioned from !open -> open
-  // const prevOpen = React.useRef(open);
-  // React.useEffect(() => {
-  //   if (prevOpen.current === true && open === false) {
-  //     anchorRef.current.focus();
-  //   }
-
-  //   prevOpen.current = open;
-  // }, [open]);
-
-  // guest: RSVP, Deets, if all responses then Guests, Logout
+  // MENU ITEMS:
+  // guest: My RSVP, Deets, if all responses then Guest List, Logout
   // pending: Logout
   // none: Logout
-  // admin: Guests, Add/Remove, Pending, Logout
+  // admin: Guests, New / Nope, Pending, My RSVP, Deets, if all responses then Guest List, Logout
 
   return (
     <>
@@ -125,7 +91,7 @@ function NavMenu() {
       >
         
         {isAdmin && 
-          <>
+          <div>
             <MenuItem>
               <Link to="/admin/guests" className="nav-link">Guests</Link>
             </MenuItem>
@@ -137,11 +103,11 @@ function NavMenu() {
             <MenuItem>
               <Link to="/admin/pending" className="nav-link">Pending</Link>
             </MenuItem>
-          </>
+          </div>
         }
 
         {inviteStatus === 'guest' &&
-          <>
+          <div>
             <MenuItem>
               <Link to="/user" className="nav-link">My RSVP</Link>
             </MenuItem>
@@ -149,13 +115,13 @@ function NavMenu() {
             <MenuItem>
               <Link to="/deets" className="nav-link">Deets</Link>
             </MenuItem>
+          </div>
+        }
 
-            {allResponses &&
-              <MenuItem>
-                <Link to="/guest-list" className="nav-link">Guest List</Link>
-              </MenuItem>
-            }
-          </>
+        {allResponses &&
+          <MenuItem>
+            <Link to="/guest-list" className="nav-link">Guest List</Link>
+          </MenuItem>
         }
 
         <MenuItem onClick={handleLogout}>
