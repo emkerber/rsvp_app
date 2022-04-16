@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   name, // user's first, last, full names that are entered on landing page
   // lists, // array of names in guests table, array of pending folks in pending table
-  invite, // inviteStatus (string), responses (object)
+  invite, // inviteStatus (string), responses (object), allResponses(boolean)
   party, // partyId
 });
 

@@ -23,7 +23,19 @@ const responses = (state = {}, action) => {
   }
 };
 
+const allResponses = (state = false, action) => {
+  switch (action.type) {
+    case 'ALL_RESPONSES_EXIST':
+      return true;
+    case 'ALL_RESPONSES_UNSURE':
+      return false;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   inviteStatus,
   responses,
+  allResponses,
 });

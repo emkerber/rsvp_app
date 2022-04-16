@@ -19,6 +19,7 @@ function NavMenu() {
 
   const isAdmin = useSelector(store => store.user.admin);
   const inviteStatus = useSelector(store => store.invite.inviteStatus);
+  const allResponses = useSelector(store => store.invite.allResponses);
 
   // const [open, setOpen] = React.useState(false);
   // const anchorRef = React.useRef(null);
@@ -149,10 +150,11 @@ function NavMenu() {
               <Link to="/deets" className="nav-link">Deets</Link>
             </MenuItem>
 
-            {/* TODO if all responses then show else hide */}
-            <MenuItem>
-              <Link to="/guest-list" className="nav-link">Guest List</Link>
-            </MenuItem>
+            {allResponses &&
+              <MenuItem>
+                <Link to="/guest-list" className="nav-link">Guest List</Link>
+              </MenuItem>
+            }
           </>
         }
 
