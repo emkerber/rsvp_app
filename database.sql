@@ -22,15 +22,12 @@ CREATE TABLE "guests" (
     "email" VARCHAR (255),
     "attending" BOOLEAN,
     "perhaps_attending" VARCHAR (1000),
-    "dietary_restrictions" BOOLEAN,
-    "dietary_deets" VARCHAR (1000),
-    "additional_guests" BOOLEAN,
-    "additional_guests_deets" VARCHAR (1000),
-    "parking" BOOLEAN,
-    "overnight_parking" BOOLEAN,
-    "duties" VARCHAR (500),
+    "dietary_restrictions" VARCHAR (1000),
+    "additional_guests" VARCHAR (1000),
+    "parking" VARCHAR (255),
+    "duties" VARCHAR (1000),
     "other_notes" VARCHAR (1000),
-    "welcome_message" VARCHAR (1000)
+    "welcome_message" VARCHAR (1000) DEFAULT 'Hooray!'
 );
 
 CREATE TABLE "pendings" (
@@ -53,8 +50,10 @@ CREATE TABLE "visits" (
 -- test data:
 INSERT INTO "parties" (title, theme, date, location) 
   VALUES ('Bringol', 'my birthday', '12-17-2022', 'Edina, MN');
+
 INSERT INTO "guests" (party_id, first_name, last_name) 
   VALUES (1, 'Liz', 'Kerber'), (1, 'Elizabeth', 'Aadland'), (1, 'Kendall', 'Shayler');
+
 INSERT INTO "pendings" (party_id, first_name, last_name, resolved, denial_message) 
   VALUES (1, 'Lisa', 'Brancaccio', True, 'You haven''t been very nice to me, so you''re not invited to my party.'), 
   (1, 'Brian', 'Franson', True, 'You haven''t been very nice to me, so you''re not invited to my party.');
