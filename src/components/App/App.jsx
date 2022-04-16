@@ -87,7 +87,8 @@ function App() {
               Even though it seems like they are different pages, the user is always on localhost:3000/user */}
             
             <ProtectedRoute
-              // logged in shows UserPage else shows LoginPage
+              // logged in shows UserPage else shows Landing Page
+              // UserPage shows RSVP form
               exact
               path="/user"
             >
@@ -95,17 +96,17 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute
-              // logged in shows InfoPage else shows LoginPage
+              // logged in shows InfoPage else shows Landing Page
               exact
-              path="/info"
+              path="/deets" // formerly "info"
             >
               <InfoPage />
             </ProtectedRoute>
 
             <ProtectedRoute
-              // logged in shows GuestGuestList else shows LoginPage
+              // logged in shows GuestGuestList else shows Landing Page
               exact
-              path="/list"
+              path="/guest-list" // formerly "list"
             >
               <GuestGuestList />
             </ProtectedRoute>
@@ -121,7 +122,7 @@ function App() {
             <ProtectedAdminRoute
               // logged in shows AdminAddRemove else shows LoginPage
               exact
-              path="/admin/new-nope" // formerly edit
+              path="/admin/new-nope" // formerly "edit"
             >
               <AdminAddRemove />
             </ProtectedAdminRoute>
@@ -129,7 +130,7 @@ function App() {
             <ProtectedAdminRoute
               // logged in shows AdminPending else shows LoginPage
               exact
-              path="/admin/pending" // formerly approve
+              path="/admin/pending" // formerly "approve"
             >
               <AdminPending />
             </ProtectedAdminRoute>
