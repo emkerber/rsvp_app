@@ -2,7 +2,15 @@ CREATE TABLE "users" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (255) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
-    "role" VARCHAR (10)
+    "admin" BOOLEAN DEFAULT False
+);
+
+CREATE TABLE "parties" (
+    "id" SERIAL PRIMARY KEY,
+    "title" VARCHAR (250),
+    "theme" VARCHAR (250),
+    "date" DATE,
+    "location" VARCHAR (250)
 );
 
 CREATE TABLE "guests" (
@@ -35,14 +43,6 @@ CREATE TABLE "pendings" (
     "denial_message" VARCHAR (1000)
 );
 
-CREATE TABLE "parties" (
-    "id" SERIAL PRIMARY KEY,
-    "title" VARCHAR (250),
-    "theme" VARCHAR (250),
-    "date" DATE,
-    "location" VARCHAR (250)
-);
-
 CREATE TABLE "visits" (
     "id" SERIAL PRIMARY KEY,
     "first_name" VARCHAR(255),
@@ -51,10 +51,10 @@ CREATE TABLE "visits" (
 );
 
 -- test data:
--- INSERT INTO "guests" (party_id, first_name, last_name) 
---   VALUES (3, 'Liz', 'Kerber'), (3, 'Elizabeth', 'Aadland'), (3, 'Kendall', 'Shayler');
--- INSERT INTO "pendings" (party_id, first_name, last_name, resolved, denial_message) 
---   VALUES (3, 'Lisa', 'Brancaccio', True, 'You haven''t been very nice to me, so you''re not invited to my party.'), 
---   (3, 'Brian', 'Franson', True, 'You haven''t been very nice to me, so you''re not invited to my party.');
--- INSERT INTO "parties" (title, theme, date, location) 
---   VALUES ('Bringol', 'my birthday', '12-17-2022', 'Edina, MN');
+INSERT INTO "parties" (title, theme, date, location) 
+  VALUES ('Bringol', 'my birthday', '12-17-2022', 'Edina, MN');
+INSERT INTO "guests" (party_id, first_name, last_name) 
+  VALUES (1, 'Liz', 'Kerber'), (1, 'Elizabeth', 'Aadland'), (1, 'Kendall', 'Shayler');
+INSERT INTO "pendings" (party_id, first_name, last_name, resolved, denial_message) 
+  VALUES (1, 'Lisa', 'Brancaccio', True, 'You haven''t been very nice to me, so you''re not invited to my party.'), 
+  (1, 'Brian', 'Franson', True, 'You haven''t been very nice to me, so you''re not invited to my party.');
