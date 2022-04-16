@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { 
   Button, 
@@ -14,6 +15,8 @@ import './NavMenu.css';
 function NavMenu() {
   // https://mui.com/components/menus/
 
+  const dispatch = useDispatch();
+
   // const [open, setOpen] = React.useState(false);
   // const anchorRef = React.useRef(null);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -22,9 +25,14 @@ function NavMenu() {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogout = () => {
+    dispatch({ type: 'LOGOUT' });
+  }
 
   // const handleToggle = () => {
   //   setOpen((prevOpen) => !prevOpen);
@@ -64,7 +72,6 @@ function NavMenu() {
         aria-expanded={open ? 'true' : undefined}
         aria-haspopup="true"
         onClick={handleClick}
-        onClickAway={handleClose}
       >
         <DensityMediumIcon className="nav-icon" />
       </Button>
@@ -109,7 +116,12 @@ function NavMenu() {
       >
         <MenuItem>Profile</MenuItem>
         <MenuItem>My account</MenuItem>
-        <MenuItem>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>
+          <Link 
+            to="/"
+            className="nav-link"
+          >Logout</Link>
+        </MenuItem>
       </Menu>
 
           
@@ -118,3 +130,8 @@ function NavMenu() {
 }
 
 export default NavMenu;
+
+// guest: RSVP, Deets, if all responses then Guests, Logout
+// nope: Logout
+// pending: Logout
+// admin: Guests, Pending, Add/Remove, Logout
