@@ -58,7 +58,7 @@ function* logoutUser(action) {
     yield put({ type: 'UNSET_NAME' });
     yield put({ type: 'UNSET_INVITE_STATUS' });
     yield put({ type: 'UNSET_RESPONSES' });
-    yield put({ type: 'UNSET_PARTY' });
+    yield put({ type: 'ALL_RESPONSES_UNSURE' });
 
   } catch (error) {
     console.log('Error with user logout:', error);

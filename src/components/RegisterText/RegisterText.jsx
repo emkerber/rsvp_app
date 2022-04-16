@@ -8,7 +8,7 @@ function RegisterText() {
   const [verbiageOne, setVerbiageOne] = useState('');
   const [verbiageTwo, setVerbiageTwo] = useState('');
 
-  const inviteStatus = useSelector((store) => store.inviteStatus);
+  const inviteStatus = useSelector((store) => store.invite.inviteStatus);
 
   const checkStatus = () => {
     switch (inviteStatus) {

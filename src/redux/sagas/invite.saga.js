@@ -22,13 +22,25 @@ function* checkInvite(action) {
     if (guestResult.data.length > 0) {
       // then they are on the guest list
 
-      // store guest's form responses in redux
-      yield put({ type: 'SET_RESPONSES', payload: guestResult.data[0] });
+      const responses = guestResult.data[0];
 
       // set invite-status reducer to 'guest'
       yield put({ type: 'SET_INVITE_STATUS', payload: 'guest' });
       console.log('Guest!');
 
+      // store guest's form responses in redux
+      yield put({ type: 'SET_RESPONSES', payload: responses });
+
+      // check if there are any null RSVP form responses
+      // if null is found then return
+      for (let response in responses) {
+        if (!responses[response]) {
+          return;
+        }
+      }
+
+      // if no null responses are found, ALL_RESPONSES_EXIST is true
+      yield put({ type: 'ALL_RESPONSES_EXIST' });
       return;
     }
     
