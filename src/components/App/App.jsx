@@ -16,6 +16,7 @@ import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import ProtectedAdminRoute from '../ProtectedRoute/ProtectedAdminRoute';
 
 import ThankYou from '../ThankYou/ThankYou';
 import UserPage from '../UserPage/UserPage';
@@ -79,19 +80,12 @@ function App() {
               }
             </Route>
             
-            {/* Visiting localhost:3000/thanks will show the ThankYou page. */}
-            <Route
-              // shows ThankYou at all times (logged in or not)
-              exact
-              path="/thanks"
-            >
-              <ThankYou />
-            </Route>
             
             {/* For protected routes, the view could show one of several things on the same route.
               Visiting localhost:3000/user will show the UserPage if the user is logged in.
-              If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
+              If the user is not logged in, the ProtectedRoute will show the Landing Page (component).
               Even though it seems like they are different pages, the user is always on localhost:3000/user */}
+            
             <ProtectedRoute
               // logged in shows UserPage else shows LoginPage
               exact
@@ -116,32 +110,41 @@ function App() {
               <GuestGuestList />
             </ProtectedRoute>
 
-            <ProtectedRoute
+            <ProtectedAdminRoute
               // logged in shows AdminGuestList else shows LoginPage
               exact
               path="/admin/guests"
             >
               <AdminGuestList />
-            </ProtectedRoute>
+            </ProtectedAdminRoute>
 
-            <ProtectedRoute
+            <ProtectedAdminRoute
               // logged in shows AdminAddRemove else shows LoginPage
               exact
-              path="/admin/edit"
+              path="/admin/new-nope" // formerly edit
             >
               <AdminAddRemove />
-            </ProtectedRoute>
+            </ProtectedAdminRoute>
 
-            <ProtectedRoute
+            <ProtectedAdminRoute
               // logged in shows AdminPending else shows LoginPage
               exact
-              path="/admin/approve"
+              path="/admin/pending" // formerly approve
             >
               <AdminPending />
+            </ProtectedAdminRoute>
+
+            {/* non-guests */}
+            <ProtectedRoute
+              // after registering as 'none'
+              exact
+              path="/thanks"
+            >
+              <ThankYou />
             </ProtectedRoute>
 
             <ProtectedRoute
-              // logged in shows Pending else shows LoginPage
+              // after logging in as 'pending'
               exact
               path="/pending"
             >
@@ -149,7 +152,7 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute
-              // logged in shows Denied else shows LoginPage
+              // after registering or logging in as 'nope'
               exact
               path="/nope"
             >
