@@ -1,3 +1,4 @@
+// current user's row from users
 const userReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_USER':
