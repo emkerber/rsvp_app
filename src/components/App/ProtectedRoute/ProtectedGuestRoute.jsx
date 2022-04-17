@@ -15,7 +15,7 @@ import LandingPage from '../../LandingPage/LandingPage';
 // and by checking req.user for authorization
 
 function ProtectedGuestRoute({ component, children, ...props }) {
-  const inviteStatus = useSelector((store) => store.inviteStatus);
+  const inviteStatus = useSelector((store) => store.invite.inviteStatus);
 
   // Component may be passed in as a "component" prop,
   // or as a child component.
