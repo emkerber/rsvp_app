@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
@@ -9,6 +10,7 @@ function RegisterForm() {
   const name = useSelector((store) => store.name);
   const party = useSelector((store) => store.party);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const registerUser = (event) => {
     event.preventDefault();
@@ -18,6 +20,21 @@ function RegisterForm() {
       type: 'REGISTER',
       payload: { username, password, inviteStatus, name, party },
     });
+
+    // user should be routed to different pages based on inviteStatus
+    switch (inviteStatus) {
+      case 'guest':
+        history.push('/rsvp');
+        break;
+      case 'nope':
+        history.push('/nope');
+        break;
+      case 'none':
+        history.push('/thanks');
+        break;
+      default:
+        history.push('/thanks');
+    }
   }; // end registerUser
 
   // renders username and password inputs
