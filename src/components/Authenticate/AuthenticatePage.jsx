@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import RegisterPage from '../RegisterPage/RegisterPage';
-import LoginPage from '../LoginPage/LoginPage';
+import RegisterPage from './RegisterPage';
+import LoginPage from './LoginPage';
 
 function Authenticate() {
   // check if a user id has been associated with the name entered

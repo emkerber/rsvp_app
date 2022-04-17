@@ -1,6 +1,6 @@
 import React from 'react';
-import LoginText from '../LoginText/LoginText';
-import LoginForm from '../LoginForm/LoginForm';
+import LoginText from './LoginText';
+import LoginForm from './LoginForm';
 
 function LoginPage() {
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
-import LandingPage from '../LandingPage/LandingPage';
+import LandingPage from '../../LandingPage/LandingPage';
 
 // this did not come pre-built, I made it!
 

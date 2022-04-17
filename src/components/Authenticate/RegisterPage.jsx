@@ -1,6 +1,6 @@
 import React from 'react';
-import RegisterText from '../RegisterText/RegisterText';
-import RegisterForm from '../RegisterForm/RegisterForm';
+import RegisterText from './RegisterText';
+import RegisterForm from './RegisterForm';
 
 function RegisterPage() {
 

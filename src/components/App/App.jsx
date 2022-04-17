@@ -15,20 +15,20 @@ import { Paper } from '@mui/material';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import ProtectedAdminRoute from '../ProtectedRoute/ProtectedAdminRoute';
+import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
+import ProtectedAdminRoute from './ProtectedRoute/ProtectedAdminRoute';
 
-import ThankYou from '../ThankYou/ThankYou';
-import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
+import ThankYouPage from '../User/ThankYouPage';
+import RsvpPage from '../User/Guest/RsvpPage';
+import DeetsPage from '../User/Guest/DeetsPage';
 import LandingPage from '../LandingPage/LandingPage';
-import AuthenticatePage from '../AuthenticatePage/AuthenticatePage';
-import GuestGuestList from '../GuestGuestList/GuestGuestList';
-import Pending from '../Pending/Pending';
-import Denied from '../Denied/Denied';
-import AdminGuestList from '../AdminGuestList/AdminGuestList';
-import AdminAddRemove from '../AdminAddRemove/AdminAddRemove';
-import AdminPending from '../AdminPending/AdminPending';
+import AuthenticatePage from '../Authenticate/AuthenticatePage';
+import GuestGuestListPage from '../User/Guest/GuestGuestListPage';
+import PendingPage from '../User/PendingPage';
+import DeniedPage from '../User/DeniedPage';
+import AdminGuestList from '../Admin/AdminGuestList';
+import AdminAddRemove from '../Admin/AdminAddRemove';
+import AdminPending from '../Admin/AdminPending';
 
 import './App.css';
 
@@ -72,8 +72,8 @@ function App() {
             >
               {user.id ?
                 // If the user is already logged in, 
-                // redirect to the /user page
-                <Redirect to="/user" />
+                // redirect to the /rsvp page
+                <Redirect to="/rsvp" />
                 :
                 // Otherwise, show the login/registration page
                 <AuthenticatePage />
@@ -82,17 +82,16 @@ function App() {
             
             
             {/* For protected routes, the view could show one of several things on the same route.
-              Visiting localhost:3000/user will show the UserPage if the user is logged in.
+              Visiting localhost:3000/rsvp will show the RsvpPage if the user is logged in.
               If the user is not logged in, the ProtectedRoute will show the Landing Page (component).
-              Even though it seems like they are different pages, the user is always on localhost:3000/user */}
+              Even though it seems like they are different pages, the user is always on localhost:3000/rsvp */}
             
             <ProtectedRoute
-              // logged in shows UserPage else shows Landing Page
-              // UserPage shows RSVP form
+              // logged in shows RsvpPage else shows Landing Page
               exact
-              path="/user"
+              path="/rsvp"
             >
-              <UserPage />
+              <RsvpPage />
             </ProtectedRoute>
 
             <ProtectedRoute
@@ -100,7 +99,7 @@ function App() {
               exact
               path="/deets" // formerly "info"
             >
-              <InfoPage />
+              <DeetsPage />
             </ProtectedRoute>
 
             <ProtectedRoute
@@ -108,7 +107,7 @@ function App() {
               exact
               path="/guest-list" // formerly "list"
             >
-              <GuestGuestList />
+              <GuestGuestListPage />
             </ProtectedRoute>
 
             <ProtectedAdminRoute
@@ -141,7 +140,7 @@ function App() {
               exact
               path="/thanks"
             >
-              <ThankYou />
+              <ThankYouPage />
             </ProtectedRoute>
 
             <ProtectedRoute
@@ -149,7 +148,7 @@ function App() {
               exact
               path="/pending"
             >
-              <Pending />
+              <PendingPage />
             </ProtectedRoute>
 
             <ProtectedRoute
@@ -157,7 +156,7 @@ function App() {
               exact
               path="/nope"
             >
-              <Denied />
+              <DeniedPage />
             </ProtectedRoute>
 
             {/* If none of the other routes matched, 
