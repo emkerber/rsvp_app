@@ -16,6 +16,7 @@ import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
+import ProtectedGuestRoute from './ProtectedRoute/ProtectedGuestRoute';
 import ProtectedAdminRoute from './ProtectedRoute/ProtectedAdminRoute';
 
 import ThankYouPage from '../User/ThankYouPage';
@@ -86,29 +87,29 @@ function App() {
               If the user is not logged in, the ProtectedRoute will show the Landing Page (component).
               Even though it seems like they are different pages, the user is always on localhost:3000/rsvp */}
             
-            <ProtectedRoute
-              // logged in shows RsvpPage else shows Landing Page
+            <ProtectedGuestRoute
+              // logged in guest shows Rsvp page
               exact
               path="/rsvp"
             >
               <RsvpPage />
-            </ProtectedRoute>
+            </ProtectedGuestRoute>
 
-            <ProtectedRoute
-              // logged in shows InfoPage else shows Landing Page
+            <ProtectedGuestRoute
+              // logged in guest shows Deets (Details) page
               exact
-              path="/deets" // formerly "info"
+              path="/deets"
             >
               <DeetsPage />
-            </ProtectedRoute>
+            </ProtectedGuestRoute>
 
-            <ProtectedRoute
-              // logged in shows GuestGuestList else shows Landing Page
+            <ProtectedGuestRoute
+              // logged in guest shows GuestGuestList page
               exact
-              path="/guest-list" // formerly "list"
+              path="/guest-list"
             >
               <GuestGuestListPage />
-            </ProtectedRoute>
+            </ProtectedGuestRoute>
 
             <ProtectedAdminRoute
               // logged in shows AdminGuestList else shows LoginPage
