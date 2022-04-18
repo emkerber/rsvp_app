@@ -1,6 +1,5 @@
 footer {
   display: block;
-  width: 100%;
   margin-top: 80px;
   padding: 20px;
   text-align: center;
@@ -10,15 +9,15 @@ footer {
   background-color: #373064;
 }
 
-#heart-right, #heart-left {
-  color: #f4364c;
-  font-size: 1.2em;
+#footer-span {
+  display: inline-block;
+  width: 69%;
 }
 
-#heart-left {
+#footer-heart-left {
   float: left;
 }
 
-#heart-right {
+#footer-heart-right {
   float: right;
 }
