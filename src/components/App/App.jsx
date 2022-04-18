@@ -20,7 +20,7 @@ import ProtectedGuestRoute from './ProtectedRoute/ProtectedGuestRoute';
 import ProtectedAdminRoute from './ProtectedRoute/ProtectedAdminRoute';
 
 import ThankYouPage from '../User/ThankYouPage';
-import RsvpPage from '../User/Guest/RsvpPage';
+import RsvpPage from '../User/Guest/RsvpPage/RsvpPage';
 import DeetsPage from '../User/Guest/DeetsPage';
 import LandingPage from '../LandingPage/LandingPage';
 import AuthenticatePage from '../Authenticate/AuthenticatePage';
