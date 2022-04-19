@@ -2,7 +2,8 @@ CREATE TABLE "users" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (255) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
-    "admin" BOOLEAN DEFAULT False
+    "admin" BOOLEAN 
+      DEFAULT False
 );
 
 CREATE TABLE "parties" (
@@ -21,13 +22,14 @@ CREATE TABLE "guests" (
     "last_name" VARCHAR (255) NOT NULL,
     "email" VARCHAR (255),
     "attending" BOOLEAN,
-    "perhaps_attending" VARCHAR (1000),
+    "attendance_deets" VARCHAR (1000),
     "dietary_restrictions" VARCHAR (1000),
     "additional_guests" VARCHAR (1000),
     "parking" VARCHAR (255),
     "duties" VARCHAR (1000),
     "other_notes" VARCHAR (1000),
-    "welcome_message" VARCHAR (1000) DEFAULT 'Hooray!'
+    "welcome_message" VARCHAR (1000) 
+      DEFAULT 'Hooray!!'
 );
 
 CREATE TABLE "pendings" (
@@ -36,7 +38,9 @@ CREATE TABLE "pendings" (
     "user_id" INT REFERENCES "users",
     "first_name" VARCHAR (255) NOT NULL,
     "last_name" VARCHAR (255) NOT NULL,
-    "resolved" BOOLEAN DEFAULT False,
+    "email" VARCHAR (255),
+    "resolved" BOOLEAN 
+      DEFAULT False,
     "denial_message" VARCHAR (1000)
 );
 
