@@ -7,7 +7,6 @@ function RsvpAttendingDeets() {
   const attendingCode = useSelector(store => store.rsvp.attendingCode);
   const attendingDeetsResponse = useSelector(store => store.invite.responses.attending_deets);
 
-  const [showDeets, setShowDeets] = useState(false);
   const [deetsTemp, setDeetsTemp] = useState(attendingDeetsResponse);
 
   const handleDeetsChange = (value) => {
@@ -16,15 +15,6 @@ function RsvpAttendingDeets() {
       type: 'SET_RSVP_ATTENDING_DEETS',
       payload: value
     });
-  }
-
-  // only show deets input if guest is maybe attending
-  const checkIfShowDeets = () => {
-    if (attendingCode === 'TBD') {
-      setShowDeets(true);
-    } else {
-      setShowDeets(false);
-    }
   }
 
   // on load, set rsvp attendingCode reducer
@@ -38,19 +28,13 @@ function RsvpAttendingDeets() {
     }); 
   }
 
-  // whenever the attendingCode changes, 
-  // recheck if deets input should render
-  useEffect(() => {
-    checkIfShowDeets();
-  }, [attendingCode]);
-
   useEffect(() => {
     setRsvpReducer();
   }, []);
   
   return (
     <>
-      {showDeets && 
+      {attendingCode === 'TBD' && 
         <FormControl>
 
           <h2>Care to elaborate?</h2>
