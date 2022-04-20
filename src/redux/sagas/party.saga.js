@@ -1,7 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-// worker Saga: will be fired on "REGISTER" actions
+// worker Saga: will be fired on Landing Page
 function* fetchParty() {
   try {
     const config = {
