@@ -5,10 +5,10 @@ import { FormControl, TextField } from '@mui/material';
 function RsvpAttendingDeets() {
   const dispatch = useDispatch();
   const attendingCode = useSelector(store => store.rsvp.attendingCode);
-  const attendingDeets = useSelector(store => store.rsvp.attendingDeets);
+  const attendingDeetsResponse = useSelector(store => store.invite.responses.attending_deets);
 
   const [showDeets, setShowDeets] = useState(false);
-  const [deetsTemp, setDeetsTemp] = useState(attendingDeets);
+  const [deetsTemp, setDeetsTemp] = useState(attendingDeetsResponse);
 
   const handleDeetsChange = (value) => {
     setDeetsTemp(value);
@@ -18,6 +18,7 @@ function RsvpAttendingDeets() {
     });
   }
 
+  // only show deets input if guest is maybe attending
   const checkIfShowDeets = () => {
     if (attendingCode === 'TBD') {
       setShowDeets(true);
@@ -26,9 +27,26 @@ function RsvpAttendingDeets() {
     }
   }
 
+  // on load, set rsvp attendingCode reducer
+  // to values in the responses reducer
+  // so PUT to server doesn't nullify values
+  // when it sets all possible columns
+  const setRsvpReducer = () => {
+    dispatch({ 
+      type: 'SET_RSVP_ATTENDING_DEETS', 
+      payload: attendingDeetsResponse 
+    }); 
+  }
+
+  // whenever the attendingCode changes, 
+  // recheck if deets input should render
   useEffect(() => {
     checkIfShowDeets();
   }, [attendingCode]);
+
+  useEffect(() => {
+    setRsvpReducer();
+  }, []);
   
   return (
     <>
