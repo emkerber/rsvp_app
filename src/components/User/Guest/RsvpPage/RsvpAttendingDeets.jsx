@@ -28,8 +28,16 @@ function RsvpAttendingDeets() {
     }); 
   }
 
+  // if db holds default value 'NA'
+  // then render empty string
+  const prepareToRender = () => {
+    attendingDeetsResponse === 'NA' && 
+      setDeetsTemp('');
+  }
+
   useEffect(() => {
     setRsvpReducer();
+    prepareToRender();
   }, []);
   
   return (
