@@ -22,7 +22,7 @@ CREATE TABLE "guests" (
     "last_name" VARCHAR (255) NOT NULL,
     "email" VARCHAR (255),
     "attending" BOOLEAN,
-    "attendance_deets" VARCHAR (1000),
+    "attending_deets" VARCHAR (1000),
     "dietary_restrictions" VARCHAR (1000),
     "additional_guests" VARCHAR (1000),
     "parking" VARCHAR (255),
