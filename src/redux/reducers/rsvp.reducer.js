@@ -14,18 +14,31 @@ const attendingCode = (state = '', action) => {
 }
 
 // YAY, TBD, NAY
-const attendingDeets = (state = '', action) => {
+const attendingDeets = (state = 'NA', action) => {
   switch (action.type) {
     case 'SET_RSVP_ATTENDING_DEETS':
       return action.payload;
     case 'UNSET_RSVP_ATTENDING_DEETS':
-      return '';
+      return 'NA';
     default:
       return state;
   }
 };
 
+// multiline input, or NA
+const dietRestrictions = (state = 'NA', action) => {
+  switch (action.type) {
+    case 'SET_RSVP_DIET_RESTRICTIONS':
+      return action.payload;
+    case 'UNSET_RSVP_DIET_RESTRICTIONS':
+      return 'NA';
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   attendingCode,
   attendingDeets,
+  dietRestrictions,
 });
