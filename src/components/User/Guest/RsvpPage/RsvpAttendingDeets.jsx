@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FormControl, TextField, InputLabel, Input, Select, MenuItem } from '@mui/material';
+import { FormControl, TextField } from '@mui/material';
 
 function RsvpAttendingDeets() {
   const dispatch = useDispatch();
+  const attendingCode = useSelector(store => store.rsvp.attendingCode);
   const attendingDeets = useSelector(store => store.rsvp.attendingDeets);
 
   const [showDeets, setShowDeets] = useState(false);
-  const [deetsTemp, setDeetsTemp] = useState('');
+  const [deetsTemp, setDeetsTemp] = useState(attendingDeets);
 
   const handleDeetsChange = (value) => {
     setDeetsTemp(value);
@@ -18,26 +19,16 @@ function RsvpAttendingDeets() {
   }
 
   const checkIfShowDeets = () => {
-    switch (attendingDeets) {
-      case 'YAY':
-        setShowDeets(false);
-        break;
-      case 'NAY':
-        setShowDeets(false);
-        break;
-      case 'TBD':
-        setShowDeets(true);
-        break;
-      default:
-        setShowDeets(true);
-        setDeetsTemp(attendingDeets);
-        break;
+    if (attendingCode === 'TBD') {
+      setShowDeets(true);
+    } else {
+      setShowDeets(false);
     }
   }
 
   useEffect(() => {
     checkIfShowDeets();
-  }, [attendingDeets]);
+  }, [attendingCode]);
   
   return (
     <>
@@ -47,6 +38,7 @@ function RsvpAttendingDeets() {
           <h2>Care to elaborate?</h2>
 
           <TextField
+            className="rsvp-input"
             id="multiline-attending-deets"
             multiline
             rows={4}

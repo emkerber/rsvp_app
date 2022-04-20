@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 function WelcomeMessage() {
-  const attendingBool = useSelector(store => store.rsvp.attendingBool);
+  const attendingCode = useSelector(store => store.rsvp.attendingCode);
   const welcomeMessage = useSelector(store => store.invite.responses.welcome_message);
 
   return (
     <>
-      {attendingBool && 
+      {attendingCode === 'YAY' && 
         <div id="welcome-message">
           <p>{welcomeMessage}</p>
           <p>

@@ -2,12 +2,12 @@
 import { combineReducers } from 'redux';
 
 // true or false
-const attendingBool = (state = false, action) => {
+const attendingCode = (state = '', action) => {
   switch (action.type) {
-    case 'SET_RSVP_ATTENDING_BOOL':
+    case 'SET_RSVP_ATTENDING_CODE':
       return action.payload;
-    case 'UNSET_RSVP_ATTENDING_BOOL':
-      return false;
+    case 'UNSET_RSVP_ATTENDING_CODE':
+      return '';
     default:
       return state;
   }
@@ -26,6 +26,6 @@ const attendingDeets = (state = '', action) => {
 };
 
 export default combineReducers({
-  attendingBool,
+  attendingCode,
   attendingDeets,
 });
