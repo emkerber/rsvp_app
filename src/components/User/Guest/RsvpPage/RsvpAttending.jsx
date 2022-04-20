@@ -2,57 +2,57 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormControl, FormGroup, InputLabel, Input, Select, MenuItem } from '@mui/material';
 
-
 function RsvpAttending() {
   const dispatch = useDispatch();
-  const responses = useSelector(store => store.invite.responses);
-  // const perhapsAttending = useSelector(store => store.invite.perhapsAttending);
+  const attendingDeets = useSelector(store => store.invite.responses.attending_deets);
 
-  const [tempAttending, setTempAttending] = useState('');
+  const [attendingTemp, setAttendingTemp] = useState(attendingDeets);
 
+  // handle change to value in select input
+  // set rsvp.attendingBool and rsvp.attendingDeets
   const handleAttendingChange = (value) => {
-
-    setTempAttending(value);
-    
-    switch (value) {
-      case 'yes':
-        dispatch({ 
-          type: 'SET_RESPONSES', 
-          payload: { ...responses, attending: true, perhaps_attending: 'NA' } });  
-        break;
-      case 'maybe':
-        dispatch({ 
-          type: 'SET_RESPONSES', 
-          payload: { ...responses, attending: false, perhaps_attending: 'Please elaborate.' } });
-        break;
-      case 'nope':
-        dispatch({ 
-          type: 'SET_RESPONSES', 
-          payload: { ...responses, attending: false, perhaps_attending: 'NA' } });
-        break;
+    setAttendingTemp(value);
+    dispatch({ 
+      type: 'SET_RSVP_ATTENDING_DEETS', 
+      payload: value 
+    }); 
+    if (value === 'YAY') {
+      dispatch({
+        type: 'SET_RSVP_ATTENDING_BOOL',
+        payload: true
+      });
+    } else {
+      dispatch({
+        type: 'SET_RSVP_ATTENDING_BOOL',
+        payload: false
+      });
     }
-  } // end handleAttendingChange
+  }
 
-  // sets the state on page load
-  // so input displays existing value
-  const prepareHelper = () => {
-    if (responses.attending) {
-      // if attending is true
-      setTempAttending('yes');
-    } else if (responses.perhaps_attending === 'NA') {
-      // if attending is false and perhaps_attending is NA
-      // then they have responded and they're not attending
-      setTempAttending('nope');
-    } else if (responses.perhaps_attending) {
-      // if perhaps_attending has a value, which is not NA
-      // then they've indicated they're maybe attending
-      setTempAttending('maybe');
-    } 
-      // otherwise tempAttending remains an empty string
+  // on view load, set rsvp attending reducers
+  // to values in the responses reducer
+  // so PUT to server doesn't nullify values
+  // when it sets all possible columns
+  const setRsvpReducers = () => {
+    dispatch({ 
+      type: 'SET_RSVP_ATTENDING_DEETS', 
+      payload: attendingDeets 
+    }); 
+    if (attendingDeets === 'YAY') {
+      dispatch({ 
+        type: 'SET_RSVP_ATTENDING_BOOL', 
+        payload: true 
+      }); 
+    } else {
+      dispatch({ 
+        type: 'SET_RSVP_ATTENDING_BOOL', 
+        payload: false 
+      }); 
+    }
   }
 
   useEffect(() => {
-    prepareHelper();
+    setRsvpReducers();
   }, []);
   
   return (
@@ -66,12 +66,12 @@ function RsvpAttending() {
         className="rsvp-input"
         labelId="select-attending-label"
         id="select-attending"
-        value={tempAttending}
+        value={attendingTemp}
         onChange={(event) => handleAttendingChange(event.target.value)}
       >
-        <MenuItem value="yes">Yes!</MenuItem>
-        <MenuItem value="maybe">Maybe...</MenuItem>
-        <MenuItem value="nope">Nope</MenuItem>
+        <MenuItem value="YAY">Yes!</MenuItem>
+        <MenuItem value="TBD">Maybe...</MenuItem>
+        <MenuItem value="NAY">Nope</MenuItem>
       </Select>
 
     </FormControl>
