@@ -5,6 +5,7 @@ import name from './name.reducer';
 // import lists from './lists.reducer';
 import invite from './invite.reducer';
 import party from './party.reducer';
+import rsvp from './rsvp.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   // lists, // array of names in guests table, array of pending folks in pending table
   invite, // inviteStatus (string), responses (object), allResponses(boolean)
   party, // partyId
+  rsvp, // temp responses as user fills out form
 });
 
 export default rootReducer;
