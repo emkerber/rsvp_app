@@ -6,9 +6,9 @@ function RsvpAttending() {
   const dispatch = useDispatch();
 
   // the attending_code that's saved in the db
-  const attendingCode = useSelector(store => store.invite.responses.attending_code);
+  const attendingCodeResponse = useSelector(store => store.invite.responses.attending_code);
 
-  const [attendingCodeTemp, setAttendingCodeTemp] = useState(attendingCode);
+  const [attendingCodeTemp, setAttendingCodeTemp] = useState(attendingCodeResponse);
 
   // handle change to value in select input
   // set rsvp.attendingCode
@@ -27,12 +27,12 @@ function RsvpAttending() {
   const setRsvpReducer = () => {
     dispatch({ 
       type: 'SET_RSVP_ATTENDING_CODE', 
-      payload: attendingCode 
+      payload: attendingCodeResponse 
     }); 
   }
 
   const checkAttendingCodeNull = () => {
-    !attendingCode && setAttendingCodeTemp('');
+    !attendingCodeResponse && setAttendingCodeTemp('');
   }
 
   useEffect(() => {
