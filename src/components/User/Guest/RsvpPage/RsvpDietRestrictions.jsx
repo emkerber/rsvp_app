@@ -29,16 +29,18 @@ function RsvpDietRestrict() {
     });
   }
 
-  // if db holds default value 'NA'
-  // then render empty string
-  // if db value is not 'NA' 
-  // then it holds something meaningful 
-  // so diet bool temp should be true
   const prepareToRender = () => {
+    // if dietary_restrictions is 'NA' in db
     dietRestrictionsResponse === 'NA' ?
+      // then render empty string rather than 'NA'
       setDietDeetsTemp('')
+      // otherwise, if db value is not 'NA'
       :
-      setDietBoolTemp(true);
+      // but there is a value in the db
+      dietRestrictionsResponse &&
+        // then it's something meaningful so bool is true
+        setDietBoolTemp(true);
+        // and text field input renders
   }
 
   useEffect(() => {
