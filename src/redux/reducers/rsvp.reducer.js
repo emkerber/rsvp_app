@@ -1,7 +1,7 @@
 // store values as they're entered on the rsvp form
 import { combineReducers } from 'redux';
 
-// true or false
+// YAY, TBD, NAY
 const attendingCode = (state = '', action) => {
   switch (action.type) {
     case 'SET_RSVP_ATTENDING_CODE':
@@ -13,7 +13,7 @@ const attendingCode = (state = '', action) => {
   }
 }
 
-// YAY, TBD, NAY
+// multiline input, NA
 const attendingDeets = (state = 'NA', action) => {
   switch (action.type) {
     case 'SET_RSVP_ATTENDING_DEETS':
@@ -25,7 +25,7 @@ const attendingDeets = (state = 'NA', action) => {
   }
 };
 
-// multiline input, or NA
+// input, NA
 const dietRestrictions = (state = 'NA', action) => {
   switch (action.type) {
     case 'SET_RSVP_DIET_RESTRICTIONS':
@@ -37,8 +37,21 @@ const dietRestrictions = (state = 'NA', action) => {
   }
 }
 
+// input, NA
+const additionalGuests = (state = 'NA', action) => {
+  switch (action.type) {
+    case 'SET_RSVP_ADDITIONAL_GUESTS':
+      return action.payload;
+    case 'UNSET_RSVP_ADDITIONAL_GUESTS':
+      return 'NA';
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   attendingCode,
   attendingDeets,
   dietRestrictions,
+  additionalGuests,
 });
