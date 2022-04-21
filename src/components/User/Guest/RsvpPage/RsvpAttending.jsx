@@ -8,16 +8,30 @@ function RsvpAttending() {
   // the attending_code that's saved in the db
   const attendingCodeResponse = useSelector(store => store.invite.responses.attending_code);
 
-  const [attendingCodeTemp, setAttendingCodeTemp] = useState(attendingCodeResponse);
+  const [attendingCodeTemp, setAttendingCodeTemp] = useState('');
 
   // handle change to value in select input
   // set rsvp.attendingCode
   const handleAttendingChange = (value) => {
     setAttendingCodeTemp(value);
+    
     dispatch({ 
       type: 'SET_RSVP_ATTENDING_CODE', 
       payload: value 
     }); 
+    
+    // if value is YAY or NAY then we don't need more deets
+    value === 'YAY' || value === 'NAY' ?
+      dispatch({ 
+        type: 'SET_RSVP_ATTENDING_DEETS', 
+        payload: 'NA' 
+      })
+      :
+      // if value is TBD or '' then we do require more info
+      dispatch({ 
+        type: 'SET_RSVP_ATTENDING_DEETS', 
+        payload: '' 
+      });
   }
 
   // on view load, set rsvp attendingCode reducer
@@ -31,13 +45,15 @@ function RsvpAttending() {
     }); 
   }
 
-  const checkAttendingCodeNull = () => {
-    !attendingCodeResponse && setAttendingCodeTemp('');
+  // if attending_code has a value, assign it to the select's state
+  const checkIfAttendingCode = () => {
+    attendingCodeResponse && 
+      setAttendingCodeTemp(attendingCodeResponse);
   }
 
   useEffect(() => {
     setRsvpReducer();
-    checkAttendingCodeNull();
+    checkIfAttendingCode();
   }, []);
   
   return (
@@ -51,6 +67,7 @@ function RsvpAttending() {
         value={attendingCodeTemp}
         onChange={(event) => handleAttendingChange(event.target.value)}
       >
+        <MenuItem value=""></MenuItem>
         <MenuItem value="YAY">Yes!</MenuItem>
         <MenuItem value="TBD">Maybe...</MenuItem>
         <MenuItem value="NAY">Nope</MenuItem>
