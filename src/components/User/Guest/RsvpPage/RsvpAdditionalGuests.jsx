@@ -8,7 +8,7 @@ function RsvpAdditionalGuests() {
   const additionalGuestsResponse = useSelector(store => store.invite.responses.additional_guests);
 
   const [addGuestsTemp, setAddGuestsTemp] = useState('');
-  const [addGuestsDeetsTemp, setAddGuestsDeetsTemp] = useState(additionalGuestsResponse);
+  const [addGuestsDeetsTemp, setAddGuestsDeetsTemp] = useState('');
 
   const handleAddGuestsChange = (value) => {
     setAddGuestsTemp(value);
@@ -46,16 +46,16 @@ function RsvpAdditionalGuests() {
 
   const prepareToRender = () => {
     // if additional_guests is 'NA' in db
-    additionalGuestsResponse === 'NA' ?
-      // then render empty string rather than 'NA'
-      setAddGuestsDeetsTemp('')
-      // otherwise, if db value is not 'NA'
-      :
-      // but there is a value in the db
-      additionalGuestsResponse &&
-        // then it's something meaningful so bool is true
-        setAddGuestsTemp('yes'); 
-        // and text field input renders
+    if (additionalGuestsResponse === 'NA') {
+      // then select displays no
+      setAddGuestsTemp('no');
+    // otherwise, if additional_guests has some other not null value
+    } else if (additionalGuestsResponse) {
+      // then select displays yes
+      setAddGuestsTemp('yes'); 
+      // and input box renders and contains db value
+      setAddGuestsDeetsTemp(additionalGuestsResponse);
+    }
   }
 
   useEffect(() => {
