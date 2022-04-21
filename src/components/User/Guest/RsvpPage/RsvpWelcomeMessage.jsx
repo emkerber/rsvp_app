@@ -1,3 +1,7 @@
+// if guest indicates they're attending, 
+// then render their welcome_message and prompt to provide all responses
+// if they're not attending
+// then render a bummer message
 import React from 'react';
 import { useSelector } from 'react-redux';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -16,6 +20,12 @@ function WelcomeMessage() {
             Provide all responses to see the Guest List!
             <FavoriteIcon className="heart-small" />
           </p>
+        </div>
+      }
+
+      {attendingCode === 'NAY' &&
+        <div id="bummer-message">
+          <p>Bummer!! Hope you can make it next year!</p>
         </div>
       }
     </>
