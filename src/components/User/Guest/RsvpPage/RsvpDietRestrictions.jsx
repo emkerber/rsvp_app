@@ -45,8 +45,6 @@ function RsvpDietRestrict() {
     if (dietRestrictionsResponse === 'NA') {
       // then select displays no
       setDietTemp('no');
-      // and (potentially)render empty string rather than 'NA'
-      setDietDeetsTemp('');
     // otherwise, if dietary_restrictions has some other not null value
     } else if (dietRestrictionsResponse) {
       // then select displays yes
