@@ -7,11 +7,22 @@ function RsvpDietRestrict() {
   const attendingCode = useSelector(store => store.rsvp.attendingCode);
   const dietRestrictionsResponse = useSelector(store => store.invite.responses.dietary_restrictions);
 
-  const [dietBoolTemp, setDietBoolTemp] = useState(false);
-  const [dietDeetsTemp, setDietDeetsTemp] = useState(dietRestrictionsResponse);
+  const [dietTemp, setDietTemp] = useState('');
+  const [dietDeetsTemp, setDietDeetsTemp] = useState('');
 
-  const handleDietBoolChange = (value) => {
-    setDietBoolTemp(value);
+  const handleDietChange = (value) => {
+    setDietTemp(value);
+
+    value === 'no' ?
+      dispatch({
+        type: 'SET_RSVP_DIET_RESTRICTIONS',
+        payload: 'NA'
+      })
+      :
+      dispatch({
+        type: 'SET_RSVP_DIET_RESTRICTIONS',
+        payload: ''
+      })
   }
 
   const handleDietDeetsChange = (value) => {
@@ -31,16 +42,18 @@ function RsvpDietRestrict() {
 
   const prepareToRender = () => {
     // if dietary_restrictions is 'NA' in db
-    dietRestrictionsResponse === 'NA' ?
-      // then render empty string rather than 'NA'
-      setDietDeetsTemp('')
-      // otherwise, if db value is not 'NA'
-      :
-      // but there is a value in the db
-      dietRestrictionsResponse &&
-        // then it's something meaningful so bool is true
-        setDietBoolTemp(true);
-        // and text field input renders
+    if (dietRestrictionsResponse === 'NA') {
+      // then select displays no
+      setDietTemp('no');
+      // and (potentially)render empty string rather than 'NA'
+      setDietDeetsTemp('');
+    // otherwise, if dietary_restrictions has some other not null value
+    } else if (dietRestrictionsResponse) {
+      // then select displays yes
+      setDietTemp('yes');
+      // and input renders and displays db value
+      setDietDeetsTemp(dietRestrictionsResponse);
+    }
   }
 
   useEffect(() => {
@@ -58,14 +71,15 @@ function RsvpDietRestrict() {
           <Select
             className="rsvp-input"
             id="select-diet-restrictions"
-            value={dietBoolTemp}
-            onChange={(event) => handleDietBoolChange(event.target.value)}
+            value={dietTemp}
+            onChange={(event) => handleDietChange(event.target.value)}
           >
-            <MenuItem value={true}>Yes</MenuItem>
-            <MenuItem value={false}>Negatory</MenuItem>
+            <MenuItem value=""></MenuItem>
+            <MenuItem value="yes">Yes</MenuItem>
+            <MenuItem value="no">Negatory</MenuItem>
           </Select>
 
-          {dietBoolTemp &&
+          {dietTemp === 'yes' &&
             <>
               
               <h2>Please elaborate!</h2>
