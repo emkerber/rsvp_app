@@ -14,48 +14,48 @@ const attendingCode = (state = '', action) => {
 }
 
 // multiline input, NA
-const attendingDeets = (state = 'NA', action) => {
+const attendingDeets = (state = '', action) => {
   switch (action.type) {
     case 'SET_RSVP_ATTENDING_DEETS':
       return action.payload;
     case 'UNSET_RSVP_ATTENDING_DEETS':
-      return 'NA';
+      return '';
     default:
       return state;
   }
 };
 
 // input, NA
-const dietRestrictions = (state = 'NA', action) => {
+const dietRestrictions = (state = '', action) => {
   switch (action.type) {
     case 'SET_RSVP_DIET_RESTRICTIONS':
       return action.payload;
     case 'UNSET_RSVP_DIET_RESTRICTIONS':
-      return 'NA';
+      return '';
     default:
       return state;
   }
 }
 
 // input, NA
-const additionalGuests = (state = 'NA', action) => {
+const additionalGuests = (state = '', action) => {
   switch (action.type) {
     case 'SET_RSVP_ADDITIONAL_GUESTS':
       return action.payload;
     case 'UNSET_RSVP_ADDITIONAL_GUESTS':
-      return 'NA';
+      return '';
     default:
       return state;
   }
 }
 
 // during, overnight, NA
-const parking = (state = 'NA', action) => {
+const parking = (state = '', action) => {
   switch (action.type) {
     case 'SET_RSVP_PARKING':
       return action.payload;
     case 'UNSET_RSVP_PARKING':
-      return 'NA';
+      return '';
     default:
       return state;
   }
