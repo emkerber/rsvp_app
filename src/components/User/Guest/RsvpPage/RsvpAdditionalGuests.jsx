@@ -7,15 +7,30 @@ function RsvpAdditionalGuests() {
   const attendingCode = useSelector(store => store.rsvp.attendingCode);
   const additionalGuestsResponse = useSelector(store => store.invite.responses.additional_guests);
 
-  const [addGuestsBoolTemp, setAddGuestsBoolTemp] = useState(false);
+  const [addGuestsTemp, setAddGuestsTemp] = useState('');
   const [addGuestsDeetsTemp, setAddGuestsDeetsTemp] = useState(additionalGuestsResponse);
 
-  const handleAddGuestsBoolChange = (value) => {
-    setAddGuestsBoolTemp(value);
+  const handleAddGuestsChange = (value) => {
+    setAddGuestsTemp(value);
+    
+    // if the value is no
+    value === 'no' ?
+      // that's all the info we need, reducer gets a value
+      dispatch({
+        type: 'SET_RSVP_ADDITIONAL_GUESTS',
+        payload: 'NA'
+      })
+      :
+      // otherwise, we need more info, empty the reducer
+      dispatch({
+        type: 'SET_RSVP_ADDITIONAL_GUESTS',
+        payload: ''
+      });
   }
 
   const handleAddGuestsDeetsChange = (value) => {
     setAddGuestsDeetsTemp(value);
+    // save the details entered
     dispatch({
       type: 'SET_RSVP_ADDITIONAL_GUESTS',
       payload: value
@@ -39,7 +54,7 @@ function RsvpAdditionalGuests() {
       // but there is a value in the db
       additionalGuestsResponse &&
         // then it's something meaningful so bool is true
-        setAddGuestsBoolTemp(true); 
+        setAddGuestsTemp('yes'); 
         // and text field input renders
   }
 
@@ -59,14 +74,15 @@ function RsvpAdditionalGuests() {
             <Select
               className="rsvp-input"
               id="select-additional-guests"
-              value={addGuestsBoolTemp}
-              onChange={(event) => handleAddGuestsBoolChange(event.target.value)}
+              value={addGuestsTemp}
+              onChange={(event) => handleAddGuestsChange(event.target.value)}
             >
-              <MenuItem value={true}>Yes</MenuItem>
-              <MenuItem value={false}>Negatory</MenuItem>
+              <MenuItem value=""></MenuItem>
+              <MenuItem value="yes">Yes</MenuItem>
+              <MenuItem value="no">Negatory</MenuItem>
             </Select>
 
-            {addGuestsBoolTemp &&
+            {addGuestsTemp === 'yes' &&
               <>
                 
                 <h2>Who? Please note their attendance must be approved!</h2>
