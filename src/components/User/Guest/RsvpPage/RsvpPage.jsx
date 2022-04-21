@@ -5,6 +5,7 @@ import RsvpWelcomeMessage from './RsvpWelcomeMessage';
 import RsvpAttendingDeets from './RsvpAttendingDeets';
 import RsvpDietRestrictions from './RsvpDietRestrictions';
 import RsvpAdditionalGuests from './RsvpAdditionalGuests';
+import RsvpParking from './RsvpParking';
 
 import './RsvpPage.css';
 
@@ -24,6 +25,8 @@ function RsvpPage() {
       <RsvpDietRestrictions />
 
       <RsvpAdditionalGuests />
+
+      <RsvpParking />
     
     </div>
   );

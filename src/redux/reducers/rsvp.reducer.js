@@ -49,9 +49,22 @@ const additionalGuests = (state = 'NA', action) => {
   }
 }
 
+// during, overnight, NA
+const parking = (state = 'NA', action) => {
+  switch (action.type) {
+    case 'SET_RSVP_PARKING':
+      return action.payload;
+    case 'UNSET_RSVP_PARKING':
+      return 'NA';
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   attendingCode,
   attendingDeets,
   dietRestrictions,
   additionalGuests,
+  parking,
 });
