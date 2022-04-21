@@ -1,7 +1,7 @@
 import React from 'react';
 
 import RsvpAttending from './RsvpAttending';
-import WelcomeMessage from './WelcomeMessage';
+import RsvpWelcomeMessage from './RsvpWelcomeMessage';
 import RsvpAttendingDeets from './RsvpAttendingDeets';
 import RsvpDietRestrictions from './RsvpDietRestrictions';
 import RsvpAdditionalGuests from './RsvpAdditionalGuests';
@@ -17,7 +17,7 @@ function RsvpPage() {
 
       <RsvpAttending />
 
-      <WelcomeMessage />
+      <RsvpWelcomeMessage />
 
       <RsvpAttendingDeets />
 
