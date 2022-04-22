@@ -18,7 +18,7 @@ function RsvpDietRestrict() {
         type: 'SET_RSVP_DIET_RESTRICTIONS',
         payload: 'NA'
       })
-      :
+      : // if value is not no, we need more information
       dispatch({
         type: 'SET_RSVP_DIET_RESTRICTIONS',
         payload: ''
