@@ -7,16 +7,19 @@ function RsvpParking() {
   const attendingCode = useSelector(store => store.rsvp.attendingCode);
   const parkingResponse = useSelector(store => store.invite.responses.parking);
 
-  const [parkingTemp, setParkingTemp] = useState('NA');
-  const [overnightTemp, setOvernightTemp] = useState('during');
+  const [parkingTemp, setParkingTemp] = useState('');
+  const [overnightTemp, setOvernightTemp] = useState('');
 
   const handleParkingChange = (value) => {
     // value is NA (No), or during (Yes)
     setParkingTemp(value);
-    dispatch({
-      type: 'SET_RSVP_PARKING',
-      payload: value
-    });
+
+    // if Yes, we need more information, but otherwise, save value
+    value !== 'during' &&
+      dispatch({
+        type: 'SET_RSVP_PARKING',
+        payload: value
+      });
   }
 
   const handleOvernightChange = (value) => {
@@ -38,9 +41,12 @@ function RsvpParking() {
   const prepareToRender = () => {
     if (parkingResponse === 'during') {
       setParkingTemp('during');
+      setOvernightTemp('during');
     } else if (parkingResponse === 'overnight') {
       setParkingTemp('during');
       setOvernightTemp('overnight');
+    } else if (parkingResponse === 'NA') {
+      setParkingTemp('NA');
     }
   }
 
@@ -63,6 +69,7 @@ function RsvpParking() {
               value={parkingTemp}
               onChange={(event) => handleParkingChange(event.target.value)}
             >
+              <MenuItem value=""></MenuItem>
               <MenuItem value="during">Yes</MenuItem>
               <MenuItem value="NA">Negatory</MenuItem>
             </Select>
@@ -80,6 +87,7 @@ function RsvpParking() {
                 value={overnightTemp}
                 onChange={(event) => handleOvernightChange(event.target.value)}
               >
+                <MenuItem value=""></MenuItem>
                 <MenuItem value="overnight">Yes</MenuItem>
                 <MenuItem value="during">Negatory</MenuItem>
               </Select>
