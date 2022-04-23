@@ -59,7 +59,7 @@ CREATE TABLE "visits" (
   "id" SERIAL PRIMARY KEY,
   "first_name" VARCHAR(255),
   "last_name" VARCHAR (255),
-  "whenithappened" TIMESTAMPTZ
+  "when_it_happened" TIMESTAMPTZ
 );
 
 -- test data:
