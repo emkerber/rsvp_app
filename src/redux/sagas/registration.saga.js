@@ -20,7 +20,7 @@ function* registerUser(action) {
       case 'guest': 
         // then update guest's user id
         // where name and party id match
-        yield axios.put('/api/guestList/register', {...action.payload, id});
+        yield axios.put('/api/guests/register', {...action.payload, id});
         break;
       
       // if user has been added to pending list by admin
@@ -28,13 +28,13 @@ function* registerUser(action) {
       case 'nope':
         // then when they register, update pending person's user id
         // where name and party id match
-        yield axios.put('/api/pendingList/register', {...action.payload, id});
+        yield axios.put('/api/pendings/register', {...action.payload, id});
         break;
 
       // if user is neither on the guest list nor pending list
       case 'none':
         // then save their name and party_id and user_id to the pending list
-        yield axios.post('/api/pendingList/new', {...action.payload, id});
+        yield axios.post('/api/pendings/new', {...action.payload, id});
         break;
     }
 

@@ -6,7 +6,7 @@ const router = express.Router();
 
 // search for the name entered on the Landing Page
 // and if it's found then send back all of their responses
-router.get('/:party/:firstName/:lastName', (req, res) => {
+router.get('/search/:party/:firstName/:lastName', (req, res) => {
   const queryText = `
     SELECT * FROM "guests" 
     WHERE party_id = $1 

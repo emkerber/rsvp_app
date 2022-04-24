@@ -16,7 +16,7 @@ function* checkInvite(action) {
     };
 
     // search guest list in db
-    const guestResult = yield axios.get(`/api/guestList/${party}/${currentFirstName}/${currentLastName}`, config);
+    const guestResult = yield axios.get(`/api/guests/search/${party}/${currentFirstName}/${currentLastName}`, config);
     
     // if a row is returned
     if (guestResult.data.length > 0) {
@@ -40,7 +40,7 @@ function* checkInvite(action) {
     }
     
     // search pending list in db
-    const pendingResult = yield axios.get(`/api/pendingList/${party}/${currentFirstName}/${currentLastName}`, config);
+    const pendingResult = yield axios.get(`/api/pendings/search/${party}/${currentFirstName}/${currentLastName}`, config);
 
     // if a row is returned
     if (pendingResult.data.length > 0) {
