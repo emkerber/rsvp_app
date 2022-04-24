@@ -34,6 +34,9 @@ function* checkInvite(action) {
       // check if guest has provided all responses
       // if so, ALL_RESPONSES_EXIST is set to true
       yield put({ type: 'CHECK_ALL_RESPONSES_EXIST', payload: responses });
+
+      // nothing else in this function should run
+      return;
     }
     
     // search pending list in db
