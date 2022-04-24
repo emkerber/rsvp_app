@@ -31,17 +31,9 @@ function* checkInvite(action) {
       // store guest's form responses in redux
       yield put({ type: 'SET_GUEST_RESPONSES', payload: responses });
 
-      // check if there are any null RSVP form responses
-      // if null is found then return
-      for (let response in responses) {
-        if (!responses[response]) {
-          return;
-        }
-      }
-
-      // if no null responses are found, ALL_RESPONSES_EXIST is true
-      yield put({ type: 'ALL_RESPONSES_EXIST' });
-      return;
+      // check if guest has provided all responses
+      // if so, ALL_RESPONSES_EXIST is set to true
+      yield put({ type: 'CHECK_ALL_RESPONSES_EXIST', payload: responses });
     }
     
     // search pending list in db

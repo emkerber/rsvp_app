@@ -5,7 +5,7 @@ import userSaga from './user.saga';
 import inviteSaga from './invite.saga';
 import visitSaga from './visit.saga';
 import partySaga from './party.saga';
-import rsvpSaga from './rsvp.saga';
+import guestSaga from './guest.saga';
 
 
 // rootSaga is the primary saga.
@@ -23,6 +23,6 @@ export default function* rootSaga() {
     inviteSaga(),
     visitSaga(),
     partySaga(),
-    rsvpSaga(),
+    guestSaga(),
   ]);
 }
