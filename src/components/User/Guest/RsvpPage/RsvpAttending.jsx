@@ -39,10 +39,11 @@ function RsvpAttending() {
   // so PUT to server doesn't nullify values
   // when it sets all possible columns
   const setRsvpReducer = () => {
-    dispatch({ 
-      type: 'SET_RSVP_ATTENDING_CODE', 
-      payload: attendingCodeResponse 
-    }); 
+    attendingCodeResponse && 
+      dispatch({ 
+        type: 'SET_RSVP_ATTENDING_CODE', 
+        payload: attendingCodeResponse 
+      }); 
   }
 
   // if attending_code has a value, assign it to the select's state

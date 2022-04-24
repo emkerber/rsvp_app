@@ -31,9 +31,10 @@ function RsvpParking() {
   }
 
   const setRsvpReducer = () => {
-    dispatch({
-      type: 'SET_RSVP_PARKING',
-      payload: parkingResponse
+    parkingResponse &&
+      dispatch({
+        type: 'SET_RSVP_PARKING',
+        payload: parkingResponse
     });
   }
 

@@ -21,10 +21,11 @@ function RsvpAttendingDeets() {
   // so PUT to server doesn't nullify values
   // when it sets all possible columns
   const setRsvpReducer = () => {
-    dispatch({ 
-      type: 'SET_RSVP_ATTENDING_DEETS', 
-      payload: attendingDeetsResponse 
-    }); 
+    attendingDeetsResponse &&
+      dispatch({ 
+        type: 'SET_RSVP_ATTENDING_DEETS', 
+        payload: attendingDeetsResponse 
+      }); 
   }
 
   // if db holds a value

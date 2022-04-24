@@ -18,10 +18,11 @@ function QuestionsComments() {
   }
 
   const setRsvpReducer = () => {
-    dispatch({
-      type: 'SET_RSVP_QUESTIONS_COMMENTS',
-      payload: questionsCommentsResponse
-    });
+    questionsCommentsResponse &&
+      dispatch({
+        type: 'SET_RSVP_QUESTIONS_COMMENTS',
+        payload: questionsCommentsResponse
+      });
   }
 
   const prepareToRender = () => {

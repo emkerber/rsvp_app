@@ -37,10 +37,11 @@ function RsvpAdditionalGuests() {
   }
 
   const setRsvpReducer = () => {
-    dispatch({
-      type: 'SET_RSVP_ADDITIONAL_GUESTS',
-      payload: additionalGuestsResponse
-    });
+    additionalGuestsResponse &&
+      dispatch({
+        type: 'SET_RSVP_ADDITIONAL_GUESTS',
+        payload: additionalGuestsResponse
+      });
   }
 
   const prepareToRender = () => {

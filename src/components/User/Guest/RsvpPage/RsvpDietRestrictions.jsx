@@ -33,10 +33,11 @@ function RsvpDietRestrict() {
   }
   
   const setRsvpReducer = () => {
-    dispatch({
-      type: 'SET_RSVP_DIET_RESTRICTIONS',
-      payload: dietRestrictionsResponse
-    });
+    dietRestrictionsResponse &&
+      dispatch({
+        type: 'SET_RSVP_DIET_RESTRICTIONS',
+        payload: dietRestrictionsResponse
+      });
   }
 
   const prepareToRender = () => {
