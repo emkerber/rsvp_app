@@ -3,6 +3,7 @@ import React from 'react';
 import RsvpAttending from './RsvpAttending';
 import RsvpWelcomeMessage from './RsvpWelcomeMessage';
 import RsvpAttendingDeets from './RsvpAttendingDeets';
+import RsvpBummerMessage from './RsvpBummerMessage';
 import RsvpDietRestrictions from './RsvpDietRestrictions';
 import RsvpAdditionalGuests from './RsvpAdditionalGuests';
 import RsvpParking from './RsvpParking';
@@ -11,6 +12,7 @@ import RsvpDuties from './RsvpDuties';
 import './RsvpPage.css';
 
 function RsvpPage() {
+  const attendingCode = useSelector(store => store.rsvp.attendingCode);
 
   return (
     <div className="container" id="rsvp-container">
@@ -20,10 +22,12 @@ function RsvpPage() {
       {/* Will you attend?! */}
       <RsvpAttending />
 
+      {/* Custom welcome message */}
       {/* Hooray! Please provide all responses to access the Guest List! */}
+      <RsvpWelcomeMessage />
       {/* or */}
       {/* Bummer!! Hope you can make it next year! */}
-      <RsvpWelcomeMessage />
+      <RsvpBummerMessage />
       {/* or */}
       {/* Care to elaborate? */}
       <RsvpAttendingDeets />
