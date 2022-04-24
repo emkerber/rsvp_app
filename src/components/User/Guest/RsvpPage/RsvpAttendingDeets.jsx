@@ -4,7 +4,6 @@ import { FormControl, TextField } from '@mui/material';
 
 function RsvpAttendingDeets() {
   const dispatch = useDispatch();
-  const attendingCode = useSelector(store => store.rsvp.attendingCode);
   const attendingDeetsResponse = useSelector(store => store.invite.responses.attending_deets);
 
   const [deetsTemp, setDeetsTemp] = useState(attendingDeetsResponse);
@@ -41,25 +40,21 @@ function RsvpAttendingDeets() {
   }, []);
   
   return (
-    <>
-      {attendingCode === 'TBD' && 
-        <FormControl>
+    <FormControl>
 
-          <h2>Care to elaborate?</h2>
+      <h2>Care to elaborate?</h2>
 
-          <TextField
-            className="rsvp-input"
-            id="multiline-attending-deets"
-            multiline
-            rows={4}
-            value={deetsTemp}
-            onChange={(event) => handleDeetsChange(event.target.value)}
-          >
-          </TextField>
+      <TextField
+        className="rsvp-input"
+        id="multiline-attending-deets"
+        multiline
+        rows={4}
+        value={deetsTemp}
+        onChange={(event) => handleDeetsChange(event.target.value)}
+      >
+      </TextField>
 
-        </FormControl>
-      }
-    </>
+    </FormControl>
   );
 }
 

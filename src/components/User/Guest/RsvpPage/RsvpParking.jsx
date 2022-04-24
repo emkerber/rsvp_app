@@ -4,7 +4,6 @@ import { FormControl, Select, MenuItem } from '@mui/material';
 
 function RsvpParking() {
   const dispatch = useDispatch();
-  const attendingCode = useSelector(store => store.rsvp.attendingCode);
   const parkingResponse = useSelector(store => store.invite.responses.parking);
 
   const [parkingTemp, setParkingTemp] = useState('');
@@ -57,47 +56,43 @@ function RsvpParking() {
   
   return (
     <>
-      {attendingCode === 'YAY' &&
-        <>
-          <FormControl>
-            
-            <h2>Do you require vehicle parking?</h2>
+      <FormControl>
+        
+        <h2>Do you require vehicle parking?</h2>
 
-            <Select
-              className="rsvp-input"
-              id="select-parking"
-              value={parkingTemp}
-              onChange={(event) => handleParkingChange(event.target.value)}
-            >
-              <MenuItem value=""></MenuItem>
-              <MenuItem value="during">Yes</MenuItem>
-              <MenuItem value="NA">Negatory</MenuItem>
-            </Select>
+        <Select
+          className="rsvp-input"
+          id="select-parking"
+          value={parkingTemp}
+          onChange={(event) => handleParkingChange(event.target.value)}
+        >
+          <MenuItem value=""></MenuItem>
+          <MenuItem value="during">Yes</MenuItem>
+          <MenuItem value="NA">Negatory</MenuItem>
+        </Select>
 
-          </FormControl>
+      </FormControl>
 
-          {parkingTemp === 'during' &&
-            <FormControl>
-              
-              <h2>Will you be parked overnight?</h2>
+      {parkingTemp === 'during' &&
+        <FormControl>
+          
+          <h2>Will you be parked overnight?</h2>
 
-              <Select
-                className="rsvp-input"
-                id="select-parking-overnight"
-                value={overnightTemp}
-                onChange={(event) => handleOvernightChange(event.target.value)}
-              >
-                <MenuItem value=""></MenuItem>
-                <MenuItem value="overnight">Yes</MenuItem>
-                <MenuItem value="during">Negatory</MenuItem>
-              </Select>
+          <Select
+            className="rsvp-input"
+            id="select-parking-overnight"
+            value={overnightTemp}
+            onChange={(event) => handleOvernightChange(event.target.value)}
+          >
+            <MenuItem value=""></MenuItem>
+            <MenuItem value="overnight">Yes</MenuItem>
+            <MenuItem value="during">Negatory</MenuItem>
+          </Select>
 
-            </FormControl>
-          }
-        </>
+        </FormControl>
       }
     </>
-  )
+  );
 }
 
 export default RsvpParking;

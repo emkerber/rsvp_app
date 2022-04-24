@@ -4,7 +4,6 @@ import { FormControl, FormGroup, FormControlLabel, Checkbox } from '@mui/materia
 
 function RsvpDuties() {
   const dispatch = useDispatch();
-  const attendingCode = useSelector(store => store.rsvp.attendingCode);
   // const dutiesResponse = useSelector(store => store.invite.responses.duties);
 
   const [setupChecked, setSetupChecked] = useState(false);
@@ -54,73 +53,69 @@ function RsvpDuties() {
   }
 
   return (
-    <>
-      {attendingCode === 'YAY' &&
-        <FormControl>
-          <FormGroup>
-          
-            <h2>Are you interested in signing up for any of these extra special duties?</h2>
+    <FormControl>
+      <FormGroup>
+      
+        <h2>Are you interested in signing up for any of these extra special duties?</h2>
 
-            <FormControlLabel 
-              label="Setup Squad"
-              labelPlacement="end"
-              control={
-                <Checkbox 
-                  checked={setupChecked}
-                  onChange={handleSetupChange}
-                />
-              }
+        <FormControlLabel 
+          label="Setup Squad"
+          labelPlacement="end"
+          control={
+            <Checkbox 
+              checked={setupChecked}
+              onChange={handleSetupChange}
             />
+          }
+        />
 
-            <FormControlLabel 
-              label="Cleanup Crew"
-              labelPlacement="end"
-              control={
-                <Checkbox 
-                  checked={cleanupChecked}
-                  onChange={handleCleanupChange}
-                />
-              }
+        <FormControlLabel 
+          label="Cleanup Crew"
+          labelPlacement="end"
+          control={
+            <Checkbox 
+              checked={cleanupChecked}
+              onChange={handleCleanupChange}
             />
+          }
+        />
 
-            <FormControlLabel 
-              label="Hydration Helper"
-              labelPlacement="end"
-              control={
-                <Checkbox 
-                  checked={hydrationChecked}
-                  onChange={handleHydrationChange}
-                />
-              }
+        <FormControlLabel 
+          label="Hydration Helper"
+          labelPlacement="end"
+          control={
+            <Checkbox 
+              checked={hydrationChecked}
+              onChange={handleHydrationChange}
             />
+          }
+        />
 
-            <FormControlLabel 
-              label="Photography Friend"
-              labelPlacement="end"
-              control={
-                <Checkbox 
-                  checked={photographerChecked}
-                  onChange={handlePhotographerChange}
-                />
-              }
+        <FormControlLabel 
+          label="Photography Friend"
+          labelPlacement="end"
+          control={
+            <Checkbox 
+              checked={photographerChecked}
+              onChange={handlePhotographerChange}
             />
+          }
+        />
 
-            <FormControlLabel 
-              label="No thanks"
-              labelPlacement="end"
+        <FormControlLabel 
+          label="No thanks"
+          labelPlacement="end"
+          checked={nopeChecked}
+          control={
+            <Checkbox 
               checked={nopeChecked}
-              control={
-                <Checkbox 
-                  checked={nopeChecked}
-                  onChange={handleNopeChange}
-                />
-              }
+              onChange={handleNopeChange}
             />
+          }
+        />
 
-          </FormGroup>
-        </FormControl>
-      }
-    </>
+      </FormGroup>
+    </FormControl>
   );
 }
 

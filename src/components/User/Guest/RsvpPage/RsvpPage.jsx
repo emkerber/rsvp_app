@@ -24,33 +24,41 @@ function RsvpPage() {
       {/* Will you attend?! */}
       <RsvpAttending />
 
-      {/* Custom welcome message */}
-      {/* Hooray! Please provide all responses to access the Guest List! */}
-      <RsvpWelcomeMessage />
-      {/* or */}
-      {/* Bummer!! Hope you can make it next year! */}
-      <RsvpBummerMessage />
-      {/* or */}
-      {/* Care to elaborate? */}
-      <RsvpAttendingDeets />
+      {attendingCode === 'NAY' &&
+        // Bummer!! Hope you can make it next year!
+        <RsvpBummerMessage />
+      }
 
-      {/* Any dietary restrictions? */}
-      {/* Please elaborate! */}
-      <RsvpDietRestrictions />
+      {attendingCode === 'TBD' &&
+        // Care to elaborate?
+        <RsvpAttendingDeets />
+      }
 
-      {/* Planning to bring anyone? */}
-      {/* Who? Please note their attendance must be approved! */}
-      <RsvpAdditionalGuests />
+      {attendingCode === 'YAY' &&
+        <>
+          {/* Custom welcome message */}
+          {/* Hooray! Please provide all responses to access the Guest List! */}
+          <RsvpWelcomeMessage />
 
-      {/* Do you require vehicle parking? */}
-      {/* Will you be parked overnight? */}
-      <RsvpParking />
+          {/* Any dietary restrictions? */}
+          {/* Please elaborate! */}
+          <RsvpDietRestrictions />
 
-      {/* Are you interested in signing up for any of these extra special duties? */}
-      <RsvpDuties />
+          {/* Planning to bring anyone? */}
+          {/* Who? Please note their attendance must be approved! */}
+          <RsvpAdditionalGuests />
 
-      {/* Questions/comments/concerns/compliments? */}
-      <RsvpQuestionsComments />
+          {/* Do you require vehicle parking? */}
+          {/* Will you be parked overnight? */}
+          <RsvpParking />
+
+          {/* Are you interested in signing up for any of these extra special duties? */}
+          <RsvpDuties />
+
+          {/* Questions/comments/concerns/compliments? */}
+          <RsvpQuestionsComments />
+        </>
+      }
 
     </div>
   );

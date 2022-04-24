@@ -4,7 +4,6 @@ import { FormControl, TextField } from '@mui/material';
 
 function QuestionsComments() {
   const dispatch = useDispatch();
-  const attendingCode = useSelector(store => store.rsvp.attendingCode);
   const questionsCommentsResponse = useSelector(store => store.invite.responses.questions_comments);
   
   const [questionsCommentsTemp, setQuestionsCommentsTemp] = useState('');
@@ -36,25 +35,21 @@ function QuestionsComments() {
   }, []);
 
   return (
-    <>
-      {attendingCode === 'YAY' &&
-        <FormControl>
+    <FormControl>
 
-          <h2>Questions/comments/concerns/compliments?</h2>
+      <h2>Questions/comments/concerns/compliments?</h2>
 
-          <TextField
-            className="rsvp-input"
-            id="multiline-questions-comments"
-            multiline
-            rows={4}
-            value={questionsCommentsTemp}
-            onChange={(event) => handleQuestionsCommentsChange(event.target.value)}
-          >
-          </TextField>
+      <TextField
+        className="rsvp-input"
+        id="multiline-questions-comments"
+        multiline
+        rows={4}
+        value={questionsCommentsTemp}
+        onChange={(event) => handleQuestionsCommentsChange(event.target.value)}
+      >
+      </TextField>
 
-        </FormControl>
-      }
-    </>
+    </FormControl>
   );
 }
 

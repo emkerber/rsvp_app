@@ -4,7 +4,6 @@ import { FormControl, Select, MenuItem, TextField } from '@mui/material';
 
 function RsvpDietRestrict() {
   const dispatch = useDispatch();
-  const attendingCode = useSelector(store => store.rsvp.attendingCode);
   const dietRestrictionsResponse = useSelector(store => store.invite.responses.dietary_restrictions);
 
   const [dietTemp, setDietTemp] = useState('');
@@ -60,41 +59,38 @@ function RsvpDietRestrict() {
   }, []);
 
   return (
-    <>
-      {attendingCode === 'YAY' &&
-        <FormControl>
+
+    <FormControl>
+      
+      <h2>Any dietary restrictions?</h2>
+
+      <Select
+        className="rsvp-input"
+        id="select-diet-restrictions"
+        value={dietTemp}
+        onChange={(event) => handleDietChange(event.target.value)}
+      >
+        <MenuItem value=""></MenuItem>
+        <MenuItem value="yes">Yes</MenuItem>
+        <MenuItem value="no">Negatory</MenuItem>
+      </Select>
+
+      {dietTemp === 'yes' &&
+        <>
           
-          <h2>Any dietary restrictions?</h2>
+          <h2>Please elaborate!</h2>
 
-          <Select
+          <TextField 
             className="rsvp-input"
-            id="select-diet-restrictions"
-            value={dietTemp}
-            onChange={(event) => handleDietChange(event.target.value)}
-          >
-            <MenuItem value=""></MenuItem>
-            <MenuItem value="yes">Yes</MenuItem>
-            <MenuItem value="no">Negatory</MenuItem>
-          </Select>
+            id="text-diet-deets"
+            value={dietDeetsTemp}
+            onChange={(event) => handleDietDeetsChange(event.target.value)}
+          />
 
-          {dietTemp === 'yes' &&
-            <>
-              
-              <h2>Please elaborate!</h2>
-
-              <TextField 
-                className="rsvp-input"
-                id="text-diet-deets"
-                value={dietDeetsTemp}
-                onChange={(event) => handleDietDeetsChange(event.target.value)}
-              />
-
-            </>
-          }
-
-        </FormControl>
+        </>
       }
-    </>
+
+    </FormControl>
   );
 }
 

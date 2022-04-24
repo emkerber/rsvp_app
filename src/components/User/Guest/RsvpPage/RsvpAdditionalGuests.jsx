@@ -4,7 +4,6 @@ import { FormControl, Select, MenuItem, TextField } from '@mui/material';
 
 function RsvpAdditionalGuests() {
   const dispatch = useDispatch();
-  const attendingCode = useSelector(store => store.rsvp.attendingCode);
   const additionalGuestsResponse = useSelector(store => store.invite.responses.additional_guests);
 
   const [addGuestsTemp, setAddGuestsTemp] = useState('');
@@ -64,43 +63,37 @@ function RsvpAdditionalGuests() {
   }, []);
 
   return (
-    <>
-      {attendingCode === 'YAY' &&
+    <FormControl>
+      
+      <h2>Planning to bring anyone?</h2>
+
+      <Select
+        className="rsvp-input"
+        id="select-additional-guests"
+        value={addGuestsTemp}
+        onChange={(event) => handleAddGuestsChange(event.target.value)}
+      >
+        <MenuItem value=""></MenuItem>
+        <MenuItem value="yes">Yes</MenuItem>
+        <MenuItem value="no">Negatory</MenuItem>
+      </Select>
+
+      {addGuestsTemp === 'yes' &&
         <>
-          <FormControl>
-            
-            <h2>Planning to bring anyone?</h2>
+          
+          <h2>Who? Please note their attendance must be approved!</h2>
 
-            <Select
-              className="rsvp-input"
-              id="select-additional-guests"
-              value={addGuestsTemp}
-              onChange={(event) => handleAddGuestsChange(event.target.value)}
-            >
-              <MenuItem value=""></MenuItem>
-              <MenuItem value="yes">Yes</MenuItem>
-              <MenuItem value="no">Negatory</MenuItem>
-            </Select>
-
-            {addGuestsTemp === 'yes' &&
-              <>
-                
-                <h2>Who? Please note their attendance must be approved!</h2>
-
-                <TextField 
-                  className="rsvp-input"
-                  id="text-add-guests-deets"
-                  value={addGuestsDeetsTemp}
-                  onChange={(event) => handleAddGuestsDeetsChange(event.target.value)}
-                />
-                
-              </>
-            }
-
-          </FormControl>
+          <TextField 
+            className="rsvp-input"
+            id="text-add-guests-deets"
+            value={addGuestsDeetsTemp}
+            onChange={(event) => handleAddGuestsDeetsChange(event.target.value)}
+          />
+          
         </>
       }
-    </>
+
+    </FormControl>
   );
 }
 
