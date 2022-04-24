@@ -121,6 +121,17 @@ const noDuty = (state = false, action) => {
   }
 }
 
+const questionsComments = (state = '', action) => {
+  switch (action.type) {
+    case 'SET_RSVP_QUESTIONS_COMMENTS':
+      return action.payload;
+    case 'UNSET_RSVP_QUESTIONS_COMMENTS':
+      return '';
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   attendingCode,
   attendingDeets,
@@ -132,4 +143,5 @@ export default combineReducers({
   waterDuty,
   photoDuty,
   noDuty,
+  questionsComments,
 });

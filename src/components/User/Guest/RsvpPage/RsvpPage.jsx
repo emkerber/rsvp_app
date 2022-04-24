@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import RsvpAttending from './RsvpAttending';
 import RsvpWelcomeMessage from './RsvpWelcomeMessage';
@@ -8,6 +9,7 @@ import RsvpDietRestrictions from './RsvpDietRestrictions';
 import RsvpAdditionalGuests from './RsvpAdditionalGuests';
 import RsvpParking from './RsvpParking';
 import RsvpDuties from './RsvpDuties';
+import RsvpQuestionsComments from './RsvpQuestionsComments';
 
 import './RsvpPage.css';
 
@@ -46,6 +48,9 @@ function RsvpPage() {
 
       {/* Are you interested in signing up for any of these extra special duties? */}
       <RsvpDuties />
+
+      {/* Questions/comments/concerns/compliments? */}
+      <RsvpQuestionsComments />
 
     </div>
   );
