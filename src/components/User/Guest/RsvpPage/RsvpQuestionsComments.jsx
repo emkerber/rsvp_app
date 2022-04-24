@@ -4,7 +4,7 @@ import { FormControl, TextField } from '@mui/material';
 
 function QuestionsComments() {
   const dispatch = useDispatch();
-  const questionsCommentsResponse = useSelector(store => store.invite.responses.questions_comments);
+  const questionsCommentsResponse = useSelector(store => store.guest.responses.questions_comments);
   
   const [questionsCommentsTemp, setQuestionsCommentsTemp] = useState('');
 

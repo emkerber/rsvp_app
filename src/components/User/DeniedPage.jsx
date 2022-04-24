@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 function Denied() {
-  const denialMessage = useSelector(store => store.invite.responses.denial_message);
+  const denialMessage = useSelector(store => store.pending.info.denial_message);
   
   return (
     <div className="container">

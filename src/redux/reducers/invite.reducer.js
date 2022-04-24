@@ -12,30 +12,6 @@ const inviteStatus = (state = '', action) => {
   }
 };
 
-const responses = (state = {}, action) => {
-  switch (action.type) {
-    case 'SET_RESPONSES': 
-      return action.payload;
-    case 'UNSET_RESPONSES':
-      return {};
-    default:
-      return state;
-  }
-};
-
-const allResponses = (state = false, action) => {
-  switch (action.type) {
-    case 'ALL_RESPONSES_EXIST':
-      return true;
-    case 'ALL_RESPONSES_UNSURE':
-      return false;
-    default:
-      return state;
-  }
-}
-
 export default combineReducers({
   inviteStatus,
-  responses,
-  allResponses,
 });

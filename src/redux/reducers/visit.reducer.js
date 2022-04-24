@@ -1,8 +1,9 @@
+import { combineReducers } from 'redux';
+
 // state is set to an object with properties:
 // firstName
 // lastName
-
-const nameReducer = (state = {}, action) => {
+const name = (state = {}, action) => {
   switch (action.type) {
     case 'SET_NAME':
       return action.payload;
@@ -13,4 +14,6 @@ const nameReducer = (state = {}, action) => {
   }
 };
 
-export default nameReducer;
+export default combineReducers({
+  name,
+});

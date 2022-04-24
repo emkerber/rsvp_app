@@ -17,7 +17,7 @@ function NavMenu() {
 
   const isAdmin = useSelector(store => store.user.admin);
   const inviteStatus = useSelector(store => store.invite.inviteStatus);
-  const allResponses = useSelector(store => store.invite.allResponses);
+  const allResponsesExist = useSelector(store => store.guest.allResponsesExist);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -118,7 +118,7 @@ function NavMenu() {
           </div>
         }
 
-        {allResponses &&
+        {allResponsesExist &&
           <MenuItem>
             <Link to="/guest-list" className="nav-link">Guest List</Link>
           </MenuItem>

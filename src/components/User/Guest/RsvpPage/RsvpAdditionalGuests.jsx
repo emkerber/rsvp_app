@@ -4,7 +4,7 @@ import { FormControl, Select, MenuItem, TextField } from '@mui/material';
 
 function RsvpAdditionalGuests() {
   const dispatch = useDispatch();
-  const additionalGuestsResponse = useSelector(store => store.invite.responses.additional_guests);
+  const additionalGuestsResponse = useSelector(store => store.guest.responses.additional_guests);
 
   const [addGuestsTemp, setAddGuestsTemp] = useState('');
   const [addGuestsDeetsTemp, setAddGuestsDeetsTemp] = useState('');

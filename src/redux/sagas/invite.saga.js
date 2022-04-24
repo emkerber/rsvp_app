@@ -29,7 +29,7 @@ function* checkInvite(action) {
       console.log('Guest!');
 
       // store guest's form responses in redux
-      yield put({ type: 'SET_RESPONSES', payload: responses });
+      yield put({ type: 'SET_GUEST_RESPONSES', payload: responses });
 
       // check if there are any null RSVP form responses
       // if null is found then return
@@ -51,7 +51,7 @@ function* checkInvite(action) {
     if (pendingResult.data.length > 0) {
       // then they are on the pending list
       // store person's saved info in redux
-      yield put({ type: 'SET_RESPONSES', payload: pendingResult.data[0] });
+      yield put({ type: 'SET_PENDING_INFO', payload: pendingResult.data[0] });
 
       // if the person's pending status is resolved (and they weren't previously found on the guest list)
       if (pendingResult.data[0].resolved) {

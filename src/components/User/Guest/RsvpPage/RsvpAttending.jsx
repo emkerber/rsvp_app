@@ -6,7 +6,7 @@ function RsvpAttending() {
   const dispatch = useDispatch();
 
   // the attending_code that's saved in the db
-  const attendingCodeResponse = useSelector(store => store.invite.responses.attending_code);
+  const attendingCodeResponse = useSelector(store => store.guest.responses.attending_code);
 
   const [attendingCodeTemp, setAttendingCodeTemp] = useState('');
 

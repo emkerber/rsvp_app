@@ -4,7 +4,7 @@ import { FormControl, Select, MenuItem, TextField } from '@mui/material';
 
 function RsvpDietRestrict() {
   const dispatch = useDispatch();
-  const dietRestrictionsResponse = useSelector(store => store.invite.responses.dietary_restrictions);
+  const dietRestrictionsResponse = useSelector(store => store.guest.responses.dietary_restrictions);
 
   const [dietTemp, setDietTemp] = useState('');
   const [dietDeetsTemp, setDietDeetsTemp] = useState('');

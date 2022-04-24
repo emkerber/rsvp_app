@@ -4,7 +4,7 @@ import { FormControl, Select, MenuItem } from '@mui/material';
 
 function RsvpParking() {
   const dispatch = useDispatch();
-  const parkingResponse = useSelector(store => store.invite.responses.parking);
+  const parkingResponse = useSelector(store => store.guest.responses.parking);
 
   const [parkingTemp, setParkingTemp] = useState('');
   const [overnightTemp, setOvernightTemp] = useState('');

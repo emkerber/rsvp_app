@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 function WelcomeMessage() {
-  const welcomeMessage = useSelector(store => store.invite.responses.welcome_message);
+  const welcomeMessage = useSelector(store => store.guest.responses.welcome_message);
 
   return (
     <div id="welcome-message">

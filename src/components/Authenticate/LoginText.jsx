@@ -8,7 +8,7 @@ function LoginText() {
   const [verbiageTwo, setVerbiageTwo] = useState('');
 
   const inviteStatus = useSelector((store) => store.invite.inviteStatus);
-  const firstName = useSelector((store) => store.name.firstName);
+  const firstName = useSelector((store) => store.visit.name.firstName);
 
   const checkStatus = () => {
     switch (inviteStatus) {
@@ -25,9 +25,9 @@ function LoginText() {
         setVerbiageTwo('Log in if you must.');
         break;
       case 'none':
-          setVerbiageOne('Hello again!');
-          setVerbiageTwo('');
-          break;
+        setVerbiageOne('Hello again!');
+        setVerbiageTwo('');
+        break;
       default:
         console.log('st0p try!ng 2 h@ck m3 plz');
     }

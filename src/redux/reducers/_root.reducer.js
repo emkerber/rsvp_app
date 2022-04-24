@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
-import name from './name.reducer';
-// import lists from './lists.reducer';
+import visit from './visit.reducer';
 import invite from './invite.reducer';
 import party from './party.reducer';
+import guest from './guest.reducer';
+import pending from './pending.reducer';
 import rsvp from './rsvp.reducer';
 
 // rootReducer is the primary reducer for our entire project
@@ -16,10 +17,11 @@ import rsvp from './rsvp.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  name, // user's first, last, full names that are entered on landing page
-  // lists, // array of names in guests table, array of pending folks in pending table
-  invite, // inviteStatus (string), responses (object), allResponses(boolean)
+  visit, // name: user's first, last, full names that are entered on landing page
+  invite, // inviteStatus (string)
   party, // partyId
+  guest, // responses (object), allResponsesExist (boolean)
+  pending, // info (object) holds info saved for that pending person
   rsvp, // temp responses as user fills out form
 });
 
