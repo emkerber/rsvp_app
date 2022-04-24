@@ -61,10 +61,75 @@ const parking = (state = '', action) => {
   }
 }
 
+// true if its box is checked, else false
+const setupDuty = (state = false, action) => {
+  switch (action.type) {
+    case 'SET_RSVP_SETUP_DUTY':
+      return action.payload;
+    case 'UNSET_RSVP_SETUP_DUTY':
+      return false;
+    default:
+      return state;
+  }
+}
+
+// true if its box is checked, else false
+const cleanupDuty = (state = false, action) => {
+  switch (action.type) {
+    case 'SET_RSVP_CLEANUP_DUTY':
+      return action.payload;
+    case 'UNSET_RSVP_CLEANUP_DUTY':
+      return false;
+    default:
+      return state;
+  }
+}
+
+// true if its box is checked, else false
+const waterDuty = (state = false, action) => {
+  switch (action.type) {
+    case 'SET_RSVP_HYDRATION_DUTY':
+      return action.payload;
+    case 'UNSET_RSVP_HYDRATION_DUTY':
+      return false;
+    default:
+      return state;
+  }
+}
+
+// true if its box is checked, else false
+const photoDuty = (state = false, action) => {
+  switch (action.type) {
+    case 'SET_RSVP_PHOTO_DUTY':
+      return action.payload;
+    case 'UNSET_RSVP_PHOTO_DUTY':
+      return false;
+    default:
+      return state;
+  }
+}
+
+// true if its box is checked, else false
+const noDuty = (state = false, action) => {
+  switch (action.type) {
+    case 'SET_RSVP_NO_DUTY':
+      return action.payload;
+    case 'UNSET_RSVP_NO_DUTY':
+      return false;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   attendingCode,
   attendingDeets,
   dietRestrictions,
   additionalGuests,
   parking,
+  setupDuty,
+  cleanupDuty,
+  waterDuty,
+  photoDuty,
+  noDuty,
 });

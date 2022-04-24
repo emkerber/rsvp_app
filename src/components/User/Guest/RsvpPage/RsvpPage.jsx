@@ -6,13 +6,14 @@ import RsvpAttendingDeets from './RsvpAttendingDeets';
 import RsvpDietRestrictions from './RsvpDietRestrictions';
 import RsvpAdditionalGuests from './RsvpAdditionalGuests';
 import RsvpParking from './RsvpParking';
+import RsvpDuties from './RsvpDuties';
 
 import './RsvpPage.css';
 
 function RsvpPage() {
 
   return (
-    <div className="container">
+    <div className="container" id="rsvp-container">
       
       <h1>RSVP</h1>
 
@@ -38,7 +39,10 @@ function RsvpPage() {
       {/* Do you require vehicle parking? */}
       {/* Will you be parked overnight? */}
       <RsvpParking />
-    
+
+      {/* Are you interested in signing up for any of these extra special duties? */}
+      <RsvpDuties />
+
     </div>
   );
 }
