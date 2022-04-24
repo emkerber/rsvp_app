@@ -23,7 +23,18 @@ function* checkAllResponsesExist(action) {
 function* updateGuestResponses(action) {
   try {
     const ap = action.payload;
-    console.log('ap:', ap.attendingCode);
+
+    // save rsvp form responses on submit
+    yield axios.put(`/api/guests/update-responses/${ap.attendingCode}`, ap);
+
+    // get the fresh responses
+    const newResponses = yield axios.get(`/api/guests/fetch-by-id/${ap.guestId}`);
+
+    // save the fresh responses
+    yield put({ type: 'SET_GUEST_RESPONSES', payload: newResponses });
+    
+    // recheck if all responses have been provided
+    yield put({ type: 'CHECK_ALL_RESPONSES_EXIST', payload: newResponses });
 
   } catch (error) {
     console.log('Error updating guest responses:', error);

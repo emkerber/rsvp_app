@@ -3,6 +3,8 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+
 
 // search for the name entered on the Landing Page
 // and if it's found then send back all of their responses
@@ -19,10 +21,27 @@ router.get('/search/:party/:firstName/:lastName', (req, res) => {
     .query(queryText, [rp.party, rp.firstName, rp.lastName])
     .then((result) => res.send(result.rows)) // will be one row or no rows
     .catch((err) => {
-      console.log('Failed to get guest', queryText, err);
+      console.log('Failed to get guest', err);
       res.sendStatus(500);
     });
 });
+
+
+// fetch guest's responses
+router.get('/fetch-by-id/:id', rejectUnauthenticated, (req, res) => {
+  const queryText = `
+    SELECT * FROM "guests"
+    WHERE id = $1;
+  `;
+  pool
+    .query(queryText, [req.params.id])
+    .then(result => res.send(result.rows))
+    .catch(err => {
+      console.log('Failed to get guest by id', err);
+      res.sendStatus(500);
+    });
+});
+
 
 // when a new user is on the Guest List, 
 // after they register,
@@ -42,6 +61,40 @@ router.put('/register', (req, res) => {
     .then(() => res.sendStatus(200))
     .catch((err) => {
       console.log('Error updating guests user_id', queryText, err);
+      res.sendStatus(500);
+    });
+});
+
+
+// when RSVP form is submitted and attendingResponse is YAY
+router.put('/update-responses/YAY', rejectUnauthenticated, (req, res) => {
+  const rb = req.body;
+  let queryText;
+
+  // rb.attendingCode === 'YAY' &&
+  //   queryText = `
+  //     does this work?
+  //   `;
+  
+  console.log('query text', queryText);
+});
+
+
+// when RSVP form is submitted and attendingResponse is TBD
+router.put('/update-responses/TBD', rejectUnauthenticated, (req, res) => {
+  const queryText = `
+    UPDATE guests 
+    SET attending = false, attending_code = 'TBD', attending_deets = $1
+    WHERE id = $2;
+  `;
+
+  const rb = req.body;
+
+  pool
+    .query(queryText, [rb.attendingDeets, rb.guestId])
+    .then(result => res.send(result.rows.data[0]))
+    .catch(error => {
+      console.log('Error updating responses - TBD:', error);
       res.sendStatus(500);
     });
 });
