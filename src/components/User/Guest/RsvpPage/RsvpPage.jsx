@@ -10,6 +10,7 @@ import RsvpAdditionalGuests from './RsvpAdditionalGuests';
 import RsvpParking from './RsvpParking';
 import RsvpDuties from './RsvpDuties';
 import RsvpQuestionsComments from './RsvpQuestionsComments';
+import RsvpSubmit from './RsvpSubmit';
 
 import './RsvpPage.css';
 
@@ -58,6 +59,11 @@ function RsvpPage() {
           {/* Questions/comments/concerns/compliments? */}
           <RsvpQuestionsComments />
         </>
+      }
+
+      {attendingCode === 'TBD' || attendingCode === 'YAY' &&
+        // submit button PUTs either just the attending deets or all the things
+        <RsvpSubmit />
       }
 
     </div>

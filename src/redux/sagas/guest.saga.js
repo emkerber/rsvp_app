@@ -20,8 +20,19 @@ function* checkAllResponsesExist(action) {
   }
 }
 
+function* updateGuestResponses(action) {
+  try {
+    const ap = action.payload;
+    console.log('ap:', ap.attendingCode);
+
+  } catch (error) {
+    console.log('Error updating guest responses:', error);
+  }
+}
+
 function* guestSaga() {
   yield takeLatest('CHECK_ALL_RESPONSES_EXIST', checkAllResponsesExist);
+  yield takeLatest('UPDATE_GUEST_RESPONSES', updateGuestResponses);
 }
 
 export default guestSaga;
