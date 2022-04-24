@@ -28,7 +28,7 @@ CREATE TABLE "guests" (
   "additional_guests" VARCHAR (1000),
   "parking" VARCHAR (255),
   "duties_indicated" BOOLEAN,
-  "other_notes" VARCHAR (1000),
+  "questions_comments" VARCHAR (1000),
   "welcome_message" VARCHAR (1000) 
     DEFAULT 'Hooray!!'
 );
