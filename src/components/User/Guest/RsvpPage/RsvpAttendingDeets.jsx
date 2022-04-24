@@ -4,9 +4,9 @@ import { FormControl, TextField } from '@mui/material';
 
 function RsvpAttendingDeets() {
   const dispatch = useDispatch();
-  const attendingDeetsResponse = useSelector(store => store.invite.responses.attending_deets);
+  const attendingDeetsResponse = useSelector(store => store.guest.responses.attending_deets);
 
-  const [deetsTemp, setDeetsTemp] = useState(attendingDeetsResponse);
+  const [deetsTemp, setDeetsTemp] = useState('');
 
   const handleDeetsChange = (value) => {
     setDeetsTemp(value);
@@ -27,11 +27,12 @@ function RsvpAttendingDeets() {
     }); 
   }
 
-  // if db holds default value 'NA'
-  // then render empty string
+  // if db holds a value
+  // and it's not the default value 'NA'
+  // then set state to existing value
   const prepareToRender = () => {
-    attendingDeetsResponse === 'NA' && 
-      setDeetsTemp('');
+    attendingDeetsResponse && attendingDeetsResponse !== 'NA' && 
+      setDeetsTemp(attendingDeetsResponse);
   }
 
   useEffect(() => {
