@@ -1,6 +1,17 @@
 // store values as they're entered on the rsvp form
 import { combineReducers } from 'redux';
 
+const guestId = (state = 0, action) => {
+  switch (action.type) {
+    case 'SET_RSVP_GUEST_ID':
+      return action.payload;
+    case 'UNSET_RSVP_GUEST_ID':
+      return 0;
+    default:
+      return state;
+  }
+}
+
 // YAY, TBD, NAY
 const attendingCode = (state = '', action) => {
   switch (action.type) {
@@ -133,6 +144,7 @@ const questionsComments = (state = '', action) => {
 }
 
 export default combineReducers({
+  guestId,
   attendingCode,
   attendingDeets,
   dietRestrictions,

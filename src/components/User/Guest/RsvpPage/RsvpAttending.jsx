@@ -5,6 +5,8 @@ import { FormControl, Select, MenuItem } from '@mui/material';
 function RsvpAttending() {
   const dispatch = useDispatch();
 
+  // guest's guest id
+  const guestIdResponse = useSelector(store => store.guest.responses.id);
   // the attending_code that's saved in the db
   const attendingCodeResponse = useSelector(store => store.guest.responses.attending_code);
 
@@ -34,11 +36,17 @@ function RsvpAttending() {
       });
   }
 
-  // on view load, set rsvp attendingCode reducer
+  // on view load, set rsvp guestId and attendingCode reducers
   // to values in the responses reducer
   // so PUT to server doesn't nullify values
   // when it sets all possible columns
   const setRsvpReducer = () => {
+    guestIdResponse &&
+      dispatch({
+        type: 'SET_RSVP_GUEST_ID',
+        payload: guestIdResponse
+      });
+    
     attendingCodeResponse && 
       dispatch({ 
         type: 'SET_RSVP_ATTENDING_CODE', 
