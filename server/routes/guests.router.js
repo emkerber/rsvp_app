@@ -68,23 +68,45 @@ router.put('/register', (req, res) => {
 
 // when RSVP form is submitted and attendingResponse is YAY
 router.put('/update-responses/YAY', rejectUnauthenticated, (req, res) => {
-  const rb = req.body;
-  let queryText;
+  const queryText = `
+    UPDATE "guests"
+    SET attending = true,
+      attending_code = 'YAY',
+      attending_deets = 'NA',
+      dietary_restrictions = $1,
+      additional_guests = $2,
+      parking = $3,
+      duties_indicated = $4,
+      questions_comments = $5
+    WHERE id = $6;
+  `;
 
-  // rb.attendingCode === 'YAY' &&
-  //   queryText = `
-  //     does this work?
-  //   `;
-  
-  console.log('query text', queryText);
+  let queryParams = [];
+  const rb = req.body;
+  queryParams[0] = rb.dietRestrictions;
+  queryParams[1] = rb.additionalGuests;
+  queryParams[2] = rb.parking;
+  queryParams[3] = rb.setupDuty || rb.cleanupDuty || rb.waterDuty || rb.photoDuty || rb.noDuty;
+  queryParams[4] = rb.questionsComments;
+  queryParams[5] = rb.guestId;
+
+  pool
+    .query(queryText, queryParams)
+    .then(() => res.sendStatus(200))
+    .catch(error => {
+      console.log('Error updating guest responses:', error);
+      res.sendStatus(500);
+    });
 });
 
 
 // when RSVP form is submitted and attendingResponse is TBD
 router.put('/update-responses/TBD', rejectUnauthenticated, (req, res) => {
   const queryText = `
-    UPDATE guests 
-    SET attending = false, attending_code = 'TBD', attending_deets = $1
+    UPDATE "guests" 
+    SET attending = false, 
+      attending_code = 'TBD', 
+      attending_deets = $1
     WHERE id = $2;
   `;
 
