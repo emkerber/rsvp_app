@@ -35,7 +35,7 @@ router.get('/fetch-by-id/:id', rejectUnauthenticated, (req, res) => {
   `;
   pool
     .query(queryText, [req.params.id])
-    .then(result => res.send(result.rows))
+    .then(result => res.send(result.rows[0]))
     .catch(err => {
       console.log('Failed to get guest by id', err);
       res.sendStatus(500);
@@ -114,7 +114,7 @@ router.put('/update-responses/TBD', rejectUnauthenticated, (req, res) => {
 
   pool
     .query(queryText, [rb.attendingDeets, rb.guestId])
-    .then(result => res.send(result.rows.data[0]))
+    .then(() => res.sendStatus(200))
     .catch(error => {
       console.log('Error updating responses - TBD:', error);
       res.sendStatus(500);
