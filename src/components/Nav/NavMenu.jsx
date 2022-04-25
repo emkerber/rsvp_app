@@ -109,7 +109,7 @@ function NavMenu() {
         {inviteStatus === 'guest' &&
           <div>
             <MenuItem>
-              <Link to="/rsvp" className="nav-link">My RSVP</Link>
+              <Link to="/rsvp" className="nav-link">RSVP</Link>
             </MenuItem>
 
             <MenuItem>
