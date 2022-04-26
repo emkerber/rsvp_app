@@ -13,6 +13,7 @@ const guestsRouter = require('./routes/guests.router');
 const pendingsRouter = require('./routes/pendings.router');
 const visitRouter = require('./routes/visit.router');
 const partyRouter = require('./routes/party.router');
+const dutiesRouter = require('./routes/duties.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -31,6 +32,7 @@ app.use('/api/guests', guestsRouter);
 app.use('/api/pendings', pendingsRouter);
 app.use('/api/visit', visitRouter);
 app.use('/api/party', partyRouter);
+app.use('/api/duties', dutiesRouter);
 
 // Serve static files
 app.use(express.static('build'));
