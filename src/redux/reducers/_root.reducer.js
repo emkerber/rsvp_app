@@ -7,6 +7,7 @@ import party from './party.reducer';
 import guest from './guest.reducer';
 import pending from './pending.reducer';
 import rsvp from './rsvp.reducer';
+import duties from './duties.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   guest, // responses (object), allResponsesExist (boolean)
   pending, // info (object) holds info saved for that pending person
   rsvp, // temp responses as user fills out form
+  duties, // guest's duties, all duties
 });
 
 export default rootReducer;

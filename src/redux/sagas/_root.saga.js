@@ -6,6 +6,7 @@ import inviteSaga from './invite.saga';
 import visitSaga from './visit.saga';
 import partySaga from './party.saga';
 import guestSaga from './guest.saga';
+import dutiesSaga from './duties.saga';
 
 
 // rootSaga is the primary saga.
@@ -24,5 +25,6 @@ export default function* rootSaga() {
     visitSaga(),
     partySaga(),
     guestSaga(),
+    dutiesSaga(),
   ]);
 }
