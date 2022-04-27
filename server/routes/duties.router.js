@@ -15,13 +15,18 @@ router.get('/fetch-by-id/:id', rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, [req.params.id])
     .then(result => {
-      console.log('result.rows:', result.rows[0]);
-      res.send(result.rows[0]);
+      if (result.rows.length  > 0) {
+        res.send(result.rows[0]);
+      } else {
+        res.sendStatus(204); // No Content
+      }
     })
     .catch(error => {
       console.log('Error GETting duties by id:', error);
       res.sendStatus(500);
     });
-})
+});
+
+
 
 module.exports = router;
