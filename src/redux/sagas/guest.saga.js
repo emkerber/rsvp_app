@@ -29,10 +29,16 @@ function* updateGuestResponses(action) {
 
     // get the fresh responses
     const newResponses = yield axios.get(`/api/guests/fetch-by-id/${ap.guestId}`);
-    
+
     // save the fresh responses
     yield put({ type: 'SET_GUEST_RESPONSES', payload: newResponses.data });
     
+    // if the guest has indicated their duty preferences
+    if (newResponses.data.duties_indicated) {
+      // fetch the guest's duties and save to reducer
+      put({ type: 'FETCH_GUEST_DUTIES', payload: newResponses.data.id });
+    }
+   
     // recheck if all responses have been provided
     yield put({ type: 'CHECK_ALL_RESPONSES_EXIST', payload: newResponses.data });
 
@@ -55,6 +61,7 @@ function* unsetRsvpReducers(action) {
     yield put({ type: 'UNSET_RSVP_PHOTO_DUTY' });
     yield put({ type: 'UNSET_RSVP_NO_DUTY' });
     yield put({ type: 'UNSET_RSVP_QUESTIONS_COMMENTS' });
+    yield put({ type: 'UNSET_GUEST_DUTIES' });
   } catch (error) {
     console.log('Error unsetting Rsvp reducers:', error);
   }
