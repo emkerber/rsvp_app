@@ -7,6 +7,7 @@ function RsvpSubmit() {
   const dispatch = useDispatch();
   const history = useHistory();
   const rsvp = useSelector(store => store.rsvp);
+  const dutiesPrevIndicated = useSelector(store => store.guest.responses.duties_indicated);
 
   const handleSubmitClick = () => {
     // send all rsvp responses to the guest saga
@@ -15,6 +16,20 @@ function RsvpSubmit() {
       payload: rsvp
     });
 
+    // if duties have previously been saved
+    dutiesPrevIndicated ?
+      // then update existing row
+      dispatch({
+        type: 'UPDATE_GUEST_DUTIES',
+        payload: rsvp
+      })
+    : // otherwise insert a new row
+      dispatch({
+        type: 'SAVE_GUEST_DUTIES',
+        payload: rsvp
+      });
+
+    // go back to the Deets view
     history.push('/deets');
   }
 
