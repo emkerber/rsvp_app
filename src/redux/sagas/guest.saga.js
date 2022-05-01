@@ -55,7 +55,6 @@ function* unsetRsvpReducers(action) {
     yield put({ type: 'UNSET_RSVP_PHOTO_DUTY' });
     yield put({ type: 'UNSET_RSVP_NO_DUTY' });
     yield put({ type: 'UNSET_RSVP_QUESTIONS_COMMENTS' });
-    yield put({ type: 'UNSET_GUEST_DUTIES' });
   } catch (error) {
     console.log('Error unsetting Rsvp reducers:', error);
   }
