@@ -20,7 +20,7 @@ function* saveGuestDuties(action) {
     yield axios.post('/api/duties/save', action.payload);
 
     // fetch fresh set of duties, and save to reducer
-    // yield put({ type: 'FETCH_GUEST_DUTIES' });
+    yield put({ type: 'FETCH_GUEST_DUTIES', payload: action.payload.guestId });
 
   } catch (error) {
     console.log('Saga error saving new guest duties:', error);
@@ -33,7 +33,7 @@ function* updateGuestDuties(action) {
     yield axios.put('/api/duties/update', action.payload);
 
     // fetch fresh set of duties, and save to reducer
-    // yield put({ type: 'FETCH_GUEST_DUTIES' });
+    yield put({ type: 'FETCH_GUEST_DUTIES', payload: action.payload.guestId  });
 
   } catch (error) {
     console.log('Saga error updating guest duties:', error);
