@@ -4,7 +4,8 @@ import { FormControl, FormGroup, FormControlLabel, Checkbox } from '@mui/materia
 
 function RsvpDuties() {
   const dispatch = useDispatch();
-  // const dutiesResponse = useSelector(store => store.guest.responses.duties);
+  const dutiesIndicated = useSelector(store => store.guest.responses.duties_indicated);
+  const dutiesResponses = useSelector(store => store.duties.guestDuties);
 
   const [setupChecked, setSetupChecked] = useState(false);
   const [cleanupChecked, setCleanupChecked] = useState(false);
@@ -51,6 +52,54 @@ function RsvpDuties() {
       payload: event.target.checked
     });
   }
+
+  // make sure no values are unintentionally overwritten on page submit
+  const setRsvpReducers = () => {
+    if (dutiesIndicated) {
+      
+      dispatch({
+        type: 'SET_RSVP_SETUP_DUTY',
+        payload: dutiesResponses.setup
+      });
+
+      dispatch({
+        type: 'SET_RSVP_CLEANUP_DUTY',
+        payload: dutiesResponses.cleanup
+      });
+
+      dispatch({
+        type: 'SET_RSVP_HYDRATION_DUTY',
+        payload: dutiesResponses.hydration
+      });
+
+      dispatch({
+        type: 'SET_RSVP_PHOTO_DUTY',
+        payload: dutiesResponses.photography
+      });
+
+      dispatch({
+        type: 'SET_RSVP_NO_DUTY',
+        payload: dutiesResponses.none
+      });
+
+    }
+  }
+
+  // checkboxes on DOM will reflect values stored in db
+  const prepareToRender = () => {
+    if (dutiesIndicated) {
+      setSetupChecked(dutiesResponses.setup);
+      setCleanupChecked(dutiesResponses.cleanup);
+      setHydrationChecked(dutiesResponses.hydration);
+      setPhotographerChecked(dutiesResponses.photography);
+      setNopeChecked(dutiesResponses.none);
+    }
+  }
+
+  useEffect(() => {
+    setRsvpReducers();
+    prepareToRender();
+  }, []);
 
   return (
     <FormControl>
