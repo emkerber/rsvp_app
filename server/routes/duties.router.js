@@ -6,7 +6,7 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 // fetch a guest's existing responses
-router.get('/fetch-by-id/:id', rejectUnauthenticated, (req, res) => {
+router.get('/fetch-by-id/:id', (req, res) => {
   const queryText = `
     SELECT * FROM "duties"
     WHERE guest_id = $1;
