@@ -74,7 +74,7 @@ function App() {
               {user.id ?
                 // If the user is already logged in, 
                 // redirect to the /rsvp page
-                <Redirect to="/rsvp" />
+                <Redirect to="/deets" />
                 :
                 // Otherwise, show the login/registration page
                 <AuthenticatePage />
