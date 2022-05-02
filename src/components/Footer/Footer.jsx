@@ -10,9 +10,9 @@ import './Footer.css';
 function Footer() {
   return (
     <footer>
-      <FavoriteIcon id="heart-left"/>
-      <span>The Bringol concept and this site were developed with love by Liz Kerber.</span>
-      <FavoriteIcon id="heart-right"/>
+      <FavoriteIcon id="footer-heart-left" className="heart" />
+      <span id="footer-span">The Bringol concept and this site were developed with love by Liz Kerber.</span>
+      <FavoriteIcon id="footer-heart-right" className="heart" />
     </footer>
   );
 }

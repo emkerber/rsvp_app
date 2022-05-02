@@ -2,10 +2,11 @@ import { all } from 'redux-saga/effects';
 import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
-import listsSaga from './lists.saga';
 import inviteSaga from './invite.saga';
 import visitSaga from './visit.saga';
 import partySaga from './party.saga';
+import guestSaga from './guest.saga';
+import dutiesSaga from './duties.saga';
 
 
 // rootSaga is the primary saga.
@@ -20,9 +21,10 @@ export default function* rootSaga() {
     loginSaga(), // login saga is now registered
     registrationSaga(),
     userSaga(),
-    listsSaga(),
     inviteSaga(),
     visitSaga(),
     partySaga(),
+    guestSaga(),
+    dutiesSaga(),
   ]);
 }

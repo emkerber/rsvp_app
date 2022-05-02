@@ -16,7 +16,7 @@ function* checkInvite(action) {
     };
 
     // search guest list in db
-    const guestResult = yield axios.get(`/api/guestList/${party}/${currentFirstName}/${currentLastName}`, config);
+    const guestResult = yield axios.get(`/api/guests/search/${party}/${currentFirstName}/${currentLastName}`, config);
     
     // if a row is returned
     if (guestResult.data.length > 0) {
@@ -29,29 +29,27 @@ function* checkInvite(action) {
       console.log('Guest!');
 
       // store guest's form responses in redux
-      yield put({ type: 'SET_RESPONSES', payload: responses });
+      yield put({ type: 'SET_GUEST_RESPONSES', payload: responses });
 
-      // check if there are any null RSVP form responses
-      // if null is found then return
-      for (let response in responses) {
-        if (!responses[response]) {
-          return;
-        }
-      }
+      // check if guest has provided all responses
+      // if so, ALL_RESPONSES_EXIST is set to true
+      yield put({ type: 'CHECK_ALL_RESPONSES_EXIST', payload: responses });
 
-      // if no null responses are found, ALL_RESPONSES_EXIST is true
-      yield put({ type: 'ALL_RESPONSES_EXIST' });
+      // fetch and set guest's indicated duties in redux
+      yield put({ type: 'FETCH_GUEST_DUTIES', payload: responses.id });
+
+      // nothing else in this function should run
       return;
     }
     
     // search pending list in db
-    const pendingResult = yield axios.get(`/api/pendingList/${party}/${currentFirstName}/${currentLastName}`, config);
+    const pendingResult = yield axios.get(`/api/pendings/search/${party}/${currentFirstName}/${currentLastName}`, config);
 
     // if a row is returned
     if (pendingResult.data.length > 0) {
       // then they are on the pending list
       // store person's saved info in redux
-      yield put({ type: 'SET_RESPONSES', payload: pendingResult.data[0] });
+      yield put({ type: 'SET_PENDING_INFO', payload: pendingResult.data[0] });
 
       // if the person's pending status is resolved (and they weren't previously found on the guest list)
       if (pendingResult.data[0].resolved) {

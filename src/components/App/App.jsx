@@ -20,7 +20,7 @@ import ProtectedGuestRoute from './ProtectedRoute/ProtectedGuestRoute';
 import ProtectedAdminRoute from './ProtectedRoute/ProtectedAdminRoute';
 
 import ThankYouPage from '../User/ThankYouPage';
-import RsvpPage from '../User/Guest/RsvpPage';
+import RsvpPage from '../User/Guest/RsvpPage/RsvpPage';
 import DeetsPage from '../User/Guest/DeetsPage';
 import LandingPage from '../LandingPage/LandingPage';
 import AuthenticatePage from '../Authenticate/AuthenticatePage';
@@ -74,7 +74,7 @@ function App() {
               {user.id ?
                 // If the user is already logged in, 
                 // redirect to the /rsvp page
-                <Redirect to="/rsvp" />
+                <Redirect to="/deets" />
                 :
                 // Otherwise, show the login/registration page
                 <AuthenticatePage />

@@ -7,7 +7,7 @@ function RegisterForm() {
   const [password, setPassword] = useState('');
   const errors = useSelector((store) => store.errors);
   const inviteStatus = useSelector((store) => store.invite.inviteStatus);
-  const name = useSelector((store) => store.name);
+  const name = useSelector((store) => store.visit.name);
   const party = useSelector((store) => store.party);
   const dispatch = useDispatch();
   const history = useHistory();

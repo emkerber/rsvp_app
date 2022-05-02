@@ -57,8 +57,10 @@ function* logoutUser(action) {
     // also empty the reducers I made
     yield put({ type: 'UNSET_NAME' });
     yield put({ type: 'UNSET_INVITE_STATUS' });
-    yield put({ type: 'UNSET_RESPONSES' });
+    yield put({ type: 'UNSET_GUEST_RESPONSES' });
+    yield put({ type: 'UNSET_GUEST_DUTIES' });
     yield put({ type: 'ALL_RESPONSES_UNSURE' });
+    yield put({ type: 'UNSET_RSVP_REDUCERS' });
 
   } catch (error) {
     console.log('Error with user logout:', error);
