@@ -46,6 +46,7 @@ function* unsetRsvpReducers(action) {
     yield put({ type: 'UNSET_RSVP_GUEST_ID' });
     yield put({ type: 'UNSET_RSVP_ATTENDING_CODE' });
     yield put({ type: 'UNSET_RSVP_ATTENDING_DEETS' });
+    yield put({ type: 'UNSET_RSVP_EMAIL' });
     yield put({ type: 'UNSET_RSVP_DIET_RESTRICTIONS' });
     yield put({ type: 'UNSET_RSVP_ADDITIONAL_GUESTS' });
     yield put({ type: 'UNSET_RSVP_PARKING' });

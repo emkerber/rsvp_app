@@ -34,7 +34,19 @@ const attendingDeets = (state = '', action) => {
     default:
       return state;
   }
-};
+}
+
+// input, if null then allResponsesExist is false
+const email = (state = '', action) => {
+  switch (action.type) {
+    case 'SET_RSVP_EMAIL':
+      return action.payload;
+    case 'UNSET_RSVP_EMAIL':
+      return '';
+    default:
+      return state;
+  }
+}
 
 // input, NA
 const dietRestrictions = (state = '', action) => {
@@ -132,6 +144,7 @@ const noDuty = (state = false, action) => {
   }
 }
 
+// multiline text field, if null then allResponsesExist is false
 const questionsComments = (state = '', action) => {
   switch (action.type) {
     case 'SET_RSVP_QUESTIONS_COMMENTS':
@@ -147,6 +160,7 @@ export default combineReducers({
   guestId,
   attendingCode,
   attendingDeets,
+  email,
   dietRestrictions,
   additionalGuests,
   parking,

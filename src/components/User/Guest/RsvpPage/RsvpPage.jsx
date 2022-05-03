@@ -5,6 +5,7 @@ import RsvpAttending from './RsvpAttending';
 import RsvpWelcomeMessage from './RsvpWelcomeMessage';
 import RsvpAttendingDeets from './RsvpAttendingDeets';
 import RsvpBummerMessage from './RsvpBummerMessage';
+import RsvpEmail from './RsvpEmail';
 import RsvpDietRestrictions from './RsvpDietRestrictions';
 import RsvpAdditionalGuests from './RsvpAdditionalGuests';
 import RsvpParking from './RsvpParking';
@@ -45,6 +46,9 @@ function RsvpPage() {
           {/* Custom welcome message */}
           {/* Hooray! Please provide all responses to access the Guest List! */}
           <RsvpWelcomeMessage />
+
+          {/* Please enter your email to receive party updates! */}
+          <RsvpEmail />
 
           {/* Any dietary restrictions? */}
           {/* Please elaborate! */}
