@@ -2,6 +2,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 // worker Saga: will be fired on "REGISTER" actions
+// action.payload is  username, password, inviteStatus, {name}, party
 function* registerUser(action) {
   
   try {
@@ -29,12 +30,14 @@ function* registerUser(action) {
         // then when they register, update pending person's user id
         // where name and party id match
         yield axios.put('/api/pendings/register', {...action.payload, id});
+        yield put({ type: 'FETCH_PENDING_INFO', payload: id });
         break;
 
       // if user is neither on the guest list nor pending list
       case 'none':
         // then save their name and party_id and user_id to the pending list
         yield axios.post('/api/pendings/new', {...action.payload, id});
+        yield put({ type: 'FETCH_PENDING_INFO', payload: id });
         break;
     }
 

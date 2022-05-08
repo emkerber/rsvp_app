@@ -77,8 +77,9 @@ router.put('/update-responses/YAY', rejectUnauthenticated, (req, res) => {
       additional_guests = $2,
       parking = $3,
       duties_indicated = $4,
-      questions_comments = $5
-    WHERE id = $6;
+      questions_comments = $5,
+      email = $6
+    WHERE id = $7;
   `;
 
   let queryParams = [];
@@ -88,7 +89,8 @@ router.put('/update-responses/YAY', rejectUnauthenticated, (req, res) => {
   queryParams[2] = rb.parking;
   queryParams[3] = rb.setupDuty || rb.cleanupDuty || rb.waterDuty || rb.photoDuty || rb.noDuty;
   queryParams[4] = rb.questionsComments;
-  queryParams[5] = rb.guestId;
+  queryParams[5] = rb.email;
+  queryParams[6] = rb.guestId;
 
   pool
     .query(queryText, queryParams)

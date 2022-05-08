@@ -4,6 +4,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+
 // search for the name entered on the Landing Page
 // and if it's found then send back all of their responses
 router.get('/search/:party/:firstName/:lastName', (req, res) => {
@@ -24,6 +25,23 @@ router.get('/search/:party/:firstName/:lastName', (req, res) => {
     });
 });
 
+
+router.get('/fetch-by-user-id/:id', (req, res) => {
+  const queryText = `
+    SELECT * FROM "pendings"
+    WHERE user_id = $1;
+  `;
+
+  pool
+    .query(queryText, [req.params.id])
+    .then(result => res.send(result.rows[0]))
+    .catch(error => {
+      console.log('Error fetching pending info by user id:', error);
+      res.sendStatus(500);
+    });
+});
+
+
 // // might use for Admin?
 // router.get('/all', (req, res) => {
 //   const queryText = `SELECT * FROM "pendings"`;
@@ -35,6 +53,7 @@ router.get('/search/:party/:firstName/:lastName', (req, res) => {
 //       res.sendStatus(500);
 //     });
 // });
+
 
 // when inviteStatus is nope
 // and nope user is registering
@@ -58,6 +77,7 @@ router.put('/register', (req, res) => {
     });
 });
 
+
 // when inviteStatus is none
 // create a new entry in the pendings table
 // while saving the user_id that was generated
@@ -77,5 +97,22 @@ router.post('/new', (req, res) => {
       res.sendStatus(500);
     });
 });
+
+
+// save email of user who's pending or none
+router.put('/email', (req, res) => {
+  const queryText = `
+    UPDATE "pendings" SET email = $1 WHERE id = $2;
+  `;
+
+  pool
+    .query(queryText, [req.body.email, req.body.idInfo])
+    .then(() => res.sendStatus(200))
+    .catch((err) => {
+      console.log('Error updating pendings email:', err);
+      res.sendStatus(500);
+    });
+});
+
 
 module.exports = router;
