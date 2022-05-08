@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormControl, TextField, Button } from '@mui/material';
 
@@ -20,36 +20,31 @@ function PendingEmail() {
 
     // TODO notify user of success
   }
-
-  const prepareToRender = () => {
-    emailInfo &&
-      setEmail(emailInfo);
-  }
-
-  useEffect(() => {
-    prepareToRender();
-  }, []);
   
   return (
+    <>
+      {/* don't show if user's email is already saved */}
+      {!emailInfo &&
+        <FormControl>
+
+          <h2>Please enter your email to receive updates.</h2>
     
-    <FormControl>
-
-      <h2>Please enter your email to receive updates.</h2>
-
-      <TextField 
-        className="input"
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-      />
-
-      <Button 
-        variant="contained"
-        onClick={handleSubmitClick}
-      >
-        Submit  
-      </Button>
-
-    </FormControl>
+          <TextField 
+            className="input"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+    
+          <Button 
+            variant="contained"
+            onClick={handleSubmitClick}
+          >
+            Submit  
+          </Button>
+    
+        </FormControl>
+      }
+    </>
   );
 }
 
