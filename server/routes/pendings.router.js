@@ -99,4 +99,20 @@ router.post('/new', (req, res) => {
 });
 
 
+// save email of user who's pending or none
+router.put('/email', (req, res) => {
+  const queryText = `
+    UPDATE "pendings" SET email = $1 WHERE id = $2;
+  `;
+
+  pool
+    .query(queryText, [req.body.email, req.body.idInfo])
+    .then(() => res.sendStatus(200))
+    .catch((err) => {
+      console.log('Error updating pendings email:', err);
+      res.sendStatus(500);
+    });
+});
+
+
 module.exports = router;
