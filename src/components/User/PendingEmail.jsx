@@ -18,7 +18,10 @@ function PendingEmail() {
       payload: {idInfo, email, userId}
     });
 
-    // TODO notify user of success
+    // show snackbar to notify user of success
+    dispatch({
+      type: 'PENDING_EMAIL_SAVED'
+    });
   }
   
   return (

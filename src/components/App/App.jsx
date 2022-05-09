@@ -14,6 +14,7 @@ import { Paper } from '@mui/material';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
+import Snackbars from '../Snackbars/Snackbars';
 
 import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
 import ProtectedGuestRoute from './ProtectedRoute/ProtectedGuestRoute';
@@ -170,6 +171,7 @@ function App() {
 
           </Switch>
         </Paper>
+        <Snackbars />
         <Footer />
       </div>
     </Router>
