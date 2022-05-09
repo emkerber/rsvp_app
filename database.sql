@@ -1,3 +1,5 @@
+-- database name is rsvp_app
+
 CREATE TABLE "users" (
   "id" SERIAL PRIMARY KEY,
   "username" VARCHAR (255) UNIQUE NOT NULL,
@@ -9,9 +11,12 @@ CREATE TABLE "users" (
 CREATE TABLE "parties" (
   "id" SERIAL PRIMARY KEY,
   "title" VARCHAR (250),
-  "theme" VARCHAR (250),
   "date" DATE,
-  "location" VARCHAR (250)
+  "time" VARCHAR (250),
+  "location" VARCHAR (250),
+  "parking_info" VARCHAR (1000),
+  "description" VARCHAR (2000),
+  "description_two" VARCHAR (2000)
 );
 
 CREATE TABLE "guests" (
@@ -63,8 +68,10 @@ CREATE TABLE "visits" (
 );
 
 -- test data:
-INSERT INTO "parties" (title, theme, date, location) 
-  VALUES ('Bringol', 'my birthday', '12-17-2022', 'Edina, MN');
+INSERT INTO "parties" (title, date, time, location, parking_info, description, description_two) 
+  VALUES ('Bringol', '12-17-2022', '7:00 pm', 'Edina, MN', 'Spaces are very limited! Please try to carpool or Lyft.',
+  'The Bringol is back! Get ready to party like it''s 2019.',
+  'Bring a can-do attitude. Hamm''s and seltzers provided. Catering by Elizabeth Aadland.');
 
 INSERT INTO "guests" (party_id, first_name, last_name) 
   VALUES (1, 'Liz', 'Kerber'), (1, 'Elizabeth', 'Aadland'), (1, 'Kendall', 'Shayler');
