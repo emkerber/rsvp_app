@@ -22,17 +22,7 @@ const rsvpSaved = (state = false, action) => {
   }
 }
 
-const guestListUnlocked = (state = false, action) => {
-  switch (action.type) {
-    case 'GUEST_LIST_UNLOCKED':
-      return action.payload;
-    default:
-      return state;
-  }
-}
-
 export default combineReducers({
   pendingEmailSaved,
   rsvpSaved,
-  guestListUnlocked,
 });
