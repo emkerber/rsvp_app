@@ -29,6 +29,11 @@ function RsvpSubmit() {
         payload: rsvp
       });
 
+    // show snackbar to notify user of success
+    dispatch({
+      type: 'RSVP_SAVED'
+    });
+
     // go back to the Deets view
     history.push('/deets');
   }

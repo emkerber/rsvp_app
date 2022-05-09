@@ -14,7 +14,9 @@ const pendingEmailSaved = (state = false, action) => {
 const rsvpSaved = (state = false, action) => {
   switch (action.type) {
     case 'RSVP_SAVED':
-      return action.payload;
+      return true;
+    case 'RSVP_SAVED_CLOSE':
+      return false;
     default:
       return state;
   }

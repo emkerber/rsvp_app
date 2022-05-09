@@ -5,9 +5,11 @@ import { Snackbar } from '@mui/material';
 function Snackbars() {
   const dispatch = useDispatch();
   const pendingEmailSaved = useSelector(store => store.snackbar.pendingEmailSaved);
+  const rsvpSaved = useSelector(store => store.snackbar.rsvpSaved);
   
   return (
     <>
+      
       {pendingEmailSaved &&
         <Snackbar 
           open={pendingEmailSaved}
@@ -17,6 +19,15 @@ function Snackbars() {
         />
       }
     
+      {rsvpSaved &&
+        <Snackbar 
+          open={rsvpSaved}
+          autoHideDuration={5000}
+          onClose={() => dispatch({ type: 'RSVP_SAVED_CLOSE' })}
+          message="Your responses are saved!"
+        />
+      }
+
     </>
   );
 }
