@@ -9,7 +9,8 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
   const queryText = `
-    SELECT * FROM "parties"
+    SELECT *, TO_CHAR("date", 'Month dd, yyyy') AS "pretty_date"
+    FROM "parties"
     ORDER BY id DESC
     LIMIT 1;
   `;
