@@ -16,7 +16,7 @@ function* fetchGuestResponses(action) {
   }
 }
 
-// called when all responses exist
+// called on Deets component load if all responses exist
 function* fetchGuestsList() {
   try {
     const list = yield axios.get('/api/guests/guests-list');
@@ -40,9 +40,6 @@ function* checkAllResponsesExist(action) {
 
     // if no null responses are found, ALL_RESPONSES_EXIST is true
     yield put({ type: 'ALL_RESPONSES_EXIST' });
-    
-    // fetch the guests list
-    yield put({ type: 'FETCH_GUESTS_LIST' });
 
   } catch (error) {
     console.log('Error checking if all responses exist:', error);

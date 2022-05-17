@@ -1,8 +1,15 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 function DeetsPage() {
+  const dispatch = useDispatch();
+  
   const party = useSelector(store => store.party);
+  const allResponses = useSelector(store => store.guest.allResponsesExist);
+
+  useEffect(() => {
+    allResponses && dispatch({ type: 'FETCH_GUESTS_LIST' });
+  }, []);
 
   return (
     <div className="container deets-container">
@@ -18,7 +25,7 @@ function DeetsPage() {
       <p>{party.description_two}</p>
 
       <p>{party.parking_info}</p>
-      
+
     </div>
   );
 }
