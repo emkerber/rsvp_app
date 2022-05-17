@@ -8,7 +8,12 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  const queryText = `SELECT MAX(id) AS id FROM "parties";`;
+  const queryText = `
+    SELECT * FROM "parties"
+    ORDER BY id DESC
+    LIMIT 1;
+  `;
+
   pool
     .query(queryText, [])
     .then((result) => res.send(result.rows[0]))

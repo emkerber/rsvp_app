@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   visit, // name: user's first, last, full names that are entered on landing page
   invite, // inviteStatus (string)
-  party, // partyId
+  party, // all info for a party
   guest, // responses (object), allResponsesExist (boolean)
   pending, // info (object) holds info saved for that pending person
   rsvp, // temp responses as user fills out form
