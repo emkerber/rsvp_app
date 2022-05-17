@@ -61,6 +61,7 @@ function* logoutUser(action) {
     yield put({ type: 'UNSET_GUEST_DUTIES' });
     yield put({ type: 'ALL_RESPONSES_UNSURE' });
     yield put({ type: 'UNSET_RSVP_REDUCERS' });
+    yield put({ type: 'UNSET_GUESTS_LIST' });
 
   } catch (error) {
     console.log('Error with user logout:', error);

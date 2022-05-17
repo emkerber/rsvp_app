@@ -10,7 +10,7 @@ function LandingPage() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const party = useSelector(store => store.party);
+  const party = useSelector(store => store.party.id);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');

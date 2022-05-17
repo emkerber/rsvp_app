@@ -9,11 +9,11 @@ function* fetchParty() {
       withCredentials: true,
     };
 
-    // get the ID of the current party from the database
+    // get the info for the current (newest) party from the database
     const response = yield axios.get('/api/party', config); // TODO backend route
 
-    // set current party id to party in the redux store
-    yield put({ type: 'SET_PARTY', payload: response.data.id });
+    // set party object in the redux store
+    yield put({ type: 'SET_PARTY', payload: response.data });
 
   } catch (error) {
     console.log('Error GETting party:', error);

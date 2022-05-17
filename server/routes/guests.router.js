@@ -43,6 +43,26 @@ router.get('/fetch-by-id/:id', rejectUnauthenticated, (req, res) => {
 });
 
 
+// GET list of guests who are attending (first name and last initial)
+// visible by signed-in guests who have provided all responses
+router.get('/guests-list', rejectUnauthenticated, (req, res) => {
+  const queryText = `
+    SELECT CONCAT(first_name, ' ', SUBSTRING(last_name, 1, 1), '.') AS guest
+    FROM "guests"
+    WHERE attending
+    ORDER BY first_name;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then((result) => res.send(result.rows))
+    .catch((err) => {
+      console.log('Failed to get guests list', err);
+      res.sendStatus(500);
+    });
+});
+
+
 // when a new user is on the Guest List, 
 // after they register,
 // update guests table with their user_id
@@ -123,18 +143,5 @@ router.put('/update-responses/TBD', rejectUnauthenticated, (req, res) => {
     });
 });
 
-// // GET the whole guest list
-// // will likely use for signed-in guests who have provided all responses
-// // and also Admin
-// router.get('/all', (req, res) => {
-//   const queryText = `SELECT * FROM "guests"`;
-//   pool
-//     .query(queryText, [])
-//     .then((result) => res.send(result.rows))
-//     .catch((err) => {
-//       console.log('Failed to get guest list', err);
-//       res.sendStatus(500);
-//     });
-// });
 
 module.exports = router;

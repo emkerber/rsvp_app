@@ -1,10 +1,10 @@
-// party is only the party id
-const party = (state = 0, action) => {
+// all the deets for the most recently-saved party
+const party = (state = {}, action) => {
   switch (action.type) {
     case 'SET_PARTY':
       return action.payload;
     case 'UNSET_PARTY':
-      return 0;
+      return {};
     default:
       return state;
   }
