@@ -6,16 +6,17 @@ import NavMenu from './NavMenu.jsx';
 import './Nav.css';
 
 function Nav() {
-  const user_id = useSelector((store) => store.user.id);
+  const partyTitle = useSelector(store => store.party.title);
+  const userId = useSelector(store => store.user.id);
 
   return (
     <div className="nav">
       
       {/* super cool neon sign-effect logo */}
-      <h2 className="nav-title">BRINGOL</h2>
+      <h2 className="nav-title">{partyTitle}</h2>
       
       {/* If a user is logged in, show the nav menu */}
-      {user_id && <NavMenu />}
+      {userId && <NavMenu />}
 
     </div>
   );

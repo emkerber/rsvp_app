@@ -69,7 +69,7 @@ CREATE TABLE "visits" (
 
 -- test data:
 INSERT INTO "parties" (title, date, time, location, parking_info, description, description_two) 
-  VALUES ('Bringol', '12-17-2022', '7:00 pm', 'Edina, MN', 'Spaces are very limited! Please try to carpool or Lyft.',
+  VALUES ('BRINGOL', '12-17-2022', '7:00 pm', 'Edina, MN', 'Spaces are very limited! Please try to carpool or Lyft.',
   'The Bringol is back! Get ready to party like it''s 2019.',
   'Bring a can-do attitude. Hamm''s and seltzers provided. Catering by Elizabeth Aadland.');
 
