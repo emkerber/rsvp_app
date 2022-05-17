@@ -49,7 +49,8 @@ router.get('/guests-list', rejectUnauthenticated, (req, res) => {
   const queryText = `
     SELECT CONCAT(first_name, ' ', SUBSTRING(last_name, 1, 1), '.') AS guest
     FROM "guests"
-    WHERE attending;
+    WHERE attending
+    ORDER BY first_name;
   `;
 
   pool
