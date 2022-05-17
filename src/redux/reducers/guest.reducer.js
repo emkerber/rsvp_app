@@ -22,7 +22,19 @@ const allResponsesExist = (state = false, action) => {
   }
 }
 
+const guestsList = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_GUESTS_LIST':
+      return action.payload;
+    case 'UNSET_GUESTS_LIST':
+      return [];
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   responses,
   allResponsesExist,
+  guestsList,
 });

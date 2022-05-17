@@ -16,6 +16,18 @@ function* fetchGuestResponses(action) {
   }
 }
 
+// called when all responses exist
+function* fetchGuestsList() {
+  try {
+    const list = yield axios.get('/api/guests/guests-list');
+
+    yield put({ type: 'SET_GUESTS_LIST', payload: list.data });
+
+  } catch (error) {
+    console.log('Error fetching guests list:', error);
+  }
+}
+
 function* checkAllResponsesExist(action) {
   try {
     // check if there are any null RSVP form responses
@@ -28,7 +40,9 @@ function* checkAllResponsesExist(action) {
 
     // if no null responses are found, ALL_RESPONSES_EXIST is true
     yield put({ type: 'ALL_RESPONSES_EXIST' });
-    return;
+    
+    // fetch the guests list
+    yield put({ type: 'FETCH_GUESTS_LIST' });
 
   } catch (error) {
     console.log('Error checking if all responses exist:', error);
@@ -73,6 +87,7 @@ function* unsetRsvpReducers(action) {
 
 function* guestSaga() {
   yield takeLatest('FETCH_GUEST_RESPONSES', fetchGuestResponses);
+  yield takeLatest('FETCH_GUESTS_LIST', fetchGuestsList);
   yield takeLatest('CHECK_ALL_RESPONSES_EXIST', checkAllResponsesExist);
   yield takeLatest('UPDATE_GUEST_RESPONSES', updateGuestResponses);
   yield takeLatest('UNSET_RSVP_REDUCERS', unsetRsvpReducers);
