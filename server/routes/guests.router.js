@@ -3,7 +3,7 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+const { rejectUnauthenticated, rejectNonAdmin } = require('../modules/authentication-middleware');
 
 
 // search for the name entered on the Landing Page
@@ -139,6 +139,28 @@ router.put('/update-responses/TBD', rejectUnauthenticated, (req, res) => {
     .then(() => res.sendStatus(200))
     .catch(error => {
       console.log('Error updating responses - TBD:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - FOR ADMIN - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - -
+
+// fetch guests who are attending
+router.get('/admin/attending', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT * FROM "guests"
+    WHERE attending
+    ORDER BY first_name;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then(result => res.send(result.rows))
+    .catch(error => {
+      console.log('Error getting list of attending:', error);
       res.sendStatus(500);
     });
 });

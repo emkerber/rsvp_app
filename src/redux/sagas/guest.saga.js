@@ -1,6 +1,10 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+// - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - FOR GUESTS  - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - -
+
 // get all responses for a single guest
 // payload is guests.id
 function* fetchGuestResponses(action) {
@@ -62,6 +66,7 @@ function* updateGuestResponses(action) {
   }
 }
 
+// executes on logout
 function* unsetRsvpReducers(action) {
   try {
     yield put({ type: 'UNSET_RSVP_GUEST_ID' });
@@ -82,12 +87,41 @@ function* unsetRsvpReducers(action) {
   }
 }
 
+// - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - FOR ADMIN - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - -
+
+// get all of the lists - attending, maybe, not, no response
+function* fetchAdminData() {
+  try {
+    yield put({ type: 'FETCH_ATTENDING_LIST' });
+  } catch (error) {
+    console.log('Error fetching admin data:', error);
+  }
+}
+
+// get all guests who are attending
+function* fetchAttendingList() {
+  try {
+    const attendingList = yield axios.get('/api/guests/admin/attending');
+    console.log('attending list .data is:', attendingList.data);
+    yield put({ type: 'SET_ATTENDING_LIST', payload: attendingList.data });
+
+  } catch (error) {
+    console.log('Error fetching attending list:', error);
+  }
+}
+
 function* guestSaga() {
+  // guests:
   yield takeLatest('FETCH_GUEST_RESPONSES', fetchGuestResponses);
   yield takeLatest('FETCH_GUESTS_LIST', fetchGuestsList);
   yield takeLatest('CHECK_ALL_RESPONSES_EXIST', checkAllResponsesExist);
   yield takeLatest('UPDATE_GUEST_RESPONSES', updateGuestResponses);
   yield takeLatest('UNSET_RSVP_REDUCERS', unsetRsvpReducers);
+  // admin:
+  yield takeLatest('FETCH_ADMIN_DATA', fetchAdminData);
+  yield takeLatest('FETCH_ATTENDING_LIST', fetchAttendingList);
 }
 
 export default guestSaga;
