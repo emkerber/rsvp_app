@@ -8,6 +8,17 @@ const rejectUnauthenticated = (req, res, next) => {
     // failure best handled on the server. do redirect here.
     res.sendStatus(403);
   }
-};
+}
 
-module.exports = { rejectUnauthenticated };
+const rejectNonAdmin = (req, res, next) => {
+  // check if logged in user is an admin
+  if (req.user.admin) {
+    // okay to do the next thing!
+    next();
+  } else {
+    // nope, blocked
+    res.sendStatus(403);
+  }
+}
+
+module.exports = { rejectUnauthenticated, rejectNonAdmin };
