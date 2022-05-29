@@ -184,6 +184,7 @@ router.get('/admin/maybe', rejectNonAdmin, (req, res) => {
 });
 
 
+// fetch guests who have indicated they will not attend
 router.get('/admin/not-attending', rejectNonAdmin, (req, res) => {
   const queryText = `
     SELECT * FROM "guests"
@@ -196,6 +197,24 @@ router.get('/admin/not-attending', rejectNonAdmin, (req, res) => {
     .then(result => res.send(result.rows))
     .catch(error => {
       console.log('Error getting list of those not attending:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// fetch guests who have not yet RSVPd
+router.get('/admin/no-response', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT * FROM "guests"
+    WHERE attending_code IS NULL
+    ORDER BY first_name;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then(result => res.send(result.rows))
+    .catch(error => {
+      console.log('Error getting guests who have not responded:', error);
       res.sendStatus(500);
     });
 });

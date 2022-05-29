@@ -96,7 +96,8 @@ function* fetchAdminData() {
   try {
     yield put({ type: 'FETCH_ATTENDING_LIST' });
     yield put({ type: 'FETCH_MAYBE_LIST' });
-    yield put({ type: 'FETCH_NOT_ATTENDING_LIST' });  
+    yield put({ type: 'FETCH_NOT_ATTENDING_LIST' });
+    yield put({ type: 'FETCH_NO_RESPONSE_LIST' });
   } catch (error) {
     console.log('Error fetching admin data:', error);
   }
@@ -114,6 +115,7 @@ function* fetchAttendingList() {
   }
 }
 
+// get all guests who might attend
 function* fetchMaybeList() {
   try {
     const maybeList = yield axios.get('/api/guests/admin/maybe');
@@ -125,6 +127,7 @@ function* fetchMaybeList() {
   }
 }
 
+// get all guests who will not attend
 function* fetchNotAttendingList() {
   try {
     const notAttendingList = yield axios.get('/api/guests/admin/not-attending');
@@ -133,6 +136,18 @@ function* fetchNotAttendingList() {
 
   } catch (error) {
     console.log('Error fetching not attending list:', error);
+  }
+}
+
+// get all guests who have not responded
+function* fetchNoResponseList() {
+  try {
+    const noResponseList = yield axios.get('/api/guests/admin/no-response');
+
+    yield put({ type: 'SET_NO_RESPONSE_LIST', payload: noResponseList.data });
+
+  } catch (error) {
+    console.log('Error fetching guests who have not responded:', error);
   }
 }
 
@@ -148,6 +163,7 @@ function* guestSaga() {
   yield takeLatest('FETCH_ATTENDING_LIST', fetchAttendingList);
   yield takeLatest('FETCH_MAYBE_LIST', fetchMaybeList);
   yield takeLatest('FETCH_NOT_ATTENDING_LIST', fetchNotAttendingList);
+  yield takeLatest('FETCH_NO_RESPONSE_LIST', fetchNoResponseList);
 }
 
 export default guestSaga;
