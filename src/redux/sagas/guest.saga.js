@@ -96,6 +96,7 @@ function* fetchAdminData() {
   try {
     yield put({ type: 'FETCH_ATTENDING_LIST' });
     yield put({ type: 'FETCH_MAYBE_LIST' });
+    yield put({ type: 'FETCH_NOT_ATTENDING_LIST' });  
   } catch (error) {
     console.log('Error fetching admin data:', error);
   }
@@ -118,9 +119,20 @@ function* fetchMaybeList() {
     const maybeList = yield axios.get('/api/guests/admin/maybe');
 
     yield put({ type: 'SET_MAYBE_LIST', payload: maybeList.data });
-    
+
   } catch (error) {
     console.log('Error fetching maybe list:', error);
+  }
+}
+
+function* fetchNotAttendingList() {
+  try {
+    const notAttendingList = yield axios.get('/api/guests/admin/not-attending');
+
+    yield put({ type: 'SET_NOT_ATTENDING_LIST', payload: notAttendingList.data });
+
+  } catch (error) {
+    console.log('Error fetching not attending list:', error);
   }
 }
 
@@ -135,6 +147,7 @@ function* guestSaga() {
   yield takeLatest('FETCH_ADMIN_DATA', fetchAdminData);
   yield takeLatest('FETCH_ATTENDING_LIST', fetchAttendingList);
   yield takeLatest('FETCH_MAYBE_LIST', fetchMaybeList);
+  yield takeLatest('FETCH_NOT_ATTENDING_LIST', fetchNotAttendingList);
 }
 
 export default guestSaga;
