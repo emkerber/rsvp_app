@@ -165,5 +165,22 @@ router.get('/admin/attending', rejectNonAdmin, (req, res) => {
     });
 });
 
+// fetch guests who indicated they are maybe attending
+router.get('/admin/maybe', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT * FROM "guests"
+    WHERE attending_code = 'TBD'
+    ORDER BY first_name;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then(result => res.send(result.rows))
+    .catch(error => {
+      console.log('Error getting list of maybes:', error);
+      res.sendStatus(500);
+    });
+});
+
 
 module.exports = router;

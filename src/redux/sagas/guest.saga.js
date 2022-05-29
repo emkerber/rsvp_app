@@ -95,6 +95,7 @@ function* unsetRsvpReducers(action) {
 function* fetchAdminData() {
   try {
     yield put({ type: 'FETCH_ATTENDING_LIST' });
+    yield put({ type: 'FETCH_MAYBE_LIST' });
   } catch (error) {
     console.log('Error fetching admin data:', error);
   }
@@ -104,11 +105,22 @@ function* fetchAdminData() {
 function* fetchAttendingList() {
   try {
     const attendingList = yield axios.get('/api/guests/admin/attending');
-    console.log('attending list .data is:', attendingList.data);
+
     yield put({ type: 'SET_ATTENDING_LIST', payload: attendingList.data });
 
   } catch (error) {
     console.log('Error fetching attending list:', error);
+  }
+}
+
+function* fetchMaybeList() {
+  try {
+    const maybeList = yield axios.get('/api/guests/admin/maybe');
+
+    yield put({ type: 'SET_MAYBE_LIST', payload: maybeList.data });
+    
+  } catch (error) {
+    console.log('Error fetching maybe list:', error);
   }
 }
 
@@ -122,6 +134,7 @@ function* guestSaga() {
   // admin:
   yield takeLatest('FETCH_ADMIN_DATA', fetchAdminData);
   yield takeLatest('FETCH_ATTENDING_LIST', fetchAttendingList);
+  yield takeLatest('FETCH_MAYBE_LIST', fetchMaybeList);
 }
 
 export default guestSaga;
