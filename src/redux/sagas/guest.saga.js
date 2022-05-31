@@ -92,6 +92,7 @@ function* unsetRsvpReducers(action) {
 // - - - - - - - - - - - - - - - - - - - - - -
 
 // get all of the lists - attending, maybe, not, no response
+// called on login after user is set, if they are an admin user
 function* fetchAdminData() {
   try {
     yield put({ type: 'FETCH_ATTENDING_LIST' });
@@ -151,6 +152,19 @@ function* fetchNoResponseList() {
   }
 }
 
+// clear the admin data reducers
+// called on logout
+function* unsetAdminData() {
+  try {
+    yield put({ type: 'UNSET_ATTENDING_LIST' });
+    yield put({ type: 'UNSET_MAYBE_LIST' });
+    yield put({ type: 'UNSET_NOT_ATTENDING_LIST' });
+    yield put({ type: 'UNSET_NO_RESPONSE_LIST' });
+  } catch (error) {
+    console.log('Error unsetting admin data:', error);
+  }
+}
+
 function* guestSaga() {
   // guests:
   yield takeLatest('FETCH_GUEST_RESPONSES', fetchGuestResponses);
@@ -164,6 +178,7 @@ function* guestSaga() {
   yield takeLatest('FETCH_MAYBE_LIST', fetchMaybeList);
   yield takeLatest('FETCH_NOT_ATTENDING_LIST', fetchNotAttendingList);
   yield takeLatest('FETCH_NO_RESPONSE_LIST', fetchNoResponseList);
+  yield takeLatest('UNSET_ADMIN_DATA', unsetAdminData);
 }
 
 export default guestSaga;
