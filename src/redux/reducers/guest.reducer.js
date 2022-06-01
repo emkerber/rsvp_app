@@ -85,6 +85,17 @@ const noResponseList = (state = [], action) => {
   }
 }
 
+const guestDetails = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_GUEST_DETAILS':
+      return action.payload;
+    case 'UNSET_GUEST_DETAILS':
+      return {};
+    default:
+      return state;
+  }
+}
+
 
 export default combineReducers({
   // guests:
@@ -96,4 +107,5 @@ export default combineReducers({
   maybeList,
   notAttendingList,
   noResponseList,
+  guestDetails,
 });

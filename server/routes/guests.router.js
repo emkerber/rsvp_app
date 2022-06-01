@@ -219,5 +219,21 @@ router.get('/admin/no-response', rejectNonAdmin, (req, res) => {
     });
 });
 
+// fetch details for a guest
+router.get('/admin/details/:id', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT * FROM "guests"
+    WHERE id = $1;
+  `;
+
+  pool
+    .query(queryText, [req.params.id])
+    .then(result => res.send(result.rows[0]))
+    .catch(error => {
+      console.log('Error fetching details for a guest:', error);
+      res.sendStatus(500);
+    });
+});
+
 
 module.exports = router;

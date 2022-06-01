@@ -152,6 +152,17 @@ function* fetchNoResponseList() {
   }
 }
 
+function* fetchGuestDetails(action) {
+  try {
+    const details = yield axios.get(`/api/guests/admin/details/${action.payload}`);
+
+    yield put({ type: 'SET_GUEST_DETAILS', payload: details.data });
+
+  } catch (error) {
+    console.log('Error fetching guest details:', error);
+  }
+}
+
 // clear the admin data reducers
 // called on logout
 function* unsetAdminData() {
@@ -160,6 +171,7 @@ function* unsetAdminData() {
     yield put({ type: 'UNSET_MAYBE_LIST' });
     yield put({ type: 'UNSET_NOT_ATTENDING_LIST' });
     yield put({ type: 'UNSET_NO_RESPONSE_LIST' });
+    yield put({ type: 'UNSET_GUEST_DETAILS' });
   } catch (error) {
     console.log('Error unsetting admin data:', error);
   }
@@ -178,6 +190,7 @@ function* guestSaga() {
   yield takeLatest('FETCH_MAYBE_LIST', fetchMaybeList);
   yield takeLatest('FETCH_NOT_ATTENDING_LIST', fetchNotAttendingList);
   yield takeLatest('FETCH_NO_RESPONSE_LIST', fetchNoResponseList);
+  yield takeLatest('FETCH_GUEST_DETAILS', fetchGuestDetails);
   yield takeLatest('UNSET_ADMIN_DATA', unsetAdminData);
 }
 
