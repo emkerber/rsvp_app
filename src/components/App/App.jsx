@@ -29,6 +29,7 @@ import GuestGuestListPage from '../User/Guest/GuestGuestListPage';
 import PendingPage from '../User/PendingPage';
 import DeniedPage from '../User/DeniedPage';
 import AdminGuestList from '../Admin/AdminGuestList';
+import AdminGuestDetails from '../Admin/AdminGuestDetails';
 import AdminAddRemove from '../Admin/AdminAddRemove';
 import AdminPending from '../Admin/AdminPending';
 
@@ -118,6 +119,15 @@ function App() {
               path="/admin/guests"
             >
               <AdminGuestList />
+            </ProtectedAdminRoute>
+
+            <ProtectedAdminRoute
+              // logged in admin can access guest's details
+              // by clicking their name on AdminGuestList
+              exact
+              path="/admin/guests/:id"
+            >
+              <AdminGuestDetails />
             </ProtectedAdminRoute>
 
             <ProtectedAdminRoute
