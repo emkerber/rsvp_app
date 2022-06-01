@@ -9,20 +9,24 @@ function AdminGuestTotalsTable() {
 
   return (
     <table id="admin-guest-totals">
-     
-      <tr>
-        <th>Attending</th>
-        <th>Maybe</th>
-        <th>Can't</th>
-        <th>NR</th>
-      </tr>
+      
+      <thead>
+        <tr>
+          <th>Attending</th>
+          <th>Maybe</th>
+          <th>Can't</th>
+          <th>NR</th>
+        </tr>
+      </thead>
 
-      <tr>
-        <td>{attendingList.length}</td>
-        <td>{maybeList.length}</td>
-        <td>{notAttendingList.length}</td>
-        <td>{noResponseList.length}</td>
-      </tr>
+      <tbody>
+        <tr>
+          <td>{attendingList.length}</td>
+          <td>{maybeList.length}</td>
+          <td>{notAttendingList.length}</td>
+          <td>{noResponseList.length}</td>
+        </tr>
+      </tbody>
       
     </table>
   );
