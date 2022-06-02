@@ -13,6 +13,10 @@ function AdminGuestDetails() {
     history.push('/admin/guests');
   }
 
+  const handleBanishClick = () => {
+    history.push(`/admin/guests/${guest.id}/banish`);
+  }
+
   const determineStatus = () => {
     switch (guest?.attending_code) {
       case 'YAY':
@@ -44,28 +48,37 @@ function AdminGuestDetails() {
       {determineStatus()}
 
       {/* questions/comments/concerns */}
-      {guest?.questions_comments && <p>{guest?.first_name} says: {guest?.questions_comments}</p>}
+      {guest?.questions_comments && <p>{guest.first_name} says: {guest.questions_comments}</p>}
 
       {/* if they're a Maybe and they provided more info */}
-      {guest?.attending_deets && <p>Attendance deets: {guest?.attending_deets}</p>}
+      {guest?.attending_deets && <p>Attendance deets: {guest.attending_deets}</p>}
 
       {/* info regarding people they plan to bring */}
-      {guest?.additional_guests && <p>Additional guest info: {guest?.additional_guests}</p>}
+      {guest?.additional_guests && <p>Additional guest info: {guest.additional_guests}</p>}
 
       {/* dietary restriction info */}
-      {guest?.dietary_restrictions && <p>Dietary restrictions: {guest?.dietary_restrictions}</p>}
+      {guest?.dietary_restrictions && <p>Dietary restrictions: {guest.dietary_restrictions}</p>}
 
       {/* parking needs */}
-      {guest?.parking && <p>Parking: {guest?.parking}</p>}
+      {guest?.parking && <p>Parking: {guest.parking}</p>}
 
       {/* TODO duties */}
 
       {/* their unique welcome message */}
-      {guest?.welcome_message && <p>Their welcome message: {guest?.welcome_message}</p>}
+      {guest?.welcome_message && <p>Welcome message: {guest.welcome_message}</p>}
 
       {/* guest's email */}
-      {guest?.email && <p>Email: {guest?.email}</p>}
+      {guest?.email && <p>Email: {guest.email}</p>}
 
+      {/* to remove guest from guest list */}
+      {/* and add to pending list as resolved */}
+      {/* takes user to separate confirmation view */}
+      <Button
+        variant="contained"
+        onClick={handleBanishClick}
+      >
+        Banish
+      </Button>
 
     </div>
   );

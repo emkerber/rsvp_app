@@ -30,6 +30,7 @@ import PendingPage from '../User/PendingPage';
 import DeniedPage from '../User/DeniedPage';
 import AdminGuestList from '../Admin/AdminGuestList';
 import AdminGuestDetails from '../Admin/AdminGuestDetails';
+import AdminConfirmBanish from '../Admin/AdminConfirmBanish';
 import AdminAddRemove from '../Admin/AdminAddRemove';
 import AdminPending from '../Admin/AdminPending';
 
@@ -128,6 +129,15 @@ function App() {
               path="/admin/guests/:id"
             >
               <AdminGuestDetails />
+            </ProtectedAdminRoute>
+
+            <ProtectedAdminRoute
+              // clicking Banish button on guest's details page
+              // brings user here to confirm
+              exact
+              path="/admin/guests/:id/banish"
+            >
+              <AdminConfirmBanish />
             </ProtectedAdminRoute>
 
             <ProtectedAdminRoute
