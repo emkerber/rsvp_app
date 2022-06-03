@@ -1,6 +1,10 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+// - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - FOR GUESTS  - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - -
+
 function* fetchPendingInfo(action) {
   try {
     // payload is user_id
@@ -26,9 +30,27 @@ function* updateEmail(action) {
   }
 }
 
+// - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - FOR ADMIN - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - -
+
+// insert banished guest into pendings table
+function* addBanished(action) {
+  try {
+    // action.payload is { guest, explanation }
+    yield axios.post('/api/pendings/admin/banished', action.payload);
+
+  } catch (error) {
+    console.log('Error adding banished to pendings:', error);
+  }
+}
+
 function* pendingSaga() {
+  // for guests
   yield takeLatest('FETCH_PENDING_INFO', fetchPendingInfo);
   yield takeLatest('UPDATE_PENDING_EMAIL', updateEmail);
+  // for admin
+  yield takeLatest('ADD_BANISHED', addBanished);
 }
 
 export default pendingSaga;

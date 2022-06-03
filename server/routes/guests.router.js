@@ -219,6 +219,7 @@ router.get('/admin/no-response', rejectNonAdmin, (req, res) => {
     });
 });
 
+
 // fetch details for a guest
 router.get('/admin/details/:id', rejectNonAdmin, (req, res) => {
   const queryText = `
@@ -231,6 +232,23 @@ router.get('/admin/details/:id', rejectNonAdmin, (req, res) => {
     .then(result => res.send(result.rows[0]))
     .catch(error => {
       console.log('Error fetching details for a guest:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// guest is banished
+router.delete('/admin/banish/:id', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    DELETE FROM "guests"
+    WHERE id = $1;
+  `;
+
+  pool
+    .query(queryText, [req.params.id])
+    .then(() => res.sendStatus(200))
+    .catch(error => {
+      console.log('Error deleting from guests:', error);
       res.sendStatus(500);
     });
 });

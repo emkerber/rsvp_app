@@ -177,6 +177,21 @@ function* unsetAdminData() {
   }
 }
 
+// remove a specific guest from the guests table
+// pending saga handles adding to pendings table
+function* banishGuest(action) {
+  try {
+    // action.payload is guest's id
+    yield axios.delete(`/api/guests/admin/banish/${action.payload}`);
+
+    // refresh admin data
+    yield put({ type: 'FETCH_ADMIN_DATA' });
+
+  } catch (error) {
+    console.log('Error banishing guest:', error);
+  }
+}
+
 function* guestSaga() {
   // guests:
   yield takeLatest('FETCH_GUEST_RESPONSES', fetchGuestResponses);
@@ -192,6 +207,7 @@ function* guestSaga() {
   yield takeLatest('FETCH_NO_RESPONSE_LIST', fetchNoResponseList);
   yield takeLatest('FETCH_GUEST_DETAILS', fetchGuestDetails);
   yield takeLatest('UNSET_ADMIN_DATA', unsetAdminData);
+  yield takeLatest('BANISH_GUEST', banishGuest);
 }
 
 export default guestSaga;
