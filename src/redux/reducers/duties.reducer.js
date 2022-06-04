@@ -15,6 +15,17 @@ const dutyResponses = (state = {}, action) => {
   }
 }
 
+const dutyDetails = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_DUTY_DETAILS':
+      return action.payload;
+    case 'UNSET_DUTY_DETAILS':
+      return {};
+    default:
+      return state;
+  }
+}
+
 // - - - - - - - - - - - - - - - - - - - - - -
 // - - - - - - - - FOR ADMIN - - - - - - - - -
 // - - - - - - - - - - - - - - - - - - - - - -
@@ -23,4 +34,5 @@ export default combineReducers({
   // guests:
   dutyResponses,
   // admin:
+  dutyDetails,
 });

@@ -6,9 +6,14 @@ function AdminGuestSubcategoryList({ list }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // get the guest's details and go to Details page
   const handlePersonClick = (id) => {
+    // get the specific guest's details
     dispatch({ type: 'FETCH_GUEST_DETAILS', payload: id });
+    
+    // and also get their duties
+    dispatch({ type: 'FETCH_DUTY_DETAILS', payload: id });
+    
+    // go to the guest's details page
     history.push(`/admin/guests/${id}`);
   }
 

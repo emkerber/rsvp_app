@@ -48,12 +48,25 @@ function* updateDutyResponses(action) {
 // - - - - - - - - FOR ADMIN - - - - - - - - -
 // - - - - - - - - - - - - - - - - - - - - - -
 
+function* fetchDutyDetails(action) {
+  try {
+    // action.payload is guest_id
+    const details = yield axios.get(`/api/duties/admin/details/${action.payload}`);
+
+    yield put({ type: 'SET_DUTY_DETAILS', payload: details.data });
+    
+  } catch (error) {
+    console.log('Error fetching duty details:', error);
+  }
+}
+
 function* dutiesSaga() {
   // for guests:
   yield takeLatest('FETCH_DUTY_RESPONSES', fetchDutyResponses);
   yield takeLatest('SAVE_DUTY_RESPONSES', saveDutyResponses);
   yield takeLatest('UPDATE_DUTY_RESPONSES', updateDutyResponses);
   // for admin:
+  yield takeLatest('FETCH_DUTY_DETAILS', fetchDutyDetails);
 }
 
 export default dutiesSaga;
