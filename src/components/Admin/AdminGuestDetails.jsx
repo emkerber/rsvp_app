@@ -7,6 +7,7 @@ function AdminGuestDetails() {
   const history = useHistory();
   const dispatch = useDispatch();
   const guest = useSelector(store => store.guest.guestDetails);
+  const duties = useSelector(store => store.duties.dutyDetails);
 
   const handleBackClick = () => {
     dispatch({ type: 'UNSET_GUEST_DETAILS' });
@@ -69,6 +70,26 @@ function AdminGuestDetails() {
 
       {/* guest's email */}
       {guest?.email && <p>Email: {guest.email}</p>}
+
+      {/* duties they signed up for */}
+      <p>{guest?.first_name} signed up for:</p>
+      <ul>
+        {duties?.setup && 
+          <li>Setup Squad</li>
+        }
+        {duties?.cleanup && 
+          <li>Cleanup Crew</li>
+        }
+        {duties?.hydration && 
+          <li>Hydration Helper</li>
+        }
+        {duties?.photography && 
+          <li>Photography Friend</li>
+        }
+        {duties?.none && 
+          <li>They're not interested in helping with anything.</li>
+        }
+      </ul>
 
       {/* to remove guest from guest list */}
       {/* and add to pending list as resolved */}
