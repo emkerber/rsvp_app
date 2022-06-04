@@ -181,6 +181,10 @@ function* unsetAdminData() {
 // pending saga handles adding to pendings table
 function* banishGuest(action) {
   try {
+    // delete guest's duties first, as duties.guest_id is foreign key
+    // action.payload is guest's id
+    yield put({ type: 'BANISH_GUEST_DUTIES', payload: action.payload });
+    
     // action.payload is guest's id
     yield axios.delete(`/api/guests/admin/banish/${action.payload}`);
 

@@ -25,7 +25,7 @@ function AdminConfirmBanish() {
 
   const handleByeClick = () => {
     // send guest's id to guest saga
-    // saga will delete from guests
+    // saga will delete from duties then guests
     dispatch({ type: 'BANISH_GUEST', payload: guest.id });
 
     // send guest's info and explanation to pending saga

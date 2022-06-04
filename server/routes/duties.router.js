@@ -100,6 +100,7 @@ router.put('/update', rejectUnauthenticated, (req, res) => {
 // - - - - - - - - FOR ADMIN - - - - - - - - -
 // - - - - - - - - - - - - - - - - - - - - - -
 
+// get the duties for a specific guest
 router.get('/admin/details/:id', rejectNonAdmin, (req, res) => {
   const queryText = `
     SELECT * FROM "duties"
@@ -111,6 +112,23 @@ router.get('/admin/details/:id', rejectNonAdmin, (req, res) => {
     .then(result => res.send(result.rows[0]))
     .catch(error => {
       console.log('Error fetching duty details:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// delete guest's duties when they are banished
+router.delete('/admin/banish/:id', rejectNonAdmin, (req,res) => {
+  const queryText = `
+    DELETE FROM "duties"
+    WHERE guest_id = $1;
+  `;
+
+  pool
+    .query(queryText, [req.params.id])
+    .then(() => res.sendStatus(200))
+    .catch(error => {
+      console.log('Error deleting banished guest duties:', error);
       res.sendStatus(500);
     });
 });

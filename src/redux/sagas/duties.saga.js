@@ -54,9 +54,22 @@ function* fetchDutyDetails(action) {
     const details = yield axios.get(`/api/duties/admin/details/${action.payload}`);
 
     yield put({ type: 'SET_DUTY_DETAILS', payload: details.data });
-    
+
   } catch (error) {
     console.log('Error fetching duty details:', error);
+  }
+}
+
+// when a guest is banished, delete their associated duties
+function* banishGuestDuties(action) {
+  try {
+    // action.payload is guest_id
+    yield axios.delete(`/api/duties/admin/banish/${action.payload}`);
+
+    // TODO refetch all duties info for admin
+
+  } catch (error) {
+    console.log('Error deleting banished guest duties:', error);
   }
 }
 
@@ -67,6 +80,7 @@ function* dutiesSaga() {
   yield takeLatest('UPDATE_DUTY_RESPONSES', updateDutyResponses);
   // for admin:
   yield takeLatest('FETCH_DUTY_DETAILS', fetchDutyDetails);
+  yield takeLatest('BANISH_GUEST_DUTIES', banishGuestDuties);
 }
 
 export default dutiesSaga;
