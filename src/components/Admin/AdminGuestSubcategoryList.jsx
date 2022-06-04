@@ -1,0 +1,31 @@
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
+function AdminGuestSubcategoryList({ list }) {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handlePersonClick = (id) => {
+    // get the specific guest's details
+    dispatch({ type: 'FETCH_GUEST_DETAILS', payload: id });
+    
+    // and also get their duties
+    dispatch({ type: 'FETCH_DUTY_DETAILS', payload: id });
+    
+    // go to the guest's details page
+    history.push(`/admin/guests/${id}`);
+  }
+
+  return (
+    <div>
+      {list.map(person => (
+        <p key={person.id} onClick={() => handlePersonClick(person.id)}>
+          {person.first_name} {person.last_name}
+        </p>
+      ))}
+    </div>
+  );
+}
+
+export default AdminGuestSubcategoryList;

@@ -58,10 +58,11 @@ function* logoutUser(action) {
     yield put({ type: 'UNSET_NAME' });
     yield put({ type: 'UNSET_INVITE_STATUS' });
     yield put({ type: 'UNSET_GUEST_RESPONSES' });
-    yield put({ type: 'UNSET_GUEST_DUTIES' });
+    yield put({ type: 'UNSET_DUTY_RESPONSES' });
     yield put({ type: 'ALL_RESPONSES_UNSURE' });
     yield put({ type: 'UNSET_RSVP_REDUCERS' });
     yield put({ type: 'UNSET_GUESTS_LIST' });
+    yield put({ type: 'UNSET_ADMIN_DATA' });
 
   } catch (error) {
     console.log('Error with user logout:', error);

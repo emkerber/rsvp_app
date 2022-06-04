@@ -3,6 +3,8 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectNonAdmin } = require('../modules/authentication-middleware');
+
 
 
 // search for the name entered on the Landing Page
@@ -40,19 +42,6 @@ router.get('/fetch-by-user-id/:id', (req, res) => {
       res.sendStatus(500);
     });
 });
-
-
-// // might use for Admin?
-// router.get('/all', (req, res) => {
-//   const queryText = `SELECT * FROM "pendings"`;
-//   pool
-//     .query(queryText, [])
-//     .then((result) => res.send(result.rows))
-//     .catch((err) => {
-//       console.log('Failed to get pending list', err);
-//       res.sendStatus(500);
-//     });
-// });
 
 
 // when inviteStatus is nope
@@ -110,6 +99,32 @@ router.put('/email', (req, res) => {
     .then(() => res.sendStatus(200))
     .catch((err) => {
       console.log('Error updating pendings email:', err);
+      res.sendStatus(500);
+    });
+});
+
+
+// - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - FOR ADMIN - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - -
+
+// a guest was banished; insert their info and banishment explanation into pendings
+router.post('/admin/banished', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    INSERT INTO "pendings"
+    (user_id, party_id, first_name, last_name, email, resolved, denial_message)
+    VALUES ($1, $2, $3, $4, $5, TRUE, $6);
+  `;
+
+  // req.body is { guest, explanation }
+  const rbg = req.body.guest;
+  const queryParams = [rbg.user_id, rbg.party_id, rbg.first_name, rbg.last_name, rbg.email, req.body.explanation];
+
+  pool
+    .query(queryText, queryParams)
+    .then(() => res.sendStatus(200))
+    .catch(error => {
+      console.log('Error inserting banished person into pendings:', error);
       res.sendStatus(500);
     });
 });

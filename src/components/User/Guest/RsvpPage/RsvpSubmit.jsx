@@ -16,18 +16,22 @@ function RsvpSubmit() {
       payload: rsvp
     });
 
-    // if duties have previously been saved
-    dutiesPrevIndicated ?
-      // then update existing row
-      dispatch({
-        type: 'UPDATE_GUEST_DUTIES',
-        payload: rsvp
-      })
-    : // otherwise insert a new row
-      dispatch({
-        type: 'SAVE_GUEST_DUTIES',
-        payload: rsvp
-      });
+    // if one or more of the duty options was selected
+    // then save or update guest's duties
+    if (rsvp.setupDuty || rsvp.cleanupDuty || rsvp.waterDuty || rsvp.photoDuty || rsvp.noDuty) {
+      // if duties have previously been saved
+      dutiesPrevIndicated ?
+        // then update existing row
+        dispatch({
+          type: 'UPDATE_DUTY_RESPONSES',
+          payload: rsvp
+        })
+      : // otherwise insert a new row
+        dispatch({
+          type: 'SAVE_DUTY_RESPONSES',
+          payload: rsvp
+        });
+    }
 
     // show snackbar to notify user of success
     dispatch({
@@ -36,7 +40,7 @@ function RsvpSubmit() {
 
     // go back to the Deets view
     history.push('/deets');
-  }
+  } // end handleSubmitClick()
 
   return (
     <Button

@@ -5,7 +5,7 @@ import { FormControl, FormGroup, FormControlLabel, Checkbox } from '@mui/materia
 function RsvpDuties() {
   const dispatch = useDispatch();
   const dutiesIndicated = useSelector(store => store.guest.responses.duties_indicated);
-  const dutiesResponses = useSelector(store => store.duties.guestDuties);
+  const dutiesResponses = useSelector(store => store.duties.dutyResponses);
 
   const [setupChecked, setSetupChecked] = useState(false);
   const [cleanupChecked, setCleanupChecked] = useState(false);

@@ -3,7 +3,11 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+const { rejectUnauthenticated, rejectNonAdmin } = require('../modules/authentication-middleware');
+
+// - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - FOR GUESTS  - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - -
 
 // fetch a guest's existing responses
 router.get('/fetch-by-id/:id', (req, res) => {
@@ -26,6 +30,7 @@ router.get('/fetch-by-id/:id', (req, res) => {
       res.sendStatus(500);
     });
 });
+
 
 // save new responses 
 // (guest has not previously indicated duty preferences)
@@ -56,6 +61,7 @@ router.post('/save', rejectUnauthenticated, (req, res) => {
     });
 });
 
+
 // update duty responses 
 // (guest has previously indicated duty preferences)
 router.put('/update', rejectUnauthenticated, (req, res) => {
@@ -85,6 +91,44 @@ router.put('/update', rejectUnauthenticated, (req, res) => {
     .then(() => res.sendStatus(200))
     .catch((error) => {
       console.log('Error updating guest duties:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - FOR ADMIN - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - -
+
+// get the duties for a specific guest
+router.get('/admin/details/:id', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT * FROM "duties"
+    WHERE guest_id = $1;
+  `;
+
+  pool
+    .query(queryText, [req.params.id])
+    .then(result => res.send(result.rows[0]))
+    .catch(error => {
+      console.log('Error fetching duty details:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// delete guest's duties when they are banished
+router.delete('/admin/banish/:id', rejectNonAdmin, (req,res) => {
+  const queryText = `
+    DELETE FROM "duties"
+    WHERE guest_id = $1;
+  `;
+
+  pool
+    .query(queryText, [req.params.id])
+    .then(() => res.sendStatus(200))
+    .catch(error => {
+      console.log('Error deleting banished guest duties:', error);
       res.sendStatus(500);
     });
 });

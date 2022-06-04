@@ -1,6 +1,10 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+// - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - FOR GUESTS  - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - -
+
 // get all responses for a single guest
 // payload is guests.id
 function* fetchGuestResponses(action) {
@@ -62,6 +66,7 @@ function* updateGuestResponses(action) {
   }
 }
 
+// executes on logout
 function* unsetRsvpReducers(action) {
   try {
     yield put({ type: 'UNSET_RSVP_GUEST_ID' });
@@ -82,12 +87,131 @@ function* unsetRsvpReducers(action) {
   }
 }
 
+// - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - FOR ADMIN - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - -
+
+// get all of the lists - attending, maybe, not, no response
+// called on login after user is set, if they are an admin user
+function* fetchAdminData() {
+  try {
+    yield put({ type: 'FETCH_ATTENDING_LIST' });
+    yield put({ type: 'FETCH_MAYBE_LIST' });
+    yield put({ type: 'FETCH_NOT_ATTENDING_LIST' });
+    yield put({ type: 'FETCH_NO_RESPONSE_LIST' });
+  } catch (error) {
+    console.log('Error fetching admin data:', error);
+  }
+}
+
+// get all guests who are attending
+function* fetchAttendingList() {
+  try {
+    const attendingList = yield axios.get('/api/guests/admin/attending');
+
+    yield put({ type: 'SET_ATTENDING_LIST', payload: attendingList.data });
+
+  } catch (error) {
+    console.log('Error fetching attending list:', error);
+  }
+}
+
+// get all guests who might attend
+function* fetchMaybeList() {
+  try {
+    const maybeList = yield axios.get('/api/guests/admin/maybe');
+
+    yield put({ type: 'SET_MAYBE_LIST', payload: maybeList.data });
+
+  } catch (error) {
+    console.log('Error fetching maybe list:', error);
+  }
+}
+
+// get all guests who will not attend
+function* fetchNotAttendingList() {
+  try {
+    const notAttendingList = yield axios.get('/api/guests/admin/not-attending');
+
+    yield put({ type: 'SET_NOT_ATTENDING_LIST', payload: notAttendingList.data });
+
+  } catch (error) {
+    console.log('Error fetching not attending list:', error);
+  }
+}
+
+// get all guests who have not responded
+function* fetchNoResponseList() {
+  try {
+    const noResponseList = yield axios.get('/api/guests/admin/no-response');
+
+    yield put({ type: 'SET_NO_RESPONSE_LIST', payload: noResponseList.data });
+
+  } catch (error) {
+    console.log('Error fetching guests who have not responded:', error);
+  }
+}
+
+function* fetchGuestDetails(action) {
+  try {
+    const details = yield axios.get(`/api/guests/admin/details/${action.payload}`);
+
+    yield put({ type: 'SET_GUEST_DETAILS', payload: details.data });
+
+  } catch (error) {
+    console.log('Error fetching guest details:', error);
+  }
+}
+
+// clear the admin data reducers
+// called on logout
+function* unsetAdminData() {
+  try {
+    yield put({ type: 'UNSET_ATTENDING_LIST' });
+    yield put({ type: 'UNSET_MAYBE_LIST' });
+    yield put({ type: 'UNSET_NOT_ATTENDING_LIST' });
+    yield put({ type: 'UNSET_NO_RESPONSE_LIST' });
+    yield put({ type: 'UNSET_GUEST_DETAILS' });
+  } catch (error) {
+    console.log('Error unsetting admin data:', error);
+  }
+}
+
+// remove a specific guest from the guests table
+// pending saga handles adding to pendings table
+function* banishGuest(action) {
+  try {
+    // delete guest's duties first, as duties.guest_id is foreign key
+    // action.payload is guest's id
+    yield put({ type: 'BANISH_GUEST_DUTIES', payload: action.payload });
+    
+    // action.payload is guest's id
+    yield axios.delete(`/api/guests/admin/banish/${action.payload}`);
+
+    // refresh admin data
+    yield put({ type: 'FETCH_ADMIN_DATA' });
+
+  } catch (error) {
+    console.log('Error banishing guest:', error);
+  }
+}
+
 function* guestSaga() {
+  // guests:
   yield takeLatest('FETCH_GUEST_RESPONSES', fetchGuestResponses);
   yield takeLatest('FETCH_GUESTS_LIST', fetchGuestsList);
   yield takeLatest('CHECK_ALL_RESPONSES_EXIST', checkAllResponsesExist);
   yield takeLatest('UPDATE_GUEST_RESPONSES', updateGuestResponses);
   yield takeLatest('UNSET_RSVP_REDUCERS', unsetRsvpReducers);
+  // admin:
+  yield takeLatest('FETCH_ADMIN_DATA', fetchAdminData);
+  yield takeLatest('FETCH_ATTENDING_LIST', fetchAttendingList);
+  yield takeLatest('FETCH_MAYBE_LIST', fetchMaybeList);
+  yield takeLatest('FETCH_NOT_ATTENDING_LIST', fetchNotAttendingList);
+  yield takeLatest('FETCH_NO_RESPONSE_LIST', fetchNoResponseList);
+  yield takeLatest('FETCH_GUEST_DETAILS', fetchGuestDetails);
+  yield takeLatest('UNSET_ADMIN_DATA', unsetAdminData);
+  yield takeLatest('BANISH_GUEST', banishGuest);
 }
 
 export default guestSaga;

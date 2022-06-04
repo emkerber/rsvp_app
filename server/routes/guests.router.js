@@ -3,7 +3,7 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+const { rejectUnauthenticated, rejectNonAdmin } = require('../modules/authentication-middleware');
 
 
 // search for the name entered on the Landing Page
@@ -139,6 +139,116 @@ router.put('/update-responses/TBD', rejectUnauthenticated, (req, res) => {
     .then(() => res.sendStatus(200))
     .catch(error => {
       console.log('Error updating responses - TBD:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - FOR ADMIN - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - -
+
+// fetch guests who are attending
+router.get('/admin/attending', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT * FROM "guests"
+    WHERE attending
+    ORDER BY first_name;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then(result => res.send(result.rows))
+    .catch(error => {
+      console.log('Error getting list of attending:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// fetch guests who indicated they are maybe attending
+router.get('/admin/maybe', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT * FROM "guests"
+    WHERE attending_code = 'TBD'
+    ORDER BY first_name;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then(result => res.send(result.rows))
+    .catch(error => {
+      console.log('Error getting list of maybes:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// fetch guests who have indicated they will not attend
+router.get('/admin/not-attending', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT * FROM "guests"
+    WHERE attending_code = 'NAY'
+    ORDER BY first_name;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then(result => res.send(result.rows))
+    .catch(error => {
+      console.log('Error getting list of those not attending:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// fetch guests who have not yet RSVPd
+router.get('/admin/no-response', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT * FROM "guests"
+    WHERE attending_code IS NULL
+    ORDER BY first_name;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then(result => res.send(result.rows))
+    .catch(error => {
+      console.log('Error getting guests who have not responded:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// fetch details for a guest
+router.get('/admin/details/:id', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT * FROM "guests"
+    WHERE id = $1;
+  `;
+
+  pool
+    .query(queryText, [req.params.id])
+    .then(result => res.send(result.rows[0]))
+    .catch(error => {
+      console.log('Error fetching details for a guest:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// guest is banished
+router.delete('/admin/banish/:id', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    DELETE FROM "guests"
+    WHERE id = $1;
+  `;
+
+  pool
+    .query(queryText, [req.params.id])
+    .then(() => res.sendStatus(200))
+    .catch(error => {
+      console.log('Error deleting from guests:', error);
       res.sendStatus(500);
     });
 });

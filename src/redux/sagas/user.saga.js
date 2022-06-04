@@ -19,6 +19,12 @@ function* fetchUser() {
     // with an id and username set the client-side user object to let
     // the client-side code know the user is logged in
     yield put({ type: 'SET_USER', payload: response.data });
+
+    // is the user is an admin then fetch admin data
+    if (response.data.admin) {
+      yield put({ type: 'FETCH_ADMIN_DATA' });
+    }
+
   } catch (error) {
     console.log('User get request failed', error);
   }
