@@ -11,6 +11,7 @@ function AdminGuestDetails() {
 
   const handleBackClick = () => {
     dispatch({ type: 'UNSET_GUEST_DETAILS' });
+    dispatch({ type: 'UNSET_DUTY_DETAILS' });
     history.push('/admin/guests');
   }
 
