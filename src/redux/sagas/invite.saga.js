@@ -36,7 +36,7 @@ function* checkInvite(action) {
       yield put({ type: 'CHECK_ALL_RESPONSES_EXIST', payload: responses });
 
       // fetch and set guest's indicated duties in redux
-      yield put({ type: 'FETCH_GUEST_DUTIES', payload: responses.id });
+      yield put({ type: 'FETCH_DUTY_RESPONSES', payload: responses.id });
 
       // nothing else in this function should run
       return;

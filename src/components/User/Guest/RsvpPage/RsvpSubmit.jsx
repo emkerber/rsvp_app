@@ -20,12 +20,12 @@ function RsvpSubmit() {
     dutiesPrevIndicated ?
       // then update existing row
       dispatch({
-        type: 'UPDATE_GUEST_DUTIES',
+        type: 'UPDATE_DUTY_RESPONSES',
         payload: rsvp
       })
     : // otherwise insert a new row
       dispatch({
-        type: 'SAVE_GUEST_DUTIES',
+        type: 'SAVE_DUTY_RESPONSES',
         payload: rsvp
       });
 
