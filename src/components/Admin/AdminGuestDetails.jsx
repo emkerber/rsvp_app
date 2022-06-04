@@ -12,7 +12,7 @@ function AdminGuestDetails() {
   const handleBackClick = () => {
     dispatch({ type: 'UNSET_GUEST_DETAILS' });
     dispatch({ type: 'UNSET_DUTY_DETAILS' });
-    history.push('/admin/guests');
+    history.goBack();
   }
 
   const handleBanishClick = () => {
@@ -63,8 +63,6 @@ function AdminGuestDetails() {
 
       {/* parking needs */}
       {guest?.parking && <p>Parking: {guest.parking}</p>}
-
-      {/* TODO duties */}
 
       {/* their unique welcome message */}
       {guest?.welcome_message && <p>Welcome message: {guest.welcome_message}</p>}
