@@ -92,6 +92,7 @@ function* unsetRsvpReducers(action) {
 // - - - - - - - - - - - - - - - - - - - - - -
 
 // get all of the lists - attending, maybe, not, no response
+// also get all of the aggregated responses
 // called on login after user is set, if they are an admin user
 function* fetchAdminData() {
   try {
@@ -99,6 +100,17 @@ function* fetchAdminData() {
     yield put({ type: 'FETCH_MAYBE_LIST' });
     yield put({ type: 'FETCH_NOT_ATTENDING_LIST' });
     yield put({ type: 'FETCH_NO_RESPONSE_LIST' });
+    yield put({ type: 'FETCH_DIETARY_RESTRICTIONS' });
+    yield put({ type: 'FETCH_PARKING_DURING' });
+    yield put({ type: 'FETCH_PARKING_OVERNIGHT' });
+    yield put({ type: 'FETCH_ADDITIONAL_GUESTS' });
+    yield put({ type: 'FETCH_VOLUNTEERS_SETUP' }); // duties
+    yield put({ type: 'FETCH_VOLUNTEERS_CLEANUP' }); // duties
+    yield put({ type: 'FETCH_VOLUNTEERS_HYDRATION' }); // duties
+    yield put({ type: 'FETCH_VOLUNTEERS_PHOTOGRAPHY' }); // duties
+    yield put({ type: 'FETCH_VOLUNTEERS_NONE' }); // duties
+    yield put({ type: 'FETCH_QUESTIONS_COMMENTS' });
+
   } catch (error) {
     console.log('Error fetching admin data:', error);
   }
@@ -172,6 +184,16 @@ function* unsetAdminData() {
     yield put({ type: 'UNSET_NOT_ATTENDING_LIST' });
     yield put({ type: 'UNSET_NO_RESPONSE_LIST' });
     yield put({ type: 'UNSET_GUEST_DETAILS' });
+    yield put({ type: 'UNSET_DIETARY_RESTRICTIONS' });
+    yield put({ type: 'UNSET_PARKING_DURING' });
+    yield put({ type: 'UNSET_PARKING_OVERNIGHT' });
+    yield put({ type: 'UNSET_ADDITIONAL_GUESTS' });
+    yield put({ type: 'UNSET_VOLUNTEERS_SETUP' });
+    yield put({ type: 'UNSET_VOLUNTEERS_CLEANUP' });
+    yield put({ type: 'UNSET_VOLUNTEERS_HYDRATION' });
+    yield put({ type: 'UNSET_VOLUNTEERS_PHOTOGRAPHY' });
+    yield put({ type: 'UNSET_VOLUNTEERS_NONE' });
+    yield put({ type: 'UNSET_QUESTIONS_COMMENTS' });
   } catch (error) {
     console.log('Error unsetting admin data:', error);
   }
@@ -196,6 +218,64 @@ function* banishGuest(action) {
   }
 }
 
+// FETCHes for aggregated responses
+
+function* fetchDietaryRestrictions() {
+  try {
+    const responses = yield axios.get('/api/guests/admin/dietary-restrictions');
+
+    yield put({ type: 'SET_DIETARY_RESTRICTIONS', payload: responses.data });
+
+  } catch (error) {
+    console.log('Error fetching dietary restrictions:', error);
+  }
+}
+
+function* fetchParkingDuring() {
+  try {
+    const responses = yield axios.get('/api/guests/admin/parking-during');
+
+    yield put({ type: 'SET_PARKING_DURING', payload: responses.data });
+    
+  } catch (error) {
+    console.log('Error fetching parking during:', error);
+  }
+}
+
+function* fetchParkingOvernight() {
+  try {
+    const responses = yield axios.get('/api/guests/admin/parking-overnight');
+
+    yield put({ type: 'SET_PARKING_OVERNIGHT', payload: responses.data });
+    
+  } catch (error) {
+    console.log('Error fetching parking overnight:', error);
+  }
+}
+
+function* fetchAdditionalGuests() {
+  try {
+    const responses = yield axios.get('/api/guests/admin/additional-guests');
+
+    yield put({ type: 'SET_ADDITIONAL_GUESTS', payload: responses.data });
+    
+  } catch (error) {
+    console.log('Error fetching additional guests:', error);
+  }
+}
+
+function* fetchQuestionsComments() {
+  try {
+    const responses = yield axios.get('/api/guests/admin/questions-comments');
+
+    yield put({ type: 'SET_QUESTIONS_COMMENTS', payload: responses.data });
+    
+  } catch (error) {
+    console.log('Error fetching questions comments:', error);
+  }
+}
+
+
 function* guestSaga() {
   // guests:
   yield takeLatest('FETCH_GUEST_RESPONSES', fetchGuestResponses);
@@ -212,6 +292,11 @@ function* guestSaga() {
   yield takeLatest('FETCH_GUEST_DETAILS', fetchGuestDetails);
   yield takeLatest('UNSET_ADMIN_DATA', unsetAdminData);
   yield takeLatest('BANISH_GUEST', banishGuest);
+  yield takeLatest('FETCH_DIETARY_RESTRICTIONS', fetchDietaryRestrictions);
+  yield takeLatest('FETCH_PARKING_DURING', fetchParkingDuring);
+  yield takeLatest('FETCH_PARKING_OVERNIGHT', fetchParkingOvernight);
+  yield takeLatest('FETCH_ADDITIONAL_GUESTS', fetchAdditionalGuests);
+  yield takeLatest('FETCH_QUESTIONS_COMMENTS', fetchQuestionsComments);
 }
 
 export default guestSaga;

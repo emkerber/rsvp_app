@@ -133,4 +133,31 @@ router.delete('/admin/banish/:id', rejectNonAdmin, (req,res) => {
     });
 });
 
+
+// get list of guests who volunteered for each duty
+// duty can be: setup, cleanup, hydration, photography, none
+router.get('/admin/volunteers/:duty', rejectNonAdmin, (req, res) => {
+  const duty = req.params.duty;
+  
+  const queryText = `
+    SELECT 
+      g.id AS id,
+      g.first_name AS first_name,
+      g.last_name AS last_name,
+      '' AS details
+    FROM guests AS g
+    INNER JOIN duties d ON d.guest_id = g.id
+    WHERE d.` + duty + `
+    ORDER BY g.id;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then(result => res.send(result.rows))
+    .catch(error => {
+      console.log('Error selecting volunteers for', duty, error);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;
