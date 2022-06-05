@@ -275,6 +275,19 @@ function* fetchQuestionsComments() {
   }
 }
 
+// add a new guest to the guest list
+function* addGuest(action) {
+  try {
+    yield axios.post('/api/guests/admin/add-guest', action.payload);
+
+    // get a fresh list of guests who have not yet responded
+    yield put({ type: 'FETCH_NO_RESPONSE_LIST' });
+
+  } catch (error) {
+    console.log('Error adding new guest:', error);
+  }
+}
+
 
 function* guestSaga() {
   // guests:
@@ -297,6 +310,7 @@ function* guestSaga() {
   yield takeLatest('FETCH_PARKING_OVERNIGHT', fetchParkingOvernight);
   yield takeLatest('FETCH_ADDITIONAL_GUESTS', fetchAdditionalGuests);
   yield takeLatest('FETCH_QUESTIONS_COMMENTS', fetchQuestionsComments);
+  yield takeLatest('ADD_GUEST', addGuest);
 }
 
 export default guestSaga;

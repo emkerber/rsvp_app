@@ -352,4 +352,31 @@ router.get('/admin/questions-comments', rejectNonAdmin, (req, res) => {
 });
 
 
+router.post('/admin/add-guest', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    INSERT INTO "guests"
+      (party_id, first_name, last_name, welcome_message)
+    VALUES
+      ($1, $2, $3, $4);
+  `;
+
+  const rb = req.body;
+  const queryParams = [rb.partyId, rb.firstName, rb.lastName];
+
+  if (rb.welcomeMessage) {
+    queryParams.push(rb.welcomeMessage);
+  } else {
+    queryParams.push('Hooray!!');
+  }
+
+  pool
+    .query(queryText, queryParams)
+    .then(() => res.sendStatus(200))
+    .catch(error => {
+      console.log('Error inserting new guest:', error);
+      res.sendStatus(500);
+    });
+});
+
+
 module.exports = router;
