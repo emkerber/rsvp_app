@@ -35,10 +35,10 @@ function NavMenu() {
   }
 
   // MENU ITEMS:
-  // guest: My RSVP, Deets, if all responses then Guest List, Logout
+  // guest: RSVP, Deets, if all responses then Guest List, Logout
   // pending: Logout
   // none: Logout
-  // admin: Guests, New / Nope, Pending, My RSVP, Deets, if all responses then Guest List, Logout
+  // admin: Guests, Responses, New / Nope, Pending, RSVP, Deets, if all responses then Guest List, Logout
 
   return (
     <>
@@ -94,6 +94,10 @@ function NavMenu() {
           <div>
             <MenuItem>
               <Link to="/admin/guests" className="nav-link">Guests</Link>
+            </MenuItem>
+
+            <MenuItem>
+              <Link to="/admin/responses" className="nav-link">Responses</Link>
             </MenuItem>
 
             <MenuItem>

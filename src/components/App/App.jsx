@@ -31,6 +31,7 @@ import DeniedPage from '../User/DeniedPage';
 import AdminGuestList from '../Admin/AdminGuestList';
 import AdminGuestDetails from '../Admin/AdminGuestDetails';
 import AdminConfirmBanish from '../Admin/AdminConfirmBanish';
+import AdminResponses from '../Admin/AdminResponses';
 import AdminAddRemove from '../Admin/AdminAddRemove';
 import AdminPending from '../Admin/AdminPending';
 
@@ -138,6 +139,15 @@ function App() {
               path="/admin/guests/:id/banish"
             >
               <AdminConfirmBanish />
+            </ProtectedAdminRoute>
+
+            <ProtectedAdminRoute
+              // link in nav
+              // displays aggregated responses
+              exact
+              path="/admin/responses"
+            >
+              <AdminResponses />
             </ProtectedAdminRoute>
 
             <ProtectedAdminRoute
