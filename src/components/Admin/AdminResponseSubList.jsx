@@ -1,6 +1,10 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 function AdminResponseSubList({ list }) {
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const handlePersonClick = (id) => {
     // get the specific guest's details
