@@ -153,7 +153,7 @@ router.get('/admin/attending', rejectNonAdmin, (req, res) => {
   const queryText = `
     SELECT * FROM "guests"
     WHERE attending
-    ORDER BY first_name;
+    ORDER BY id;
   `;
 
   pool
@@ -171,7 +171,7 @@ router.get('/admin/maybe', rejectNonAdmin, (req, res) => {
   const queryText = `
     SELECT * FROM "guests"
     WHERE attending_code = 'TBD'
-    ORDER BY first_name;
+    ORDER BY id;
   `;
 
   pool
@@ -189,7 +189,7 @@ router.get('/admin/not-attending', rejectNonAdmin, (req, res) => {
   const queryText = `
     SELECT * FROM "guests"
     WHERE attending_code = 'NAY'
-    ORDER BY first_name;
+    ORDER BY id;
   `;
 
   pool
