@@ -153,7 +153,7 @@ router.get('/admin/attending', rejectNonAdmin, (req, res) => {
   const queryText = `
     SELECT * FROM "guests"
     WHERE attending
-    ORDER BY first_name;
+    ORDER BY id;
   `;
 
   pool
@@ -171,7 +171,7 @@ router.get('/admin/maybe', rejectNonAdmin, (req, res) => {
   const queryText = `
     SELECT * FROM "guests"
     WHERE attending_code = 'TBD'
-    ORDER BY first_name;
+    ORDER BY id;
   `;
 
   pool
@@ -189,7 +189,7 @@ router.get('/admin/not-attending', rejectNonAdmin, (req, res) => {
   const queryText = `
     SELECT * FROM "guests"
     WHERE attending_code = 'NAY'
-    ORDER BY first_name;
+    ORDER BY id;
   `;
 
   pool
@@ -249,6 +249,104 @@ router.delete('/admin/banish/:id', rejectNonAdmin, (req, res) => {
     .then(() => res.sendStatus(200))
     .catch(error => {
       console.log('Error deleting from guests:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// fetch list of guests who indicated they have dietary restrictions
+router.get('/admin/dietary-restrictions', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT id, first_name, last_name, dietary_restrictions AS details
+    FROM guests
+    WHERE dietary_restrictions NOT IN ('', 'NA')
+      AND dietary_restrictions IS NOT NULL
+    ORDER BY id;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then(result => res.send(result.rows))
+    .catch(error => {
+      console.log('Error selecting list of dietary restrictions:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// fetch list of guests who indicated they plan to park during the party
+router.get('/admin/parking-during', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT id, first_name, last_name, '' AS details
+    FROM guests
+    WHERE parking = 'during'
+    ORDER BY id;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then(result => res.send(result.rows))
+    .catch(error => {
+      console.log('Error selecting list of guests parking during party:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// fetch list of guests who indicated they plan to park overnight
+router.get('/admin/parking-overnight', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT id, first_name, last_name, '' AS details
+    FROM guests
+    WHERE parking = 'overnight'
+    ORDER BY id;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then(result => res.send(result.rows))
+    .catch(error => {
+      console.log('Error selecting list of guests parking overnight:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// fetch list of guests who indicated they plan to bring additional guests
+router.get('/admin/additional-guests', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT id, first_name, last_name, additional_guests AS details
+    FROM guests
+    WHERE additional_guests NOT IN ('', 'NA')
+      AND additional_guests IS NOT NULL
+    ORDER BY id;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then(result => res.send(result.rows))
+    .catch(error => {
+      console.log('Error selecting list of guests bringing additional guests:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// fetch list of guests who noted questions, comments, concerns, or compliments
+router.get('/admin/questions-comments', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT id, first_name, last_name, questions_comments AS details
+    FROM guests
+    WHERE questions_comments <> ''
+      AND questions_comments IS NOT NULL
+    ORDER BY id;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then(result => res.send(result.rows))
+    .catch(error => {
+      console.log('Error selecting list of guests with questions or comments:', error);
       res.sendStatus(500);
     });
 });

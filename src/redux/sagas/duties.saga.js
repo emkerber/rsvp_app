@@ -48,6 +48,7 @@ function* updateDutyResponses(action) {
 // - - - - - - - - FOR ADMIN - - - - - - - - -
 // - - - - - - - - - - - - - - - - - - - - - -
 
+// get duties a specific guest signed up for
 function* fetchDutyDetails(action) {
   try {
     // action.payload is guest_id
@@ -73,6 +74,64 @@ function* banishGuestDuties(action) {
   }
 }
 
+// get lists of guests who volunteered for each duty
+
+function* fetchVolunteersSetup() {
+  try {
+    const responses = yield axios.get('/api/duties/admin/volunteers/setup');
+
+    yield put({ type: 'SET_VOLUNTEERS_SETUP', payload: responses.data });
+    
+  } catch (error) {
+    console.log('Error fetching volunteers for setup:', error);
+  }
+}
+
+function* fetchVolunteersCleanup() {
+  try {
+    const responses = yield axios.get('/api/duties/admin/volunteers/cleanup');
+
+    yield put({ type: 'SET_VOLUNTEERS_CLEANUP', payload: responses.data });
+    
+  } catch (error) {
+    console.log('Error fetching volunteers for cleanup:', error);
+  }
+}
+
+function* fetchVolunteersHydration() {
+  try {
+    const responses = yield axios.get('/api/duties/admin/volunteers/hydration');
+
+    yield put({ type: 'SET_VOLUNTEERS_HYDRATION', payload: responses.data });
+    
+  } catch (error) {
+    console.log('Error fetching volunteers for hydration:', error);
+  }
+}
+
+function* fetchVolunteersPhotography() {
+  try {
+    const responses = yield axios.get('/api/duties/admin/volunteers/photography');
+
+    yield put({ type: 'SET_VOLUNTEERS_PHOTOGRAPHY', payload: responses.data });
+    
+  } catch (error) {
+    console.log('Error fetching volunteers for photography:', error);
+  }
+}
+
+function* fetchVolunteersNone() {
+  try {
+    const responses = yield axios.get('/api/duties/admin/volunteers/none');
+
+    yield put({ type: 'SET_VOLUNTEERS_NONE', payload: responses.data });
+    
+  } catch (error) {
+    console.log('Error fetching volunteers for none:', error);
+  }
+}
+
+
 function* dutiesSaga() {
   // for guests:
   yield takeLatest('FETCH_DUTY_RESPONSES', fetchDutyResponses);
@@ -81,6 +140,11 @@ function* dutiesSaga() {
   // for admin:
   yield takeLatest('FETCH_DUTY_DETAILS', fetchDutyDetails);
   yield takeLatest('BANISH_GUEST_DUTIES', banishGuestDuties);
+  yield takeLatest('FETCH_VOLUNTEERS_SETUP', fetchVolunteersSetup);
+  yield takeLatest('FETCH_VOLUNTEERS_CLEANUP', fetchVolunteersCleanup);
+  yield takeLatest('FETCH_VOLUNTEERS_HYDRATION', fetchVolunteersHydration);
+  yield takeLatest('FETCH_VOLUNTEERS_PHOTOGRAPHY', fetchVolunteersPhotography);
+  yield takeLatest('FETCH_VOLUNTEERS_NONE', fetchVolunteersNone);
 }
 
 export default dutiesSaga;

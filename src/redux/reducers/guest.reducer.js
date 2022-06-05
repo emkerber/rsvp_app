@@ -96,6 +96,64 @@ const guestDetails = (state = {}, action) => {
   }
 }
 
+// lists of guests who responded to each question
+// arrays contain objects: 
+// { id, first_name, last_name, details }
+
+const dietaryRestrictions = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_DIETARY_RESTRICTIONS':
+      return action.payload;
+    case 'UNSET_DIETARY_RESTRICTIONS':
+      return [];
+    default:
+      return state;
+  }
+}
+
+const parkingDuring = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_PARKING_DURING':
+      return action.payload;
+    case 'UNSET_PARKING_DURING':
+      return [];
+    default:
+      return state;
+  }
+}
+
+const parkingOvernight = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_PARKING_OVERNIGHT':
+      return action.payload;
+    case 'UNSET_PARKING_OVERNIGHT':
+      return [];
+    default:
+      return state;
+  }
+}
+
+const additionalGuests = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_ADDITIONAL_GUESTS':
+      return action.payload;
+    case 'UNSET_ADDITIONAL_GUESTS':
+      return [];
+    default:
+      return state;
+  }
+}
+
+const questionsComments = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_QUESTIONS_COMMENTS':
+      return action.payload;
+    case 'UNSET_QUESTIONS_COMMENTS':
+      return [];
+    default:
+      return state;
+  }
+}
 
 export default combineReducers({
   // guests:
@@ -108,4 +166,9 @@ export default combineReducers({
   notAttendingList,
   noResponseList,
   guestDetails,
+  dietaryRestrictions,
+  parkingDuring,
+  parkingOvernight,
+  additionalGuests,
+  questionsComments,
 });
