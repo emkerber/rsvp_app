@@ -40,8 +40,23 @@ function* addBanished(action) {
     // action.payload is { guest, explanation }
     yield axios.post('/api/pendings/admin/banished', action.payload);
 
+    // TODO fetch fresh nopes
+    
   } catch (error) {
     console.log('Error adding banished to pendings:', error);
+  }
+}
+
+// add a new person who is definitely not invited
+function* addNope(action) {
+  try {
+    // action.payload is { firstName, lastName, denialMessage, partyId }
+    yield axios.post('/api/pendings/admin/add-nope', action.payload);
+
+    // TODO fetch fresh nopes
+
+  } catch (error) {
+    console.log('Error adding new nope:', error);
   }
 }
 
@@ -51,6 +66,7 @@ function* pendingSaga() {
   yield takeLatest('UPDATE_PENDING_EMAIL', updateEmail);
   // for admin
   yield takeLatest('ADD_BANISHED', addBanished);
+  yield takeLatest('ADD_NOPE', addNope);
 }
 
 export default pendingSaga;
