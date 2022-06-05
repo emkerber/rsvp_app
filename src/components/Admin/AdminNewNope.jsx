@@ -1,6 +1,6 @@
 import React from 'react';
 
-function AdminAddRemove() {
+function AdminNewNope() {
   return (
     <div className="container">
       <form>
@@ -10,4 +10,4 @@ function AdminAddRemove() {
   );
 }
 
-export default AdminAddRemove;
+export default AdminNewNope;
