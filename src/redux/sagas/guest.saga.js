@@ -278,6 +278,7 @@ function* fetchQuestionsComments() {
 // add a new guest to the guest list
 function* addGuest(action) {
   try {
+    // action.payload is { firstName, lastName, welcomeMessage, partyId }
     yield axios.post('/api/guests/admin/add-guest', action.payload);
 
     // get a fresh list of guests who have not yet responded

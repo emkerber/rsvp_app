@@ -352,6 +352,7 @@ router.get('/admin/questions-comments', rejectNonAdmin, (req, res) => {
 });
 
 
+// add new guest to guest list
 router.post('/admin/add-guest', rejectNonAdmin, (req, res) => {
   const queryText = `
     INSERT INTO "guests"
@@ -361,7 +362,7 @@ router.post('/admin/add-guest', rejectNonAdmin, (req, res) => {
   `;
 
   const rb = req.body;
-  const queryParams = [rb.partyId, rb.firstName, rb.lastName];
+  let queryParams = [rb.partyId, rb.firstName, rb.lastName];
 
   if (rb.welcomeMessage) {
     queryParams.push(rb.welcomeMessage);
