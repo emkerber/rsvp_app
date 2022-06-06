@@ -1,6 +1,7 @@
 import React from 'react';
 import AdminNewForm from './AdminNewForm';
 import AdminNopeForm from './AdminNopeForm';
+import AdminNopeList from './AdminNopeList';
 
 function AdminNewNope() {
 
@@ -15,7 +16,8 @@ function AdminNewNope() {
       {/* inputs: first name, last name, denial message */}
       <AdminNopeForm />
 
-      <h3>Those who have already been noped:</h3>
+      {/* list of people who have been noped */}
+      <AdminNopeList />
 
     </div>
   );

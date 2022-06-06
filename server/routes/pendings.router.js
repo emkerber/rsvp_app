@@ -158,4 +158,22 @@ router.post('/admin/add-nope', rejectNonAdmin, (req, res) => {
 });
 
 
+// get list of people who are definitely not invited
+router.get('/admin/nope-list', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT * FROM pendings
+    WHERE resolved
+    ORDER BY first_name;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then(result => res.send(result.rows))
+    .catch(error => {
+      console.log('Error selecting nope list:', error);
+      res.sendStatus(500);
+    });
+});
+
+
 module.exports = router;

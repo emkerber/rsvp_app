@@ -41,7 +41,7 @@ function* addBanished(action) {
     yield axios.post('/api/pendings/admin/banished', action.payload);
 
     // TODO fetch fresh nopes
-    
+
   } catch (error) {
     console.log('Error adding banished to pendings:', error);
   }
@@ -60,6 +60,19 @@ function* addNope(action) {
   }
 }
 
+// get list of people who are definitely not invited
+function* fetchNopeList() {
+  try {
+    const nopeList = yield axios.get('/api/pendings/admin/nope-list');
+
+    yield put({ type: 'SET_NOPE_LIST', payload: nopeList.data });
+
+  } catch (error) {
+    console.log('Error fetching nope list:', error);
+  }
+}
+
+
 function* pendingSaga() {
   // for guests
   yield takeLatest('FETCH_PENDING_INFO', fetchPendingInfo);
@@ -67,6 +80,7 @@ function* pendingSaga() {
   // for admin
   yield takeLatest('ADD_BANISHED', addBanished);
   yield takeLatest('ADD_NOPE', addNope);
+  yield takeLatest('FETCH_NOPE_LIST', fetchNopeList);
 }
 
 export default pendingSaga;
