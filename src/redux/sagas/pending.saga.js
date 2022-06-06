@@ -89,6 +89,24 @@ function* fetchPendingList() {
   }
 }
 
+// when a pending person is denied
+// update their existing pendings row
+function* pendingDenied(action) {
+  try {
+    // action.payload is pendings fields plus message
+    yield axios.put('/api/pendings/admin/denied', action.payload);
+
+    // refresh the pending list
+    yield put({ type: 'FETCH_PENDING_LIST' });
+
+    // refresh the nope list
+    yield put({ type: 'FETCH_NOPE_LIST' });
+
+  } catch (error) {
+    console.log('Error handling pending denial:', error);
+  }
+}
+
 
 function* pendingSaga() {
   // for guests
@@ -99,6 +117,7 @@ function* pendingSaga() {
   yield takeLatest('ADD_NOPE', addNope);
   yield takeLatest('FETCH_NOPE_LIST', fetchNopeList);
   yield takeLatest('FETCH_PENDING_LIST', fetchPendingList);
+  yield takeLatest('PENDING_DENIED', pendingDenied);
 }
 
 export default pendingSaga;

@@ -194,4 +194,26 @@ router.get('/admin/pending-list', rejectNonAdmin, (req, res) => {
 });
 
 
+// when a pending person is denied, update their existing data
+router.put('/admin/denied', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    UPDATE pendings
+    SET
+      resolved = True,
+      denial_message = $1
+    WHERE id = $2;
+  `;
+
+  const queryParams = [req.body.message, req.body.id];
+
+  pool
+    .query(queryText, queryParams)
+    .then(() => res.sendStatus(200))
+    .catch(error => {
+      console.log('Error updating denied pending person:', error);
+      res.sendStatus(500);
+    });
+});
+
+
 module.exports = router;

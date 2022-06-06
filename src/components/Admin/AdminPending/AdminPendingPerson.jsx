@@ -8,7 +8,11 @@ function AdminPendingPerson({ person }) {
   const [message, setMessage] = useState('');
 
   const handleDenyClick = () => {
-    console.log('denied')
+    // update row in pendings table
+    dispatch({ 
+      type: 'PENDING_DENIED',
+      payload: {...person, message}
+    });
   }
 
   const handleApproveClick = () => {
