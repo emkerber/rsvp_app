@@ -28,12 +28,12 @@ import AuthenticatePage from '../Authenticate/AuthenticatePage';
 import GuestGuestListPage from '../User/Guest/GuestGuestListPage';
 import PendingPage from '../User/PendingPage';
 import DeniedPage from '../User/DeniedPage';
-import AdminGuestList from '../Admin/AdminGuestList';
-import AdminGuestDetails from '../Admin/AdminGuestDetails';
-import AdminConfirmBanish from '../Admin/AdminConfirmBanish';
-import AdminResponses from '../Admin/AdminResponses';
-import AdminNewNope from '../Admin/AdminNewNope';
-import AdminPending from '../Admin/AdminPending';
+import AdminGuestList from '../Admin/AdminGuestList/AdminGuestList';
+import AdminGuestDetails from '../Admin/AdminGuestDetails/AdminGuestDetails';
+import AdminConfirmBanish from '../Admin/AdminGuestDetails/AdminConfirmBanish';
+import AdminResponses from '../Admin/AdminResponses/AdminResponses';
+import AdminNewNope from '../Admin/AdminNewNope/AdminNewNope';
+import AdminPending from '../Admin/AdminPending/AdminPending';
 
 import './App.css';
 
