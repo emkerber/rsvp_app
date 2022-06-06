@@ -57,6 +57,9 @@ function* addNope(action) {
     // fetch fresh nope list
     yield put({ type: 'FETCH_NOPE_LIST' });
 
+    // show a success snackbar for 5 seconds
+    yield put({ type: 'NEW_NOPE_SAVED' });
+
   } catch (error) {
     console.log('Error adding new nope:', error);
   }

@@ -286,6 +286,9 @@ function* addGuest(action) {
     // get a fresh list of guests who have not yet responded
     yield put({ type: 'FETCH_NO_RESPONSE_LIST' });
 
+    // show a success snackbar for 5 seconds
+    yield put({ type: 'NEW_GUEST_SAVED' });
+
   } catch (error) {
     console.log('Error adding new guest:', error);
   }
