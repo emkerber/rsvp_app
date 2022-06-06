@@ -144,6 +144,26 @@ router.put('/update-responses/TBD', rejectUnauthenticated, (req, res) => {
 });
 
 
+// when RSVP form is submitted and attendingResponse is NAY
+router.put('/update-responses/NAY', rejectUnauthenticated, (req, res) => {
+  const queryText = `
+    UPDATE "guests"
+    SET
+      attending = false,
+      attending_code = 'NAY'
+    WHERE id = $1;
+  `;
+
+  pool
+    .query(queryText, [req.body.guestId])
+    .then(() => res.sendStatus(200))
+    .catch(error => {
+      console.log('Error updating responses - NAY:', error);
+      res.sendStatus(500);
+    });
+});
+
+
 // - - - - - - - - - - - - - - - - - - - - - -
 // - - - - - - - - FOR ADMIN - - - - - - - - -
 // - - - - - - - - - - - - - - - - - - - - - -

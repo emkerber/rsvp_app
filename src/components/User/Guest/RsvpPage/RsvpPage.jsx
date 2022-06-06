@@ -35,9 +35,6 @@ function RsvpPage() {
         <>
           {/* Care to elaborate? */}
           <RsvpAttendingDeets />
-
-          {/* submit button PUTs either just the attending deets or all the things */}
-          <RsvpSubmit />
         </>
       }
 
@@ -67,11 +64,11 @@ function RsvpPage() {
 
           {/* Questions/comments/concerns/compliments? */}
           <RsvpQuestionsComments />
-
-          {/* submit button PUTs either just the attending deets or all the things */}
-          <RsvpSubmit />
         </>
       }
+
+      {/* submit button PUTs either just the attending deets or all the things */}
+      <RsvpSubmit />
 
     </div>
   );
