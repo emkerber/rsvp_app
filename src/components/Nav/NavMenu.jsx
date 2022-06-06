@@ -15,7 +15,7 @@ import './NavMenu.css';
 function NavMenu() {
   const dispatch = useDispatch();
 
-  const isAdmin = useSelector(store => store.user.admin);
+  const isAdmin = useSelector(store => store.user.userReducer.admin);
   const inviteStatus = useSelector(store => store.invite.inviteStatus);
   const allResponsesExist = useSelector(store => store.guest.allResponsesExist);
 

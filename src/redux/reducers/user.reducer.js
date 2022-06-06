@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+
 // current user's row from users
 const userReducer = (state = {}, action) => {
   switch (action.type) {
@@ -12,4 +14,6 @@ const userReducer = (state = {}, action) => {
 
 // user will be on the redux state at:
 // state.user
-export default userReducer;
+export default combineReducers({
+  userReducer,
+});

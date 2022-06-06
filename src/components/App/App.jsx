@@ -40,7 +40,7 @@ import './App.css';
 function App() {
   const dispatch = useDispatch();
 
-  const user = useSelector(store => store.user);
+  const user = useSelector(store => store.user.userReducer);
 
   // when the user has been idle for 15 minutes
   // log them out and clear reducers

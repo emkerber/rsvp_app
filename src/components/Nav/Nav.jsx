@@ -7,7 +7,7 @@ import './Nav.css';
 
 function Nav() {
   const partyTitle = useSelector(store => store.party.title);
-  const userId = useSelector(store => store.user.id);
+  const userId = useSelector(store => store.user.userReducer.id);
 
   return (
     <div className="nav">

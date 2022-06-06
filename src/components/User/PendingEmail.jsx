@@ -6,7 +6,7 @@ function PendingEmail() {
   const dispatch = useDispatch();
   const emailInfo = useSelector(store => store.pending.info.email);
   const idInfo = useSelector(store => store.pending.info.id);
-  const userId = useSelector(store => store.user.id);
+  const userId = useSelector(store => store.user.userReducer.id);
   
   const [email, setEmail] = useState('');
 
