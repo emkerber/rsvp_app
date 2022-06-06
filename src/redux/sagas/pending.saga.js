@@ -77,6 +77,18 @@ function* fetchNopeList() {
   }
 }
 
+// get list of people whose guest approval is pending
+function* fetchPendingList() {
+  try {
+    const pendingList = yield axios.get('/api/pendings/admin/pending-list');
+
+    yield put({ type: 'SET_PENDING_LIST', payload: pendingList.data });
+
+  } catch (error) {
+    console.log('Error fetching pending list:', error);
+  }
+}
+
 
 function* pendingSaga() {
   // for guests
@@ -86,6 +98,7 @@ function* pendingSaga() {
   yield takeLatest('ADD_BANISHED', addBanished);
   yield takeLatest('ADD_NOPE', addNope);
   yield takeLatest('FETCH_NOPE_LIST', fetchNopeList);
+  yield takeLatest('FETCH_PENDING_LIST', fetchPendingList);
 }
 
 export default pendingSaga;

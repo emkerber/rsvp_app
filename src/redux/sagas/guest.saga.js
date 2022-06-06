@@ -111,6 +111,7 @@ function* fetchAdminData() {
     yield put({ type: 'FETCH_VOLUNTEERS_NONE' }); // duties
     yield put({ type: 'FETCH_QUESTIONS_COMMENTS' });
     yield put({ type: 'FETCH_NOPE_LIST' }); // people who are definitely not invited
+    yield put({ type: 'FETCH_PENDING_LIST' }); // people pending acceptance
 
   } catch (error) {
     console.log('Error fetching admin data:', error);
@@ -196,6 +197,7 @@ function* unsetAdminData() {
     yield put({ type: 'UNSET_VOLUNTEERS_NONE' });
     yield put({ type: 'UNSET_QUESTIONS_COMMENTS' });
     yield put({ type: 'UNSET_NOPE_LIST' });
+    yield put({ type: 'UNSET_PENDING_LIST' });
   } catch (error) {
     console.log('Error unsetting admin data:', error);
   }

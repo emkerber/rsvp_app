@@ -176,4 +176,22 @@ router.get('/admin/nope-list', rejectNonAdmin, (req, res) => {
 });
 
 
+// get list of people whose acceptance as guests is pending
+router.get('/admin/pending-list', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT * FROM pendings
+    WHERE NOT resolved
+    ORDER BY id;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then(result => res.send(result.rows))
+    .catch(error => {
+      console.log('Error selecting pending list:', error);
+      res.sendStatus(500);
+    });
+});
+
+
 module.exports = router;
