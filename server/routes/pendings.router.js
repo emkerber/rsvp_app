@@ -216,4 +216,21 @@ router.put('/admin/denied', rejectNonAdmin, (req, res) => {
 });
 
 
+// when a pending person is approved, delete from pendings (after insert into guests)
+router.delete('/admin/remove-from-pending/:id', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    DELETE FROM pendings
+    WHERE id = $1;
+  `;
+
+  pool
+    .query(queryText, [req.params.id])
+    .then(() => res.sendStatus(200))
+    .catch(error => {
+      console.log('Error deleting approved pending person:', error);
+      res.sendStatus(500);
+    });
+});
+
+
 module.exports = router;

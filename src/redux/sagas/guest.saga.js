@@ -296,6 +296,21 @@ function* addGuest(action) {
   }
 }
 
+// when a pending person is approved to be a guest
+// insert their info into guests table
+function* pendingToGuest(action) {
+  try {
+    // action.payload is pendings fields plus new welcome_message
+    yield axios.post('/api/guests/admin/pending-to-guest', action.payload);
+
+    // get refreshed No Response list
+    yield put({ type: 'FETCH_NO_RESPONSE_LIST' });
+
+  } catch (error) {
+    console.log('Error inserting pending into guests:', error);
+  }
+}
+
 
 function* guestSaga() {
   // guests:
@@ -319,6 +334,7 @@ function* guestSaga() {
   yield takeLatest('FETCH_ADDITIONAL_GUESTS', fetchAdditionalGuests);
   yield takeLatest('FETCH_QUESTIONS_COMMENTS', fetchQuestionsComments);
   yield takeLatest('ADD_GUEST', addGuest);
+  yield takeLatest('PENDING_TO_GUEST', pendingToGuest);
 }
 
 export default guestSaga;

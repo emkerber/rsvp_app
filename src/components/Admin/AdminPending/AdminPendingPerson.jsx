@@ -16,7 +16,11 @@ function AdminPendingPerson({ person }) {
   }
 
   const handleApproveClick = () => {
-    console.log('yus')
+    // insert into guests then delete from pendings
+    dispatch({
+      type: 'PENDING_APPROVED',
+      payload: {...person, message}
+    });
   }
 
   return (

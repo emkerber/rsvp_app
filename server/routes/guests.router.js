@@ -380,4 +380,26 @@ router.post('/admin/add-guest', rejectNonAdmin, (req, res) => {
 });
 
 
+// when a pending person is approved, insert their info into guests
+router.post('/admin/pending-to-guest', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    INSERT INTO guests
+      (party_id, user_id, first_name, last_name, welcome_message, email)
+    VALUES
+      ($1, $2, $3, $4, $5, $6);
+  `;
+
+  const rb = req.body; // pendings fields plus message
+  let queryParams = [rb.party_id, rb.user_id, rb.first_name, rb.last_name, rb.message, rb.email];
+
+  pool
+    .query(queryText, queryParams)
+    .then(() => res.sendStatus(200))
+    .catch(error => {
+      console.log('Error inserting pending into guest:', error);
+      res.sendStatus(500);
+    });
+});
+
+
 module.exports = router;

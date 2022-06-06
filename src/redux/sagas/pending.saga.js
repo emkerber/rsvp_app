@@ -107,6 +107,26 @@ function* pendingDenied(action) {
   }
 }
 
+// when a pending person is approved to be a guest
+// insert their info into guests
+// then delete from pendings
+function* pendingApproved(action) {
+  try {
+    // action.payload is pendings fields plus message
+    // handle guest insert in guest saga
+    yield put({ type: 'PENDING_TO_GUEST', payload: action.payload });
+
+    // delete their data from pendings after successfully inserting it
+    yield axios.delete(`/api/pendings/admin/remove-from-pending/${action.payload.id}`);
+
+    // refresh pending list
+    yield put({ type: 'FETCH_PENDING_LIST' });
+    
+  } catch (error) {
+    console.log('Error handling pending approval:', error);
+  }
+}
+
 
 function* pendingSaga() {
   // for guests
@@ -118,6 +138,7 @@ function* pendingSaga() {
   yield takeLatest('FETCH_NOPE_LIST', fetchNopeList);
   yield takeLatest('FETCH_PENDING_LIST', fetchPendingList);
   yield takeLatest('PENDING_DENIED', pendingDenied);
+  yield takeLatest('PENDING_APPROVED', pendingApproved);
 }
 
 export default pendingSaga;
