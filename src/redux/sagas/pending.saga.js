@@ -77,6 +77,56 @@ function* fetchNopeList() {
   }
 }
 
+// get list of people whose guest approval is pending
+function* fetchPendingList() {
+  try {
+    const pendingList = yield axios.get('/api/pendings/admin/pending-list');
+
+    yield put({ type: 'SET_PENDING_LIST', payload: pendingList.data });
+
+  } catch (error) {
+    console.log('Error fetching pending list:', error);
+  }
+}
+
+// when a pending person is denied
+// update their existing pendings row
+function* pendingDenied(action) {
+  try {
+    // action.payload is pendings fields plus message
+    yield axios.put('/api/pendings/admin/denied', action.payload);
+
+    // refresh the pending list
+    yield put({ type: 'FETCH_PENDING_LIST' });
+
+    // refresh the nope list
+    yield put({ type: 'FETCH_NOPE_LIST' });
+
+  } catch (error) {
+    console.log('Error handling pending denial:', error);
+  }
+}
+
+// when a pending person is approved to be a guest
+// insert their info into guests
+// then delete from pendings
+function* pendingApproved(action) {
+  try {
+    // action.payload is pendings fields plus message
+    // handle guest insert in guest saga
+    yield put({ type: 'PENDING_TO_GUEST', payload: action.payload });
+
+    // delete their data from pendings after successfully inserting it
+    yield axios.delete(`/api/pendings/admin/remove-from-pending/${action.payload.id}`);
+
+    // refresh pending list
+    yield put({ type: 'FETCH_PENDING_LIST' });
+    
+  } catch (error) {
+    console.log('Error handling pending approval:', error);
+  }
+}
+
 
 function* pendingSaga() {
   // for guests
@@ -86,6 +136,9 @@ function* pendingSaga() {
   yield takeLatest('ADD_BANISHED', addBanished);
   yield takeLatest('ADD_NOPE', addNope);
   yield takeLatest('FETCH_NOPE_LIST', fetchNopeList);
+  yield takeLatest('FETCH_PENDING_LIST', fetchPendingList);
+  yield takeLatest('PENDING_DENIED', pendingDenied);
+  yield takeLatest('PENDING_APPROVED', pendingApproved);
 }
 
 export default pendingSaga;

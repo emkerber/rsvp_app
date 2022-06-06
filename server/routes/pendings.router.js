@@ -176,4 +176,61 @@ router.get('/admin/nope-list', rejectNonAdmin, (req, res) => {
 });
 
 
+// get list of people whose acceptance as guests is pending
+router.get('/admin/pending-list', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT * FROM pendings
+    WHERE NOT resolved
+    ORDER BY id;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then(result => res.send(result.rows))
+    .catch(error => {
+      console.log('Error selecting pending list:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// when a pending person is denied, update their existing data
+router.put('/admin/denied', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    UPDATE pendings
+    SET
+      resolved = True,
+      denial_message = $1
+    WHERE id = $2;
+  `;
+
+  const queryParams = [req.body.message, req.body.id];
+
+  pool
+    .query(queryText, queryParams)
+    .then(() => res.sendStatus(200))
+    .catch(error => {
+      console.log('Error updating denied pending person:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// when a pending person is approved, delete from pendings (after insert into guests)
+router.delete('/admin/remove-from-pending/:id', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    DELETE FROM pendings
+    WHERE id = $1;
+  `;
+
+  pool
+    .query(queryText, [req.params.id])
+    .then(() => res.sendStatus(200))
+    .catch(error => {
+      console.log('Error deleting approved pending person:', error);
+      res.sendStatus(500);
+    });
+});
+
+
 module.exports = router;

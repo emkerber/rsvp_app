@@ -30,9 +30,21 @@ const nopeList = (state = [], action) => {
   }
 }
 
+const pendingList = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_PENDING_LIST':
+      return action.payload;
+    case 'UNSET_PENDING_LIST':
+      return [];
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   // for guests
   info,
   // for admin
   nopeList,
+  pendingList,
 });
