@@ -40,7 +40,8 @@ function* addBanished(action) {
     // action.payload is { guest, explanation }
     yield axios.post('/api/pendings/admin/banished', action.payload);
 
-    // TODO fetch fresh nopes
+    // fetch fresh nope list
+    yield put({ type: 'FETCH_NOPE_LIST' });
 
   } catch (error) {
     console.log('Error adding banished to pendings:', error);
@@ -53,7 +54,8 @@ function* addNope(action) {
     // action.payload is { firstName, lastName, denialMessage, partyId }
     yield axios.post('/api/pendings/admin/add-nope', action.payload);
 
-    // TODO fetch fresh nopes
+    // fetch fresh nope list
+    yield put({ type: 'FETCH_NOPE_LIST' });
 
   } catch (error) {
     console.log('Error adding new nope:', error);
