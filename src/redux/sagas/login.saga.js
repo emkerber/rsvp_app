@@ -20,6 +20,10 @@ function* loginUser(action) {
     // after the user has logged in
     // get the user information from the server
     yield put({ type: 'FETCH_USER' });
+
+    // triggers history.push() to next page
+    yield put({ type: 'AUTH_SUCCESS' });
+
   } catch (error) {
     console.log('Error with user login:', error);
     if (error.response.status === 401) {
@@ -53,6 +57,10 @@ function* logoutUser(action) {
     // remove the client-side user object to let
     // the client-side code know the user is logged out
     yield put({ type: 'UNSET_USER' });
+
+    // sets false
+    // when set true, Register and Login will history.push() to next page
+    yield put({ type: 'UNSET_AUTH_SUCCESS' });
 
     // also empty the reducers I made
     yield put({ type: 'UNSET_NAME' });

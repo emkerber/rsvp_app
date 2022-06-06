@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -6,6 +6,7 @@ function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector(store => store.errors);
+  const authSuccess = useSelector(store => store.user.authSuccess);
   const inviteStatus = useSelector(store => store.invite.inviteStatus);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -22,24 +23,33 @@ function LoginForm() {
         },
       });
 
-      // user should be routed to different pages based on inviteStatus
-      switch (inviteStatus) {
-        case 'guest':
-          history.push('/deets');
-          break;
-        case 'nope':
-          history.push('/nope');
-          break;
-        case 'pending':
-          history.push('/pending');
-          break;
-        default:
-          history.push('/pending');
-      }
     } else {
       dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
   }; // end login
+
+  // called once we know login was successful
+  const goToNextPage = () => {
+    // user should be routed to different pages based on inviteStatus
+    switch (inviteStatus) {
+      case 'guest':
+        history.push('/deets');
+        break;
+      case 'nope':
+        history.push('/nope');
+        break;
+      case 'pending':
+        history.push('/pending');
+        break;
+      default:
+        history.push('/pending');
+    }
+  }
+
+  useEffect(() => {
+    authSuccess && // set to true after successful login
+      goToNextPage();
+  }, [authSuccess]);
 
   // renders username and password inputs
   // and a Log In button
