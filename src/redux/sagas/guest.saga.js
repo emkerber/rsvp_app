@@ -110,6 +110,7 @@ function* fetchAdminData() {
     yield put({ type: 'FETCH_VOLUNTEERS_PHOTOGRAPHY' }); // duties
     yield put({ type: 'FETCH_VOLUNTEERS_NONE' }); // duties
     yield put({ type: 'FETCH_QUESTIONS_COMMENTS' });
+    yield put({ type: 'FETCH_NOPE_LIST' }); // people who are definitely not invited
 
   } catch (error) {
     console.log('Error fetching admin data:', error);
@@ -194,6 +195,7 @@ function* unsetAdminData() {
     yield put({ type: 'UNSET_VOLUNTEERS_PHOTOGRAPHY' });
     yield put({ type: 'UNSET_VOLUNTEERS_NONE' });
     yield put({ type: 'UNSET_QUESTIONS_COMMENTS' });
+    yield put({ type: 'UNSET_NOPE_LIST' });
   } catch (error) {
     console.log('Error unsetting admin data:', error);
   }
@@ -275,6 +277,23 @@ function* fetchQuestionsComments() {
   }
 }
 
+// add a new guest to the guest list
+function* addGuest(action) {
+  try {
+    // action.payload is { firstName, lastName, welcomeMessage, partyId }
+    yield axios.post('/api/guests/admin/add-guest', action.payload);
+
+    // get a fresh list of guests who have not yet responded
+    yield put({ type: 'FETCH_NO_RESPONSE_LIST' });
+
+    // show a success snackbar for 5 seconds
+    yield put({ type: 'NEW_GUEST_SAVED' });
+
+  } catch (error) {
+    console.log('Error adding new guest:', error);
+  }
+}
+
 
 function* guestSaga() {
   // guests:
@@ -297,6 +316,7 @@ function* guestSaga() {
   yield takeLatest('FETCH_PARKING_OVERNIGHT', fetchParkingOvernight);
   yield takeLatest('FETCH_ADDITIONAL_GUESTS', fetchAdditionalGuests);
   yield takeLatest('FETCH_QUESTIONS_COMMENTS', fetchQuestionsComments);
+  yield takeLatest('ADD_GUEST', addGuest);
 }
 
 export default guestSaga;

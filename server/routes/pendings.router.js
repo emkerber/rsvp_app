@@ -130,4 +130,50 @@ router.post('/admin/banished', rejectNonAdmin, (req, res) => {
 });
 
 
+// add a new person who is definitely not invited
+router.post('/admin/add-nope', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    INSERT INTO "pendings"
+      (party_id, first_name, last_name, resolved, denial_message)
+    VALUES
+      ($1, $2, $3, True, $4);
+  `;
+
+  const rb = req.body;
+  let queryParams = [rb.partyId, rb.firstName, rb.lastName];
+
+  if (rb.denialMessage) {
+    queryParams.push(rb.denialMessage)
+  } else {
+    queryParams.push('You may not attend.')
+  }
+
+  pool
+    .query(queryText, queryParams)
+    .then(() => res.sendStatus(200))
+    .catch(error => {
+      console.log('Error inserting new nope:', error);
+      res.sendStatus(500);
+    });
+});
+
+
+// get list of people who are definitely not invited
+router.get('/admin/nope-list', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT * FROM pendings
+    WHERE resolved
+    ORDER BY first_name;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then(result => res.send(result.rows))
+    .catch(error => {
+      console.log('Error selecting nope list:', error);
+      res.sendStatus(500);
+    });
+});
+
+
 module.exports = router;

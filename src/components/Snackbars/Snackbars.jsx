@@ -4,8 +4,19 @@ import { Snackbar } from '@mui/material';
 
 function Snackbars() {
   const dispatch = useDispatch();
+
+  // pending user submits their email
   const pendingEmailSaved = useSelector(store => store.snackbar.pendingEmailSaved);
+
+  // guest saves their rsvp responses
   const rsvpSaved = useSelector(store => store.snackbar.rsvpSaved);
+
+  // admin submits a new guest
+  const newGuestSaved = useSelector(store => store.snackbar.newGuestSaved);
+
+  // admin submits a new nope
+  const newNopeSaved = useSelector(store => store.snackbar.newNopeSaved);
+
   
   return (
     <>
@@ -25,6 +36,24 @@ function Snackbars() {
           autoHideDuration={5000}
           onClose={() => dispatch({ type: 'RSVP_SAVED_CLOSE' })}
           message="Your responses are saved!"
+        />
+      }
+
+      {newGuestSaved &&
+        <Snackbar 
+          open={newGuestSaved}
+          autoHideDuration={5000}
+          onClose={() => dispatch({ type: 'NEW_GUEST_SAVED_CLOSE' })}
+          message="Guest added!"
+        />
+      }
+
+      {newNopeSaved &&
+        <Snackbar 
+          open={newNopeSaved}
+          autoHideDuration={5000}
+          onClose={() => dispatch({ type: 'SEW_NOPE_SAVED_CLOSE' })}
+          message="They have been added. They are noped."
         />
       }
 

@@ -28,12 +28,12 @@ import AuthenticatePage from '../Authenticate/AuthenticatePage';
 import GuestGuestListPage from '../User/Guest/GuestGuestListPage';
 import PendingPage from '../User/PendingPage';
 import DeniedPage from '../User/DeniedPage';
-import AdminGuestList from '../Admin/AdminGuestList';
-import AdminGuestDetails from '../Admin/AdminGuestDetails';
-import AdminConfirmBanish from '../Admin/AdminConfirmBanish';
-import AdminResponses from '../Admin/AdminResponses';
-import AdminAddRemove from '../Admin/AdminAddRemove';
-import AdminPending from '../Admin/AdminPending';
+import AdminGuestList from '../Admin/AdminGuestList/AdminGuestList';
+import AdminGuestDetails from '../Admin/AdminGuestDetails/AdminGuestDetails';
+import AdminConfirmBanish from '../Admin/AdminGuestDetails/AdminConfirmBanish';
+import AdminResponses from '../Admin/AdminResponses/AdminResponses';
+import AdminNewNope from '../Admin/AdminNewNope/AdminNewNope';
+import AdminPending from '../Admin/AdminPending/AdminPending';
 
 import './App.css';
 
@@ -151,11 +151,12 @@ function App() {
             </ProtectedAdminRoute>
 
             <ProtectedAdminRoute
-              // logged in shows AdminAddRemove else shows LoginPage
+              // logged in shows Admin New / Nope else shows LoginPage
+              // forms to add a guest and add someone who can't come
               exact
-              path="/admin/new-nope" // formerly "edit"
+              path="/admin/new-nope"
             >
-              <AdminAddRemove />
+              <AdminNewNope />
             </ProtectedAdminRoute>
 
             <ProtectedAdminRoute
