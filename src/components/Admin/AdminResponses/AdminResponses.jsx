@@ -22,7 +22,7 @@ function AdminResponses() {
       
       <p>Click on a guest's name to see their details.</p>
 
-      <h2>Dietary Restrictions</h2>
+      <h2>Dietary restrictions</h2>
       <AdminResponseSubList list={dietaryRestrictions} />
 
       <h2>Parking</h2>
