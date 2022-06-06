@@ -44,6 +44,9 @@ function* registerUser(action) {
     // automatically log a user in after registration
     yield put({ type: 'LOGIN', payload: action.payload });
 
+    // triggers history.push() to next page
+    yield put({ type: 'AUTH_SUCCESS' });
+
   } catch (error) {
     console.log('Error with user registration:', error);
     yield put({ type: 'REGISTRATION_FAILED' });

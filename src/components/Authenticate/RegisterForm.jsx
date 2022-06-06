@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -6,6 +6,7 @@ function RegisterForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector((store) => store.errors);
+  const authSuccess = useSelector(store => store.user.authSuccess);
   const inviteStatus = useSelector((store) => store.invite.inviteStatus);
   const name = useSelector((store) => store.visit.name);
   const party = useSelector((store) => store.party.id);
@@ -15,12 +16,15 @@ function RegisterForm() {
   const registerUser = (event) => {
     event.preventDefault();
 
-    // send a buttload of info so the server has all knowledge
+    // send a bunch of info so the server has all knowledge
     dispatch({
       type: 'REGISTER',
       payload: { username, password, inviteStatus, name, party },
     });
+  }; // end registerUser
 
+  // called once we know registration was successful
+  const goToNextPage = () => {
     // user should be routed to different pages based on inviteStatus
     switch (inviteStatus) {
       case 'guest':
@@ -35,7 +39,12 @@ function RegisterForm() {
       default:
         history.push('/thanks');
     }
-  }; // end registerUser
+  }
+
+  useEffect(() => {
+    authSuccess && // set to true after successful registration and login
+      goToNextPage();
+  }, [authSuccess]);
 
   // renders username and password inputs
   // and a Register button

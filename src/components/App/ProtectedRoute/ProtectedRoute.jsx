@@ -15,7 +15,7 @@ import LandingPage from '../../LandingPage/LandingPage';
 // and by checking req.user for authorization
 
 function ProtectedRoute({ component, children, ...props }) {
-  const user = useSelector((store) => store.user);
+  const user = useSelector((store) => store.user.userReducer);
 
   // Component may be passed in as a "component" prop,
   // or as a child component.
