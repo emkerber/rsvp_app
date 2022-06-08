@@ -3,12 +3,38 @@
   src: url('./MPLUS1/static/MPLUS1-SemiBold.ttf') format('truetype');
 }
 
+#nav-menu {
+  background-color: #373064;
+  box-shadow: none;
+}
+
 .nav-icon {
   color: #fcd299;
 }
 
+.nav-icon:hover {
+  color: #EE4266;
+}
+
+#basic-menu ul {
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: #B4ADFF;
+  border: 5px outset #EE4266;
+}
+
+
+/* .MuiMenu-paper {
+  background-color: #fcd299;
+} */
+
+#nav-menu-admin {
+ border-bottom: 5px outset #EE4266;
+ background-color: #DAD6FF;
+}
+
 .nav-link {
-  color: black;
+  color: #373064;
   text-decoration: none; /*remove underline*/
   
   /* display: inline-block;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Snackbar } from '@mui/material';
+import './Snackbars.css'; 
 
 function Snackbars() {
   const dispatch = useDispatch();

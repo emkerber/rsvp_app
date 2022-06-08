@@ -30,7 +30,7 @@ function PendingEmail() {
       {!emailInfo &&
         <FormControl>
 
-          <h2>Please enter your email to receive updates.</h2>
+          <p>Please enter your email if you would like to receive updates.</p>
     
           <TextField 
             className="input"

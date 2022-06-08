@@ -41,6 +41,8 @@ function AdminPendingPerson({ person }) {
         onChange={event => setMessage(event.target.value)}
       />
 
+      <br />
+
       {/* Deny button */}
       <Button
         variant="contained"

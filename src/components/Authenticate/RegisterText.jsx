@@ -9,6 +9,7 @@ function RegisterText() {
   const [verbiageTwo, setVerbiageTwo] = useState('');
 
   const inviteStatus = useSelector((store) => store.invite.inviteStatus);
+  const firstName = useSelector((store) => store.visit.name.firstName);
 
   const checkStatus = () => {
     switch (inviteStatus) {
@@ -21,7 +22,7 @@ function RegisterText() {
         setVerbiageTwo('');
         break;
       case 'none':
-        setVerbiageOne('Well hello there!');
+        setVerbiageOne(`Well hey there, ${firstName}!`);
         setVerbiageTwo('Please register.');
         break;
       default:

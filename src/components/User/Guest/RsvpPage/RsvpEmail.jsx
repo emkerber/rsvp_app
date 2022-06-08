@@ -39,7 +39,7 @@ function RsvpEmail() {
     
     <FormControl>
 
-      <h2>Please enter your email to receive party updates!</h2>
+      <h2>Please enter your email if you would like to receive party updates!</h2>
 
       <TextField 
         className="rsvp-input"

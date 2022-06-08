@@ -5,7 +5,7 @@ import RegisterForm from './RegisterForm';
 function RegisterPage() {
 
   return (
-    <div>
+    <div id="auth-container">
       
       <RegisterText />
         

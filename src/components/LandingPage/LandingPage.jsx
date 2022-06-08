@@ -65,8 +65,8 @@ function LandingPage() {
           onChange={(event) => setLastName(event.target.value)} />
         <br/>
         <Button 
+          className="btn"
           variant="contained" 
-          size="small" 
           id="onward-button"
           type="submit">
         Onward</Button>
