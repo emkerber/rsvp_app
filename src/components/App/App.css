@@ -1,3 +1,20 @@
+/* brilliant_rose: #FF499E */
+/* dogwood_rose: #D60064 */ /* ok with magnolia */
+/* red_salsa: #F4364C */
+/* ou_crimson_red: #880716 */
+/* medium_slate_blue: #8075FF */
+
+
+
+/* paradise_pink: #EE4266 */
+/* deep_champagne: #FCD299 */
+/* gold_metallic: #E2B33C */
+/* magnolia: #F8F0FB */
+/* maximum_blue_purple: #B4ADFF */
+/* space_cadet: #373064 */
+
+
+
 @font-face {
   font-family: 'MPLUS1';
   src: url('./MPLUS1-Regular.ttf') format('truetype');
@@ -24,29 +41,39 @@ img {
 Container
 -------------------------------------------------------------------------------- */
 
-.container, .paper-container {
-  background-color: goldenrod;
+.container, .paper-container, #auth-container {
+  border-radius: 3px;
+  background-color: #E2B33C;
+  color: #373064;
+  border-left: #E2B33C solid 10px;
+  border-top: #E2B33C solid 5px;
+  border-right: #E2B33C solid 10px;
+  border-bottom: #E2B33C solid 3px;
 }
 
 .paper-container {
   margin: 15px;
 }
 
+div.MuiPaper-root {
+  background-color: #E2B33C;
+}
+
 /* --------------------------------------------------------------------------------
-Button
+Buttons
 -------------------------------------------------------------------------------- */
 
-.btn {
+button.MuiButton-root {
   display: inline-block;
-  padding: 10px 20px;
-  border-color: #014041;
-  border-width: 1px 1px 3px;
-  border-radius: 4px;
-  background-color: #00acb0;
-  color: #f8f8f8;
-  font-size: 1.1rem;
-  outline: 0;
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: #373064 3px;
+  background-color: #B4ADFF;
+  color: #373064;
+  font-size: 1.2rem;
   cursor: pointer;
+  margin: 0.75em 0.75em 0.75em 0;
+  box-shadow: 0 7px 12px rgb(0, 0, 0, 0.4);
 }
 
 .btn_sizeMin {
@@ -64,9 +91,19 @@ Button
   width: 100%;
 }
 
-.btn:hover {
-  background-color: #008183;
-  text-decoration: none;
+button.MuiButton-root:hover {
+  background-color: #D60064;
+  color: #F8F0FB;
+  text-shadow:
+    0 0 7px #F8F0FB,
+    0 0 10px #F8F0FB,
+    0 0 21px #fcd299,
+    0 0 42px #fcd299,
+    0 0 82px #E2B33C,
+    0 0 92px #E2B33C,
+    0 0 102px #E2B33C,
+    0 0 151px #fcd299;
+  
 }
 
 /* This line makes the "Register" and "Login" buttons look like links */
@@ -111,9 +148,7 @@ Form Treatment
   max-width: 100%;
   padding: 25px;
   margin: 0 auto 20px;
-  background-color: #efefef;
   border-radius: 3px;
-  box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4);
 }
 
 input {
@@ -122,10 +157,14 @@ input {
 }
 
 /* --------------------------------------------------------------------------------
-Lil hearts
+Texts
 -------------------------------------------------------------------------------- */
 
-.heart {
-  color: #f4364c;
-  font-size: 1.2em;
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.5em;
+  font-weight: bold;
 }
