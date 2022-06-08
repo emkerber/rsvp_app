@@ -5,7 +5,7 @@ import LoginForm from './LoginForm';
 function LoginPage() {
 
   return (
-    <div>
+    <div id="auth-container">
 
       <LoginText />
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { TextField, Button } from '@mui/material';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -54,7 +55,7 @@ function LoginForm() {
   // renders username and password inputs
   // and a Log In button
   return (
-    <form className="formPanel" onSubmit={login}>
+    <form className="formPanel">
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
@@ -63,7 +64,8 @@ function LoginForm() {
       <div>
         <label htmlFor="username">
           Username:
-          <input
+          <TextField
+            variant="standard"
             type="text"
             name="username"
             required
@@ -72,10 +74,12 @@ function LoginForm() {
           />
         </label>
       </div>
+      <br/>
       <div>
         <label htmlFor="password">
           Password:
-          <input
+          <TextField
+            variant="standard"
             type="password"
             name="password"
             required
@@ -84,9 +88,15 @@ function LoginForm() {
           />
         </label>
       </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Log In" />
-      </div>
+      <br/>
+      <Button
+        className="btn"
+        variant="contained"
+        type="submit"
+        onClick={login}
+      >
+        Log in
+      </Button>
     </form>
   );
 }
