@@ -1,0 +1,6 @@
+div.MuiPaper-root.MuiSnackbarContent-root {
+  border: 5px ridge #EE4266;
+  background-color: #373064;
+  color: #fcd299;
+  font-size: 1.2em;
+}
