@@ -41,8 +41,9 @@ function NavMenu() {
   // admin: Guests, Responses, New / Nope, Pending, RSVP, Deets, if all responses then Guest List, Logout
 
   return (
-    <>
+    <div>
       <Button
+        id="nav-menu"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-expanded={open ? 'true' : undefined}
         aria-haspopup="true"
@@ -91,7 +92,7 @@ function NavMenu() {
       >
         
         {isAdmin && 
-          <div>
+          <div id="nav-menu-admin">
             <MenuItem>
               <Link to="/admin/guests" className="nav-link">Guests</Link>
             </MenuItem>
@@ -135,7 +136,7 @@ function NavMenu() {
       </Menu>
 
           
-    </>
+    </div>
   );
 }
 

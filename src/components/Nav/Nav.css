@@ -9,13 +9,13 @@
 @keyframes flicker {
   0%, 18%, 22%, 25%, 53%, 57%, 100% {
     text-shadow:
-    0 0 7px #fff,
-    0 0 10px #fff,
+    0 0 7px #F8F0FB,
+    0 0 10px #F8F0FB,
     0 0 21px #fcd299,
     0 0 42px #fcd299,
-    0 0 82px goldenrod,
-    0 0 92px goldenrod,
-    0 0 102px goldenrod,
+    0 0 82px #E2B33C,
+    0 0 92px #E2B33C,
+    0 0 102px #E2B33C,
     0 0 151px #fcd299;
   }
   20%, 24%, 55% {       
@@ -55,7 +55,7 @@
   font-family: 'Monoton', sans-serif;
   font-size: 2em;
   font-weight: 100;
-  color: #f4364c;
+  color: #EE4266;
   margin-left: 1em;
   animation: flicker 7s infinite alternate; 
 }
