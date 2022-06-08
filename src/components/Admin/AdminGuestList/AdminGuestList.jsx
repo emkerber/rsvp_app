@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import AdminGuestTotalsTable from './AdminGuestTotalsTable';
 import AdminGuestSubcategoryList from './AdminGuestSubcategoryList';
+import '../Admin.css';
 
 function AdminGuestList() {
   const attendingList = useSelector(store => store.guest.attendingList);
@@ -11,7 +12,7 @@ function AdminGuestList() {
 
   return (
     <div className="container">
-      
+
       {/* table with counts for each category */}
       <AdminGuestTotalsTable />
 
