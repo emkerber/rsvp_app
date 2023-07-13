@@ -55,12 +55,14 @@ function LandingPage() {
         <TextField 
           className="landing-input"
           variant="standard" 
+          type="fname"
           value={firstName.trim()}
           onChange={(event) => setFirstName(event.target.value)} />
         <div id="landing-input-div" className="landing-input"></div>
         <TextField 
           className="landing-input"
           variant="standard" 
+          type="lname"
           value={lastName.trim()} 
           onChange={(event) => setLastName(event.target.value)} />
         <br/>

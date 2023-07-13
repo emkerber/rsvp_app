@@ -34,6 +34,7 @@ function PendingEmail() {
     
           <TextField 
             className="input"
+            type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
