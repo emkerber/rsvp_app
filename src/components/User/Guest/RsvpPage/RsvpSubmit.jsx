@@ -43,12 +43,14 @@ function RsvpSubmit() {
   } // end handleSubmitClick()
 
   return (
-    <Button
-      variant="contained"
-      onClick={handleSubmitClick}
-    >
-      Submit!
-    </Button>
+    <div id="rsvp-submit-btn">
+      <Button
+        variant="contained"
+        onClick={handleSubmitClick}
+      >
+        Submit!
+      </Button>
+    </div>
   );
 }
 

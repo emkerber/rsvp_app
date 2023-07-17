@@ -71,6 +71,7 @@ function RsvpAdditionalGuests() {
       <Select
         className="rsvp-input"
         id="select-additional-guests"
+        inputProps={{MenuProps: {disableScrollLock: true}}}
         value={addGuestsTemp}
         onChange={(event) => handleAddGuestsChange(event.target.value)}
       >

@@ -73,6 +73,7 @@ function RsvpAttending() {
       <Select
         className="rsvp-input"
         id="select-attending"
+        inputProps={{MenuProps: {disableScrollLock: true}}}
         value={attendingCodeTemp}
         onChange={(event) => handleAttendingChange(event.target.value)}
       >

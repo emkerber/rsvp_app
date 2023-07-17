@@ -43,6 +43,7 @@ function RsvpEmail() {
 
       <TextField 
         className="rsvp-input"
+        type="email"
         id="text-email"
         value={emailTemp}
         onChange={(event) => handleEmailChange(event.target.value)}
