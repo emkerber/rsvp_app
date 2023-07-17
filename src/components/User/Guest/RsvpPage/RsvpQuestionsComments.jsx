@@ -38,7 +38,7 @@ function QuestionsComments() {
   return (
     <FormControl>
 
-      <h2>Questions/comments/concerns/compliments?</h2>
+      <h2>Questions / comments / concerns / compliments?</h2>
 
       <TextField
         className="rsvp-input"

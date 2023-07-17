@@ -1,9 +1,37 @@
+ul {
+  background-color: #FCD299;
+  /* color: #373064; */
+}
+
 .heart-small {
   color: #f4364c;
   font-size: 0.8em;
 }
 
+/* .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  color: #373064;
+}
+
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  color: #373064;
+} */
+
 .rsvp-input {
   display: inline-block;
   width: 100%;
+  background-color: #FCD299;
+  /* color: #373064; */
+}
+
+#bummer-message, #welcome-message {
+  text-align: center;
+}
+
+#rsvp-container {
+  display: inline-block;
+  width: 90%;
+}
+
+#rsvp-submit-btn {
+  text-align: center;
 }
