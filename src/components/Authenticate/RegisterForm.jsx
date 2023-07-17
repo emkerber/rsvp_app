@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { TextField, Button } from '@mui/material';
+import './Authenticate.css';
 
 function RegisterForm() {
   const [username, setUsername] = useState('');

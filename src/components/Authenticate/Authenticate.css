@@ -1,0 +1,7 @@
+.formPanel .alert {
+  /* error message if registration or login fails */
+  border-color: #EE4266;
+  border-width: 6px;
+  background-color: #FCD299;
+  color: #373064;
+}
