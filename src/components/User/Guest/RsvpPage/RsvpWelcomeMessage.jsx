@@ -11,11 +11,13 @@ function WelcomeMessage() {
 
   return (
     <div id="welcome-message">
-      <p>{welcomeMessage}</p>
       <p>
         <FavoriteIcon className="heart-small" />
-        Provide all responses to access the Guest List!
+        {welcomeMessage}
         <FavoriteIcon className="heart-small" />
+      </p>
+      <p>
+        Provide all responses to access the Guest List!
       </p>
     </div>
   )
