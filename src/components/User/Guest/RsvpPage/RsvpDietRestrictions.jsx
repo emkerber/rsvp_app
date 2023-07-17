@@ -68,6 +68,7 @@ function RsvpDietRestrict() {
       <Select
         className="rsvp-input"
         id="select-diet-restrictions"
+        inputProps={{MenuProps: {disableScrollLock: true}}}
         value={dietTemp}
         onChange={(event) => handleDietChange(event.target.value)}
       >

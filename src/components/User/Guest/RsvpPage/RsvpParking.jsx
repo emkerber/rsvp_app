@@ -64,6 +64,7 @@ function RsvpParking() {
         <Select
           className="rsvp-input"
           id="select-parking"
+          inputProps={{MenuProps: {disableScrollLock: true}}}
           value={parkingTemp}
           onChange={(event) => handleParkingChange(event.target.value)}
         >
@@ -82,6 +83,7 @@ function RsvpParking() {
           <Select
             className="rsvp-input"
             id="select-parking-overnight"
+            inputProps={{MenuProps: {disableScrollLock: true}}}
             value={overnightTemp}
             onChange={(event) => handleOvernightChange(event.target.value)}
           >
