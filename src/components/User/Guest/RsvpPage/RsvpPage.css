@@ -15,6 +15,10 @@ ul {
   color: #373064 !important;
 }
 
+.rsvp-checkbox {
+  color: #373064 !important;
+}
+
 #bummer-message, #welcome-message {
   text-align: center;
 }
