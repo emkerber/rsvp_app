@@ -19,6 +19,10 @@ ul {
   color: #373064 !important;
 }
 
+.MuiOutlinedInput-notchedOutline {
+  border-color: #373064 !important;
+}
+
 #bummer-message, #welcome-message {
   text-align: center;
 }
