@@ -156,6 +156,18 @@ input {
   margin-bottom: 10px;
 }
 
+textarea:focus, input:focus {
+  color: #373064;
+}
+
+input::placeholder {
+  color: #373064;
+}
+
+input, select, textarea, li {
+  color: #373064  !important;
+}
+
 /* --------------------------------------------------------------------------------
 Texts
 -------------------------------------------------------------------------------- */

@@ -1,6 +1,6 @@
 ul {
   background-color: #FCD299;
-  /* color: #373064; */
+  color: #373064;
 }
 
 .heart-small {
@@ -8,19 +8,11 @@ ul {
   font-size: 0.8em;
 }
 
-/* .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
-  color: #373064;
-}
-
-.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
-  color: #373064;
-} */
-
 .rsvp-input {
   display: inline-block;
   width: 100%;
   background-color: #FCD299;
-  /* color: #373064; */
+  color: #373064 !important;
 }
 
 #bummer-message, #welcome-message {
