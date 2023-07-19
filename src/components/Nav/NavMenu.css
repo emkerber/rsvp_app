@@ -13,14 +13,14 @@
 }
 
 .nav-icon:hover {
-  color: #EE4266;
+  color: #B4ADFF;
 }
 
 #basic-menu ul {
   padding-top: 0;
   padding-bottom: 0;
-  background-color: #B4ADFF;
-  border: 5px outset #EE4266;
+  background-color: #DAD6FF;
+  border: 5px outset #B4ADFF;
 }
 
 
@@ -29,8 +29,8 @@
 } */
 
 #nav-menu-admin {
- border-bottom: 5px outset #EE4266;
- background-color: #DAD6FF;
+ border-bottom: 5px outset #B4ADFF;
+ background-color: #F8F0FB;
 }
 
 .nav-link {

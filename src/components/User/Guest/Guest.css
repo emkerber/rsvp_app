@@ -1,3 +1,13 @@
 #go-to-rsvp-btn {
   text-align: center;
 }
+
+#guest-guest-list-h2 {
+  margin-top: 10px;
+}
+
+#guest-guest-list-ul {
+  list-style-type: none;
+  background-color: #E2B33C;
+  margin: 0px auto 15px auto;
+}
