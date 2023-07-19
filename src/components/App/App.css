@@ -142,6 +142,11 @@ Alert
 Form Treatment
 -------------------------------------------------------------------------------- */
 
+/* underline when input is active */
+.MuiInput-root::after {
+  border-bottom: 2px solid #373064 !important;
+}
+
 .formPanel {
   box-sizing: border-box;
   width: 400px;
