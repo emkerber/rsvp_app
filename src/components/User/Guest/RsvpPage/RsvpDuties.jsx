@@ -112,6 +112,7 @@ function RsvpDuties() {
           labelPlacement="end"
           control={
             <Checkbox 
+              className="rsvp-checkbox"
               checked={setupChecked}
               onChange={handleSetupChange}
             />
@@ -123,6 +124,7 @@ function RsvpDuties() {
           labelPlacement="end"
           control={
             <Checkbox 
+              className="rsvp-checkbox"
               checked={cleanupChecked}
               onChange={handleCleanupChange}
             />
@@ -134,6 +136,7 @@ function RsvpDuties() {
           labelPlacement="end"
           control={
             <Checkbox 
+              className="rsvp-checkbox"
               checked={hydrationChecked}
               onChange={handleHydrationChange}
             />
@@ -145,6 +148,7 @@ function RsvpDuties() {
           labelPlacement="end"
           control={
             <Checkbox 
+              className="rsvp-checkbox"
               checked={photographerChecked}
               onChange={handlePhotographerChange}
             />
@@ -157,6 +161,7 @@ function RsvpDuties() {
           checked={nopeChecked}
           control={
             <Checkbox 
+              className="rsvp-checkbox"
               checked={nopeChecked}
               onChange={handleNopeChange}
             />

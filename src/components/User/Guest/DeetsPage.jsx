@@ -1,11 +1,19 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { Button } from '@mui/material';
+import './Guest.css';
 
 function DeetsPage() {
   const dispatch = useDispatch();
+  const history = useHistory();
   
   const party = useSelector(store => store.party);
   const allResponses = useSelector(store => store.guest.allResponsesExist);
+
+  const handleRsvpClicked = () => {
+    history.push('/rsvp');
+  }
 
   useEffect(() => {
     allResponses && dispatch({ type: 'FETCH_GUESTS_LIST' });
@@ -25,6 +33,15 @@ function DeetsPage() {
       <p>{party.description_two}</p>
 
       <p>{party.parking_info}</p>
+
+      <div id="go-to-rsvp-btn">
+        <Button
+          variant="contained"
+          onClick={handleRsvpClicked}
+        >
+          RSVP!
+        </Button>
+      </div>
 
     </div>
   );
