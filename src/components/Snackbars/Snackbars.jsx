@@ -53,7 +53,7 @@ function Snackbars() {
         <Snackbar 
           open={newNopeSaved}
           autoHideDuration={5000}
-          onClose={() => dispatch({ type: 'SEW_NOPE_SAVED_CLOSE' })}
+          onClose={() => dispatch({ type: 'NEW_NOPE_SAVED_CLOSE' })}
           message="They have been added. They are noped."
         />
       }
