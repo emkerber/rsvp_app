@@ -28,15 +28,17 @@ function* checkInvite(action) {
       yield put({ type: 'SET_INVITE_STATUS', payload: 'guest' });
       console.log('Guest!');
 
-      // store guest's form responses in redux
+      // store only first_name, last_name, and user_id for now
+      // user_id is used to determine if they should login or register
       yield put({ type: 'SET_GUEST_RESPONSES', payload: responses });
-
-      // check if guest has provided all responses
-      // if so, ALL_RESPONSES_EXIST is set to true
-      yield put({ type: 'CHECK_ALL_RESPONSES_EXIST', payload: responses });
-
-      // fetch and set guest's indicated duties in redux
-      yield put({ type: 'FETCH_DUTY_RESPONSES', payload: responses.id });
+      
+      // TODO remove:
+      // // check if guest has provided all responses
+      // // if so, ALL_RESPONSES_EXIST is set to true
+      // yield put({ type: 'CHECK_ALL_RESPONSES_EXIST', payload: responses });
+      // 
+      // // fetch and set guest's indicated duties in redux
+      // yield put({ type: 'FETCH_DUTY_RESPONSES', payload: responses.id });
 
       // nothing else in this function should run
       return;
@@ -48,7 +50,9 @@ function* checkInvite(action) {
     // if a row is returned
     if (pendingResult.data.length > 0) {
       // then they are on the pending list
-      // store person's saved info in redux
+
+      // store first_name, last_name, resolved, and user_id in redux
+      // user_id is used to determine if they should login or register
       yield put({ type: 'SET_PENDING_INFO', payload: pendingResult.data[0] });
 
       // if the person's pending status is resolved (and they weren't previously found on the guest list)

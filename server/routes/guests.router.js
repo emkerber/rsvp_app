@@ -7,12 +7,13 @@ const { rejectUnauthenticated, rejectNonAdmin } = require('../modules/authentica
 
 
 // search for the name entered on the Landing Page
-// and if it's found then send back all of their responses
+// and if it's found then send back only their first and last names
+// and their user_id (to determine if they should login or register)
 router.get('/search/:party/:firstName/:lastName', (req, res) => {
   const queryText = `
-    SELECT * FROM "guests" 
-    WHERE party_id = $1 
-    AND first_name = $2 AND last_name = $3;
+    SELECT "first_name", "last_name", "user_id" FROM "guests" 
+    WHERE "party_id" = $1 
+    AND "first_name" = $2 AND "last_name" = $3;
   `;
 
   const rp = req.params;
@@ -21,7 +22,7 @@ router.get('/search/:party/:firstName/:lastName', (req, res) => {
     .query(queryText, [rp.party, rp.firstName, rp.lastName])
     .then((result) => res.send(result.rows)) // will be one row or no rows
     .catch((err) => {
-      console.log('Failed to get guest', err);
+      console.log('Failed to SELECT any rows after fname and lname entered on landing page', err);
       res.sendStatus(500);
     });
 });
