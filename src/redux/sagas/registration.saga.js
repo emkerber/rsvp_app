@@ -42,7 +42,7 @@ function* registerUser(action) {
     }
 
     // automatically log a user in after registration
-    yield put({ type: 'LOGIN', payload: action.payload });
+    yield put({ type: 'LOGIN', payload: {...action.payload, id} });
 
     // triggers history.push() to next page
     yield put({ type: 'AUTH_SUCCESS' });

@@ -31,14 +31,6 @@ function* checkInvite(action) {
       // store only first_name, last_name, and user_id for now
       // user_id is used to determine if they should login or register
       yield put({ type: 'SET_GUEST_RESPONSES', payload: responses });
-      
-      // TODO remove:
-      // // check if guest has provided all responses
-      // // if so, ALL_RESPONSES_EXIST is set to true
-      // yield put({ type: 'CHECK_ALL_RESPONSES_EXIST', payload: responses });
-      // 
-      // // fetch and set guest's indicated duties in redux
-      // yield put({ type: 'FETCH_DUTY_RESPONSES', payload: responses.id });
 
       // nothing else in this function should run
       return;

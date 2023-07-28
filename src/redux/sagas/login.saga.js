@@ -2,6 +2,9 @@ import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 // worker Saga: will be fired on "LOGIN" actions
+// action.payload from LoginForm is {username, password, inviteStatus, id}
+// action.payload from registration.saga is {username, password, inviteStatus, {name}, party, id}
+// id is user_id
 function* loginUser(action) {
   try {
     // clear any existing error on the login page
@@ -23,6 +26,18 @@ function* loginUser(action) {
 
     // triggers history.push() to next page
     yield put({ type: 'AUTH_SUCCESS' });
+
+    // GET all of the user's info after they've successfully logged in
+    if (action.payload.inviteStatus === 'guest') {
+      // get guest info by user id, and set guest responses
+      // check all responses exist
+      // fetch duty responses
+      yield put({ type: 'FETCH_GUEST_RESPONSES_BY_USER_ID', payload: action.payload.id });
+
+    } else if (action.payload.inviteStatus === 'pending') {
+      // get and set pending info by user id
+      yield put({ type: 'FETCH_PENDING_INFO', payload: action.payload.id })
+    }
 
   } catch (error) {
     console.log('Error with user login:', error);
@@ -46,7 +61,7 @@ function* logoutUser(action) {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     };
-
+    
     // the config includes credentials which
     // allow the server session to recognize the user
     // when the server recognizes the user session
