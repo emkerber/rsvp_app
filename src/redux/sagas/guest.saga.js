@@ -15,6 +15,29 @@ function* fetchGuestResponses(action) {
     // recheck if all responses have been provided
     yield put({ type: 'CHECK_ALL_RESPONSES_EXIST', payload: responses.data });
 
+    // fetch and set guest's indicated duties in redux
+    // searching by guests.id (not user_id)
+    yield put({ type: 'FETCH_DUTY_RESPONSES', payload: action.payload });
+
+  } catch (error) {
+    console.log('Error fetching guest responses:', error);
+  }
+}
+
+// get all responses for a single guest
+// payload is guests.user_id
+function* fetchGuestResponsesByUserId(action) {
+  try {
+    const responses = yield axios.get(`/api/guests/fetch-by-user-id/${action.payload}`);
+    yield put({ type: 'SET_GUEST_RESPONSES', payload: responses.data });
+
+    // recheck if all responses have been provided
+    yield put({ type: 'CHECK_ALL_RESPONSES_EXIST', payload: responses.data });
+
+    // fetch and set guest's indicated duties in redux
+    // searching by guest.id (not user_id)
+    yield put({ type: 'FETCH_DUTY_RESPONSES', payload: responses.data.id });
+
   } catch (error) {
     console.log('Error fetching guest responses:', error);
   }
@@ -34,6 +57,12 @@ function* fetchGuestsList() {
 
 function* checkAllResponsesExist(action) {
   try {
+    // if there are no responses at all, 
+    // then all responses do not exist
+    if (action.payload.length === 0) {
+      return;
+    }
+
     // check if there are any null RSVP form responses
     // if null is found then return
     for (let response in action.payload) {
@@ -315,6 +344,7 @@ function* pendingToGuest(action) {
 function* guestSaga() {
   // guests:
   yield takeLatest('FETCH_GUEST_RESPONSES', fetchGuestResponses);
+  yield takeLatest('FETCH_GUEST_RESPONSES_BY_USER_ID', fetchGuestResponsesByUserId);
   yield takeLatest('FETCH_GUESTS_LIST', fetchGuestsList);
   yield takeLatest('CHECK_ALL_RESPONSES_EXIST', checkAllResponsesExist);
   yield takeLatest('UPDATE_GUEST_RESPONSES', updateGuestResponses);

@@ -9,19 +9,25 @@ function LoginForm() {
   const errors = useSelector(store => store.errors);
   const authSuccess = useSelector(store => store.user.authSuccess);
   const inviteStatus = useSelector(store => store.invite.inviteStatus);
+  const userIdGuest = useSelector((store) => store.guest.responses.user_id);
+  const userIdPending = useSelector((store) => store.pending.info.user_id);
   const dispatch = useDispatch();
   const history = useHistory();
 
   const login = (event) => {
     event.preventDefault();
 
+    let id;
+    if (userIdGuest) {
+      id = userIdGuest;
+    } else {
+      id = userIdPending;
+    }
+
     if (username && password) {
       dispatch({
         type: 'LOGIN',
-        payload: {
-          username: username,
-          password: password,
-        },
+        payload: {username, password, inviteStatus, id}
       });
 
     } else {
