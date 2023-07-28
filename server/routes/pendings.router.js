@@ -8,13 +8,10 @@ const { rejectUnauthenticated, rejectNonAdmin } = require('../modules/authentica
 
 
 // search for the name entered on the Landing Page
-// and if it's found then send back only first and last names 
-// and the resolved boolean (is their guest status resolved)
-// and user_id (to determine if they should login or register)
+// and if it's found then send back all pendings columns 
 router.get('/search/:party/:firstName/:lastName', (req, res) => {
   const queryText = `
-    SELECT "first_name", "last_name", "resolved", "user_id" 
-    FROM "pendings" 
+    SELECT * FROM "pendings" 
     WHERE "party_id" = $1
     AND "first_name" = $2 AND "last_name" = $3;
   `;
