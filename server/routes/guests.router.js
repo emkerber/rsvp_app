@@ -28,7 +28,7 @@ router.get('/search/:party/:firstName/:lastName', (req, res) => {
 });
 
 
-// fetch guest's responses
+// fetch guest's responses by guest.id
 router.get('/fetch-by-id/:id', rejectUnauthenticated, (req, res) => {
   const queryText = `
     SELECT * FROM "guests"
@@ -39,6 +39,22 @@ router.get('/fetch-by-id/:id', rejectUnauthenticated, (req, res) => {
     .then(result => res.send(result.rows[0]))
     .catch(err => {
       console.log('Failed to get guest by id', err);
+      res.sendStatus(500);
+    });
+});
+
+
+// fetch guest's responses by guest.user_id
+router.get('/fetch-by-user-id/:id', rejectUnauthenticated, (req, res) => {
+  const queryText = `
+    SELECT * FROM "guests"
+    WHERE user_id = $1;
+  `;
+  pool
+    .query(queryText, [req.params.id]) // id here is user_id
+    .then(result => res.send(result.rows[0]))
+    .catch(err => {
+      console.log('Failed to get guest by user_id', err);
       res.sendStatus(500);
     });
 });
