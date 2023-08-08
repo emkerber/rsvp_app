@@ -19,9 +19,9 @@ function AdminResponseSubList({ list }) {
   
   return (
     <ul className="admin-response-list">
-      {list.map(person => (
+      {list.map((person, i) => (
         <li 
-          key={person.id}
+          key={i}
           onClick={() => handlePersonClick(person.id)}
         >
           {person.first_name} {person.last_name}{person.details && ':'} {person.details}
