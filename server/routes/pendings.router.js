@@ -13,13 +13,19 @@ router.get('/search/:party/:firstName/:lastName', (req, res) => {
   const queryText = `
     SELECT * FROM "pendings" 
     WHERE "party_id" = $1
-    AND "first_name" = $2 AND "last_name" = $3;
+    AND "first_name" ILIKE $2 
+    AND "last_name" ILIKE $3;
   `;
 
   const rp = req.params;
+  const queryValues = [
+    rp.party, 
+    `%${rp.firstName}%`, 
+    `%${rp.lastName}%`
+  ];
 
   pool
-    .query(queryText, [rp.party, rp.firstName, rp.lastName])
+    .query(queryText, queryValues)
     .then((result) => res.send(result.rows))
     .catch((err) => {
       console.log('Failed looking at pending list', queryText, err);
@@ -50,15 +56,22 @@ router.get('/fetch-by-user-id/:id', rejectUnauthenticated, (req, res) => {
 router.put('/register', (req, res) => {
   const queryText = `
     UPDATE "pendings" 
-    SET user_id = $1 
-    WHERE first_name = $2 AND last_name = $3
-    AND party_id = $4;
+    SET "user_id" = $1 
+    WHERE "first_name" ILIKE $2 
+    AND "last_name" ILIKE $3
+    AND "party_id" = $4;
   `;
 
   const rb = req.body;
+  const queryValues = [
+    rb.id, 
+    `%${rb.name.firstName}%`, 
+    `%${rb.name.lastName}%`,
+    rb.party
+  ];
 
   pool
-    .query(queryText, [rb.id, rb.name.firstName, rb.name.lastName, rb.party])
+    .query(queryText, queryValues)
     .then(() => res.sendStatus(200))
     .catch((err) => {
       console.log('Failure updating pending on register', err);
