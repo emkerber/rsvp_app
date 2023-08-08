@@ -15,7 +15,7 @@ import './NavMenu.css';
 function NavMenu() {
   const dispatch = useDispatch();
 
-  const isAdmin = useSelector(store => store.user.userReducer.admin);
+  const accessLevel = useSelector(store => store.user.userReducer.access_level);
   const inviteStatus = useSelector(store => store.invite.inviteStatus);
   const allResponsesExist = useSelector(store => store.guest.allResponsesExist);
 
@@ -91,7 +91,7 @@ function NavMenu() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         
-        {isAdmin && 
+        {accessLevel === 2 && 
           <div id="nav-menu-admin">
             <MenuItem>
               <Link to="/admin/guests" className="nav-link">Guests</Link>

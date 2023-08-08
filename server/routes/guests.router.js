@@ -13,13 +13,19 @@ router.get('/search/:party/:firstName/:lastName', (req, res) => {
   const queryText = `
     SELECT "first_name", "last_name", "user_id" FROM "guests" 
     WHERE "party_id" = $1 
-    AND "first_name" = $2 AND "last_name" = $3;
+    AND "first_name" ILIKE $2
+    AND "last_name" ILIKE $3;
   `;
 
   const rp = req.params;
+  const queryValues = [
+    rp.party, 
+    `%${rp.firstName}%`, 
+    `%${rp.lastName}%`
+  ];
 
   pool
-    .query(queryText, [rp.party, rp.firstName, rp.lastName])
+    .query(queryText, queryValues)
     .then((result) => res.send(result.rows)) // will be one row or no rows
     .catch((err) => {
       console.log('Failed to SELECT any rows after fname and lname entered on landing page', err);
@@ -87,14 +93,21 @@ router.put('/register', (req, res) => {
   const queryText = `
     UPDATE "guests" 
     SET user_id = $1 
-    WHERE first_name = $2 AND last_name = $3
+    WHERE first_name ILIKE $2
+    AND last_name ILIKE $3
     AND party_id = $4;
   `;
 
   const rb = req.body;
+  const queryValues = [
+    rb.id, 
+    `%${rb.name.firstName}%`, 
+    `%${rb.name.lastName}%`,
+    rb.party
+  ];
 
   pool
-    .query(queryText, [rb.id, rb.name.firstName, rb.name.lastName, rb.party])
+    .query(queryText, queryValues)
     .then(() => res.sendStatus(200))
     .catch((err) => {
       console.log('Error updating guests user_id', queryText, err);

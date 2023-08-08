@@ -12,7 +12,7 @@ const rejectUnauthenticated = (req, res, next) => {
 
 const rejectNonAdmin = (req, res, next) => {
   // check if logged in user is an admin
-  if (req.user.admin) {
+  if (req.user.access_level === 2) {
     // okay to do the next thing!
     next();
   } else {

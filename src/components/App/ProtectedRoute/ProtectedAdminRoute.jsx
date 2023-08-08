@@ -30,8 +30,8 @@ function ProtectedAdminRoute({ component, children, ...props }) {
       // are now passed along to the 'Route' Component
       {...props}
     >
-      {user.admin ?
-        // If the user is logged in, show the protected component
+      {user.access_level === 2 ?
+        // If the logged in user is an admin, show the protected admin component
         <ProtectedAdminComponent />
         :
         // Otherwise, redirect to the Landing Page
