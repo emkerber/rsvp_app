@@ -21,7 +21,7 @@ function* fetchUser() {
     yield put({ type: 'SET_USER', payload: response.data });
 
     // is the user is an admin then fetch admin data
-    if (response.data.admin) {
+    if (response.data.access_level === 2) {
       yield put({ type: 'FETCH_ADMIN_DATA' });
     }
 

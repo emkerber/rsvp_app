@@ -4,8 +4,8 @@ CREATE TABLE "users" (
   "id" SERIAL PRIMARY KEY,
   "username" VARCHAR (255) UNIQUE NOT NULL,
   "password" VARCHAR (1000) NOT NULL,
-  "admin" BOOLEAN 
-    DEFAULT False
+  "access_level" INT 
+    DEFAULT 0
 );
 
 CREATE TABLE "parties" (
