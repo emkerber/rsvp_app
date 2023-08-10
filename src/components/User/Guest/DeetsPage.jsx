@@ -9,14 +9,18 @@ function DeetsPage() {
   const history = useHistory();
   
   const party = useSelector(store => store.party);
-  const allResponses = useSelector(store => store.guest.allResponsesExist);
+  const allResponsesExist = useSelector(store => store.guest.allResponsesExist);
 
   const handleRsvpClicked = () => {
     history.push('/rsvp');
   }
 
+  const handleGuestListClicked = () => {
+    history.push('/guest-list');
+  }
+
   useEffect(() => {
-    allResponses && dispatch({ type: 'FETCH_GUESTS_LIST' });
+    allResponsesExist && dispatch({ type: 'FETCH_GUESTS_LIST' });
   }, []);
 
   return (
@@ -34,13 +38,23 @@ function DeetsPage() {
 
       <p>{party.parking_info}</p>
 
-      <div id="go-to-rsvp-btn">
+      <div id="deets-bottom-btns">
         <Button
           variant="contained"
           onClick={handleRsvpClicked}
         >
           RSVP!
         </Button>
+
+        {/* if allResponsesExist then render button to the Guest Guest List */}
+        {allResponsesExist &&
+          <Button
+            variant="contained"
+            onClick={handleGuestListClicked}
+          >
+            Guest List
+          </Button>
+        }
       </div>
 
     </div>
