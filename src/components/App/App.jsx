@@ -19,6 +19,7 @@ import Snackbars from '../Snackbars/Snackbars';
 import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
 import ProtectedGuestRoute from './ProtectedRoute/ProtectedGuestRoute';
 import ProtectedAdminRoute from './ProtectedRoute/ProtectedAdminRoute';
+import ProtectedBouncerRoute from './ProtectedRoute/ProtectedBouncerRoute';
 
 import ThankYouPage from '../User/ThankYouPage';
 import RsvpPage from '../User/Guest/RsvpPage/RsvpPage';
@@ -34,6 +35,7 @@ import AdminConfirmBanish from '../Admin/AdminGuestDetails/AdminConfirmBanish';
 import AdminResponses from '../Admin/AdminResponses/AdminResponses';
 import AdminNewNope from '../Admin/AdminNewNope/AdminNewNope';
 import AdminPending from '../Admin/AdminPending/AdminPending';
+import BouncerList from '../Bouncer/BouncerList';
 
 import './App.css';
 
@@ -166,6 +168,14 @@ function App() {
             >
               <AdminPending />
             </ProtectedAdminRoute>
+
+            <ProtectedBouncerRoute
+              // bouncers can view lists of guests/not attending/can't attend/etc
+              exact
+              path="/bouncer/lists"
+            >
+              <BouncerList />
+            </ProtectedBouncerRoute>
 
             {/* non-guests */}
             <ProtectedRoute
