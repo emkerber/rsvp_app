@@ -1,6 +1,15 @@
+import BouncerSearchForm from './BouncerSearchForm';
+import BouncerSearchResults from './BouncerSearchResults';
+
 function BouncerList() {
+
   return (
-    <h1>Bouncer stuff</h1>
+    <>
+      <h1>Bouncin'</h1>
+
+      <BouncerSearchForm />
+      <BouncerSearchResults />
+    </>
   )
 }
 
