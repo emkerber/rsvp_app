@@ -1,5 +1,7 @@
 import BouncerSearchForm from './BouncerSearchForm';
 import BouncerSearchResults from './BouncerSearchResults';
+import BouncerGuestsNotHere from './BouncerGuestsNotHere';
+import BouncerGuestsHere from './BouncerGuestsHere';
 
 function BouncerList() {
 
@@ -9,6 +11,10 @@ function BouncerList() {
 
       <BouncerSearchForm />
       <BouncerSearchResults />
+
+      <BouncerGuestsNotHere />
+      <BouncerGuestsHere />
+
     </>
   )
 }
