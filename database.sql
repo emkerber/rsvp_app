@@ -29,7 +29,7 @@ CREATE TABLE "guests" (
   "user_id" INT REFERENCES "users",
   "first_name" VARCHAR (255) NOT NULL,
   "last_name" VARCHAR (255) NOT NULL,
-  "phone" VARCHAR (255),
+  "phone" VARCHAR (12),
   "attending" BOOLEAN,
   "attending_code" VARCHAR (3),
   "attending_deets" VARCHAR (1000),
@@ -58,7 +58,7 @@ CREATE TABLE "pendings" (
   "user_id" INT REFERENCES "users",
   "first_name" VARCHAR (255) NOT NULL,
   "last_name" VARCHAR (255) NOT NULL,
-  "phone" VARCHAR (255),
+  "phone" VARCHAR (12),
   "resolved" BOOLEAN 
     DEFAULT False,
   "denial_message" VARCHAR (1000)
