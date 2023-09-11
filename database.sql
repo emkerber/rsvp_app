@@ -64,11 +64,21 @@ CREATE TABLE "pendings" (
   "denial_message" VARCHAR (1000)
 );
 
+-- for tracking visits to the app
 CREATE TABLE "visits" (
   "id" SERIAL PRIMARY KEY,
   "first_name" VARCHAR(255),
   "last_name" VARCHAR (255),
   "when_it_happened" TIMESTAMPTZ
+);
+
+CREATE TABLE "attendance" (
+  "id" SERIAL PRIMARY KEY,
+  "guests_id" INT REFERENCES "guests",
+  "party_id" INT REFERENCES "parties", -- used when there is no guests_id
+  "name" VARCHAR(255), -- used when there is no guests_id
+  "arrival_time" TIMESTAMPTZ,
+  "notes" VARCHAR(1000)
 );
 
 -- test data:
