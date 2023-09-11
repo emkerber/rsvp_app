@@ -170,7 +170,7 @@ function App() {
             </ProtectedAdminRoute>
 
             <ProtectedBouncerRoute
-              // bouncers can view lists of guests/not attending/can't attend/etc
+              // bouncers can view list of guests and check them in/out
               exact
               path="/bouncer/lists"
             >

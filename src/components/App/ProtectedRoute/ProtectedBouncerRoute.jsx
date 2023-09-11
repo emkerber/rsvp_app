@@ -18,8 +18,8 @@ function ProtectedBouncerRoute({ component, children, ...props }) {
       // are now passed along to the 'Route' Component
       {...props}
     >
-      {user.access_level === 1 ?
-        // If the logged in user is a bouncer, show the protected bouncer component
+      {user.access_level >= 1 ?
+        // If the logged in user is a bouncer or admin, show the protected bouncer component
         <ProtectedBouncerComponent />
         :
         // Otherwise, redirect to the Landing Page
