@@ -17,16 +17,16 @@ function* fetchPendingInfo(action) {
   }
 }
 
-// payload is an object with email and pendings table row id
-function* updateEmail(action) {
+// payload is an object with phone and pendings table row id
+function* updatePhone(action) {
   try {
-    yield axios.put('/api/pendings/email', action.payload);
+    yield axios.put('/api/pendings/phone', action.payload);
 
     // refresh pending.info reducer
     yield put({ type: 'FETCH_PENDING_INFO', payload: action.payload.userId });
     
   } catch (error) {
-    console.log('Error updating pending email:', error);
+    console.log('Error updating pending phone:', error);
   }
 }
 
@@ -131,7 +131,7 @@ function* pendingApproved(action) {
 function* pendingSaga() {
   // for guests
   yield takeLatest('FETCH_PENDING_INFO', fetchPendingInfo);
-  yield takeLatest('UPDATE_PENDING_EMAIL', updateEmail);
+  yield takeLatest('UPDATE_PENDING_PHONE', updatePhone);
   // for admin
   yield takeLatest('ADD_BANISHED', addBanished);
   yield takeLatest('ADD_NOPE', addNope);

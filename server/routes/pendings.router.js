@@ -101,17 +101,17 @@ router.post('/new', (req, res) => {
 });
 
 
-// save email of user who's pending or none
-router.put('/email', (req, res) => {
+// save phone of user who's pending or none
+router.put('/phone', (req, res) => {
   const queryText = `
-    UPDATE "pendings" SET email = $1 WHERE id = $2;
+    UPDATE "pendings" SET phone = $1 WHERE id = $2;
   `;
 
   pool
-    .query(queryText, [req.body.email, req.body.idInfo])
+    .query(queryText, [req.body.phone, req.body.idInfo])
     .then(() => res.sendStatus(200))
     .catch((err) => {
-      console.log('Error updating pendings email:', err);
+      console.log('Error updating pendings phone:', err);
       res.sendStatus(500);
     });
 });
@@ -125,13 +125,13 @@ router.put('/email', (req, res) => {
 router.post('/admin/banished', rejectNonAdmin, (req, res) => {
   const queryText = `
     INSERT INTO "pendings"
-    (user_id, party_id, first_name, last_name, email, resolved, denial_message)
+    (user_id, party_id, first_name, last_name, phone, resolved, denial_message)
     VALUES ($1, $2, $3, $4, $5, TRUE, $6);
   `;
 
   // req.body is { guest, explanation }
   const rbg = req.body.guest;
-  const queryParams = [rbg.user_id, rbg.party_id, rbg.first_name, rbg.last_name, rbg.email, req.body.explanation];
+  const queryParams = [rbg.user_id, rbg.party_id, rbg.first_name, rbg.last_name, rbg.phone, req.body.explanation];
 
   pool
     .query(queryText, queryParams)

@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
-// pending user submits their email
-const pendingEmailSaved = (state = false, action) => {
+// pending user submits their phone
+const pendingPhoneSaved = (state = false, action) => {
   switch (action.type) {
-    case 'PENDING_EMAIL_SAVED':
+    case 'PENDING_PHONE_SAVED':
       return true;
-    case 'PENDING_EMAIL_SAVED_CLOSE':
+    case 'PENDING_PHONE_SAVED_CLOSE':
       return false;
     default:
       return state;
@@ -49,7 +49,7 @@ const newNopeSaved = (state = false, action) => {
 }
 
 export default combineReducers({
-  pendingEmailSaved,
+  pendingPhoneSaved,
   rsvpSaved,
   newGuestSaved,
   newNopeSaved,
