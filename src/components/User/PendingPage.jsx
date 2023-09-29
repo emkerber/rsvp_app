@@ -1,5 +1,5 @@
 import React from 'react';
-import PendingEmail from './PendingEmail';
+import PendingPhone from './PendingPhone';
 
 function Pending() {
   return (
@@ -9,7 +9,7 @@ function Pending() {
       
       <p>Thank you for your patience!</p>
 
-      <PendingEmail />
+      <PendingPhone />
 
     </div>
   );

@@ -10,6 +10,17 @@ const rejectUnauthenticated = (req, res, next) => {
   }
 }
 
+const rejectNonBouncer = (req, res, next) => {
+  // check if logged in user is an admin
+  if (req.user.access_level >= 1) {
+    // okay to do the next thing!
+    next();
+  } else {
+    // nope, blocked
+    res.sendStatus(403);
+  }
+}
+
 const rejectNonAdmin = (req, res, next) => {
   // check if logged in user is an admin
   if (req.user.access_level === 2) {
@@ -21,4 +32,4 @@ const rejectNonAdmin = (req, res, next) => {
   }
 }
 
-module.exports = { rejectUnauthenticated, rejectNonAdmin };
+module.exports = { rejectUnauthenticated, rejectNonBouncer, rejectNonAdmin };

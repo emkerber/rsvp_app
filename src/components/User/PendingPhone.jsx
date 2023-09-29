@@ -2,41 +2,41 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormControl, TextField, Button } from '@mui/material';
 
-function PendingEmail() {
+function PendingPhone() {
   const dispatch = useDispatch();
-  const emailInfo = useSelector(store => store.pending.info.email);
+  const phoneInfo = useSelector(store => store.pending.info.phone);
   const idInfo = useSelector(store => store.pending.info.id);
   const userId = useSelector(store => store.user.userReducer.id);
   
-  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
 
   const handleSubmitClick = () => {
-    // send email to the pending saga
+    // send phone to the pending saga
     // also send userId, for fetching fresh results
     dispatch({
-      type: 'UPDATE_PENDING_EMAIL',
-      payload: {idInfo, email, userId}
+      type: 'UPDATE_PENDING_PHONE',
+      payload: {idInfo, phone, userId}
     });
 
     // show snackbar to notify user of success
     dispatch({
-      type: 'PENDING_EMAIL_SAVED'
+      type: 'PENDING_PHONE_SAVED'
     });
   }
   
   return (
     <>
-      {/* don't show if user's email is already saved */}
-      {!emailInfo &&
+      {/* don't show if user's phone is already saved */}
+      {!phoneInfo &&
         <FormControl>
 
-          <p>Please enter your email if you would like to receive updates.</p>
+          <p>Please enter your phone number to receive updates!</p>
     
           <TextField 
             className="input"
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            type="phone"
+            value={phone}
+            onChange={(event) => setPhone(event.target.value)}
           />
     
           <Button 
@@ -52,4 +52,4 @@ function PendingEmail() {
   );
 }
 
-export default PendingEmail;
+export default PendingPhone;

@@ -9,6 +9,7 @@ import pending from './pending.reducer';
 import rsvp from './rsvp.reducer';
 import duties from './duties.reducer';
 import snackbar from './snackbar.reducer';
+import attendance from './attendance.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   rsvp, // temp responses as user fills out form
   duties, // guest's duties, all duties
   snackbar, // booleans to display all of the snackbars
+  attendance, // bouncer stuff for checking in guests
 });
 
 export default rootReducer;

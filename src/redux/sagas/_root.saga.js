@@ -8,6 +8,7 @@ import partySaga from './party.saga';
 import guestSaga from './guest.saga';
 import dutiesSaga from './duties.saga';
 import pendingSaga from './pending.saga';
+import attendanceSaga from './attendance.saga';
 
 
 // rootSaga is the primary saga.
@@ -28,5 +29,6 @@ export default function* rootSaga() {
     guestSaga(),
     dutiesSaga(),
     pendingSaga(),
+    attendanceSaga(),
   ]);
 }

@@ -6,8 +6,8 @@ import './Snackbars.css';
 function Snackbars() {
   const dispatch = useDispatch();
 
-  // pending user submits their email
-  const pendingEmailSaved = useSelector(store => store.snackbar.pendingEmailSaved);
+  // pending user submits their phone number
+  const pendingPhoneSaved = useSelector(store => store.snackbar.pendingPhoneSaved);
 
   // guest saves their rsvp responses
   const rsvpSaved = useSelector(store => store.snackbar.rsvpSaved);
@@ -22,12 +22,12 @@ function Snackbars() {
   return (
     <>
       
-      {pendingEmailSaved &&
+      {pendingPhoneSaved &&
         <Snackbar 
-          open={pendingEmailSaved}
+          open={pendingPhoneSaved}
           autoHideDuration={5000}
-          onClose={() => dispatch({ type: 'PENDING_EMAIL_SAVED_CLOSE' })}
-          message="Email saved!"
+          onClose={() => dispatch({ type: 'PENDING_PHONE_SAVED_CLOSE' })}
+          message="Phone number saved!"
         />
       }
     

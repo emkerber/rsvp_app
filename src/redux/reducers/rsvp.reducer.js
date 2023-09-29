@@ -37,11 +37,11 @@ const attendingDeets = (state = '', action) => {
 }
 
 // input, if null then allResponsesExist is false
-const email = (state = '', action) => {
+const phone = (state = '', action) => {
   switch (action.type) {
-    case 'SET_RSVP_EMAIL':
+    case 'SET_RSVP_PHONE':
       return action.payload;
-    case 'UNSET_RSVP_EMAIL':
+    case 'UNSET_RSVP_PHONE':
       return '';
     default:
       return state;
@@ -160,7 +160,7 @@ export default combineReducers({
   guestId,
   attendingCode,
   attendingDeets,
-  email,
+  phone,
   dietRestrictions,
   additionalGuests,
   parking,

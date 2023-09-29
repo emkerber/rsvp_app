@@ -86,6 +86,7 @@ function* logoutUser(action) {
     yield put({ type: 'UNSET_RSVP_REDUCERS' });
     yield put({ type: 'UNSET_GUESTS_LIST' });
     yield put({ type: 'UNSET_ADMIN_DATA' });
+    yield put({ type: 'UNSET_BOUNCER_DATA' });
 
   } catch (error) {
     console.log('Error with user logout:', error);

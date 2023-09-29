@@ -8,6 +8,10 @@ CREATE TABLE "users" (
     DEFAULT 0
 );
 
+-- access_level 0 is guest
+-- access_level 1 is bouncer
+-- access_level 2 is admin
+
 CREATE TABLE "parties" (
   "id" SERIAL PRIMARY KEY,
   "title" VARCHAR (250),
@@ -25,7 +29,7 @@ CREATE TABLE "guests" (
   "user_id" INT REFERENCES "users",
   "first_name" VARCHAR (255) NOT NULL,
   "last_name" VARCHAR (255) NOT NULL,
-  "email" VARCHAR (255),
+  "phone" VARCHAR (12),
   "attending" BOOLEAN,
   "attending_code" VARCHAR (3),
   "attending_deets" VARCHAR (1000),
@@ -54,12 +58,13 @@ CREATE TABLE "pendings" (
   "user_id" INT REFERENCES "users",
   "first_name" VARCHAR (255) NOT NULL,
   "last_name" VARCHAR (255) NOT NULL,
-  "email" VARCHAR (255),
+  "phone" VARCHAR (12),
   "resolved" BOOLEAN 
     DEFAULT False,
   "denial_message" VARCHAR (1000)
 );
 
+-- for tracking visits to the app
 CREATE TABLE "visits" (
   "id" SERIAL PRIMARY KEY,
   "first_name" VARCHAR(255),
@@ -67,9 +72,18 @@ CREATE TABLE "visits" (
   "when_it_happened" TIMESTAMPTZ
 );
 
+CREATE TABLE "attendance" (
+  "id" SERIAL PRIMARY KEY,
+  "guests_id" INT REFERENCES "guests",
+  "party_id" INT REFERENCES "parties", -- used when there is no guests_id
+  "name" VARCHAR(255), -- used when there is no guests_id
+  "arrival_time" TIMESTAMPTZ,
+  "notes" VARCHAR(1000)
+);
+
 -- test data:
-INSERT INTO "parties" (title, date, time, location, parking_info, description, description_two) 
-  VALUES ('BRINGOL', '12-17-2022', '7:00 pm', 'Edina, MN', 'Parking spaces are very limited! Please try to carpool or Lyft.',
+INSERT INTO "parties" (id, title, date, time, location, parking_info, description, description_two) 
+  VALUES (1, 'BRINGOL', '12-17-2022', '7:00 pm', 'Edina, MN', 'Parking spaces are very limited! Please try to carpool or Lyft.',
   'The Bringol is back! Get ready to party like it''s 2019.',
   'Bring a can-do attitude. Hamm''s and seltzers provided. Catering by Elizabeth Aadland.');
 

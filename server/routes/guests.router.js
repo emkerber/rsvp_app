@@ -128,7 +128,7 @@ router.put('/update-responses/YAY', rejectUnauthenticated, (req, res) => {
       parking = $3,
       duties_indicated = $4,
       questions_comments = $5,
-      email = $6
+      phone = $6
     WHERE id = $7;
   `;
 
@@ -139,7 +139,7 @@ router.put('/update-responses/YAY', rejectUnauthenticated, (req, res) => {
   queryParams[2] = rb.parking;
   queryParams[3] = rb.setupDuty || rb.cleanupDuty || rb.waterDuty || rb.photoDuty || rb.noDuty;
   queryParams[4] = rb.questionsComments;
-  queryParams[5] = rb.email;
+  queryParams[5] = rb.phone;
   queryParams[6] = rb.guestId;
 
   pool
@@ -434,13 +434,13 @@ router.post('/admin/add-guest', rejectNonAdmin, (req, res) => {
 router.post('/admin/pending-to-guest', rejectNonAdmin, (req, res) => {
   const queryText = `
     INSERT INTO guests
-      (party_id, user_id, first_name, last_name, welcome_message, email)
+      (party_id, user_id, first_name, last_name, welcome_message, phone)
     VALUES
       ($1, $2, $3, $4, $5, $6);
   `;
 
   const rb = req.body; // pendings fields plus message
-  let queryParams = [rb.party_id, rb.user_id, rb.first_name, rb.last_name, rb.message, rb.email];
+  let queryParams = [rb.party_id, rb.user_id, rb.first_name, rb.last_name, rb.message, rb.phone];
 
   pool
     .query(queryText, queryParams)
