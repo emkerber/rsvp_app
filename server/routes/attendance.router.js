@@ -42,3 +42,5 @@ router.get('/not-here', rejectNonBouncer, (req, res) => {
 // TODO - PUT attendance notes
 
 // TODO - POST into attendance for new person not in guests table
+
+module.exports = router;
