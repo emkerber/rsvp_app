@@ -1,3 +1,5 @@
+// for connecting to a PostgreSQL db hosted on https://www.elephantsql.com/
+// to use a local db instead, update pool.js
 const pg = require('pg');
 
 const conString = process.env.DATABASE_URL;
