@@ -17,7 +17,7 @@ function WelcomeMessage() {
         <FavoriteIcon className="heart-small" />
       </p>
       <p>
-        Provide all responses to access the Guest List!
+        Provide all responses to view address and gain access to the guest list!
       </p>
     </div>
   )
