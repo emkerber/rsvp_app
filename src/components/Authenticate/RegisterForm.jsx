@@ -30,7 +30,7 @@ function RegisterForm() {
     // user should be routed to different pages based on inviteStatus
     switch (inviteStatus) {
       case 'guest':
-        history.push('/rsvp');
+        history.push('/deets');
         break;
       case 'nope':
         history.push('/nope');
