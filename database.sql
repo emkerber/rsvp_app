@@ -1,5 +1,14 @@
 -- database is called rsvp_app
 
+-- DROP TABLE "attendance";
+-- DROP TABLE "visits";
+-- DROP TABLE "pendings";
+-- DROP TABLE "duties";
+-- DROP TABLE "guests";
+-- DROP TABLE "parties";
+
+-- DROP TABLE "users";
+
 CREATE TABLE "users" 
 ("id"           SERIAL          PRIMARY KEY,
  "username"     VARCHAR (255)   UNIQUE NOT NULL,
@@ -13,7 +22,10 @@ CREATE TABLE "parties"
  "title"            VARCHAR (250),
  "date"             DATE,
  "time"             VARCHAR (250),
- "location"         VARCHAR (250),
+ "location_name"    VARCHAR (250),
+ "street_address"   VARCHAR (250), -- only displays after user RSVPs
+ "city_state"       VARCHAR (250),
+ "zip"              VARCHAR (5),   -- only displays after user RSVPs
  "parking_info"     VARCHAR (500),
  "description"      VARCHAR (500),
  "description_two"  VARCHAR (500));
