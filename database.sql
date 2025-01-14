@@ -20,7 +20,7 @@ CREATE TABLE "users"
 CREATE TABLE "parties"
 ("id"               SERIAL            PRIMARY KEY,
  "title"            VARCHAR (250),
- "date"             DATE,
+ "date"             VARCHAR (250),
  "time"             VARCHAR (250),
  "location_name"    VARCHAR (250),
  "street_address"   VARCHAR (250), -- only displays after user RSVPs
