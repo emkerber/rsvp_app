@@ -29,9 +29,19 @@ function DeetsPage() {
       <h2>{party.description}</h2>
 
       <div className="when-where">
-        <p>{party.pretty_date}</p>
-        <p>{party.time}</p>
-        <p>{party.location}</p>  
+        <p>
+          {party.date}
+          <br />
+          {party.time}
+        </p>
+        <p>
+          {party.location_name}
+          <br />
+          {allResponsesExist ? party.street_address : "(RSVP to reveal address)"}
+          <br />
+          {party.city_state}
+          <span> {allResponsesExist && party.zip}</span>
+        </p>
       </div>
   
       <p>{party.description_two}</p>

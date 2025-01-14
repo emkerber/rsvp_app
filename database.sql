@@ -1,5 +1,14 @@
 -- database is called rsvp_app
 
+-- DROP TABLE "attendance";
+-- DROP TABLE "visits";
+-- DROP TABLE "pendings";
+-- DROP TABLE "duties";
+-- DROP TABLE "guests";
+-- DROP TABLE "parties";
+
+-- DROP TABLE "users";
+
 CREATE TABLE "users" 
 ("id"           SERIAL          PRIMARY KEY,
  "username"     VARCHAR (255)   UNIQUE NOT NULL,
@@ -11,9 +20,12 @@ CREATE TABLE "users"
 CREATE TABLE "parties"
 ("id"               SERIAL            PRIMARY KEY,
  "title"            VARCHAR (250),
- "date"             DATE,
+ "date"             VARCHAR (250),
  "time"             VARCHAR (250),
- "location"         VARCHAR (250),
+ "location_name"    VARCHAR (250),
+ "street_address"   VARCHAR (250), -- only displays after user RSVPs
+ "city_state"       VARCHAR (250),
+ "zip"              VARCHAR (5),   -- only displays after user RSVPs
  "parking_info"     VARCHAR (500),
  "description"      VARCHAR (500),
  "description_two"  VARCHAR (500));
@@ -68,30 +80,3 @@ CREATE TABLE "attendance"
  "name"           VARCHAR (255),                        -- used when there is no guests_id
  "arrival_time"   TIMESTAMPTZ,
  "notes"          VARCHAR (500));
-
--- test data:
-INSERT INTO "parties" 
-  (id, title, date, time, location, parking_info, description, description_two) 
-VALUES 
-  (1, 'BRINGOL', '12-17-2022', '7:00 pm', 'Edina, MN', 
-    'Parking spaces are very limited! Please try to carpool or Lyft.',
-    'The Bringol is back! Get ready to party like it''s 2019.',
-    'Bring a can-do attitude. Hamm''s and sparkling water provided. Catering by Elizabeth A.');
-
-INSERT INTO "guests" 
-  (party_id, first_name, last_name) 
-VALUES 
-  (1, 'Liz', 'K'), 
-  (1, 'Elizabeth', 'A'), 
-  (1, 'Kendall', 'S');
-
-INSERT INTO "pendings" 
-  (party_id, first_name, last_name, resolved, denial_message) 
-VALUES 
-  (1, 'A', 'Person', True, 'You haven''t been very nice to me, so you''re not invited to my party.'), 
-  (1, 'Another', 'Person', True, 'You haven''t been very nice to me, so you''re not invited to my party.');
-
--- -- after registering the admin user:
--- UPDATE "users"
--- SET "access_level" = 2
--- WHERE "id" = YOUR ID;
