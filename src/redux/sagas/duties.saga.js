@@ -7,7 +7,7 @@ import axios from 'axios';
 
 function* fetchDutyResponses(action) {
   try {
-    // fetch the duties the guest's signed up for
+    // fetch the duties the guest's signed up for by guest_id
     const newDuties = yield axios.get(`/api/duties/fetch-by-id/${action.payload}`);
 
     // save the duties to a reducer
