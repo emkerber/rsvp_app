@@ -29,6 +29,16 @@ function* fetchGuestResponses(action) {
 function* fetchGuestResponsesByUserId(action) {
   try {
     const responses = yield axios.get(`/api/guests/fetch-by-user-id/${action.payload}`);
+
+    // check if user is a Guest and has already registered (in case of page refresh)
+    if (responses.data.first_name && responses.data.first_name.length > 0) {
+      // set invite-status reducer to 'guest'
+      yield put({ type: 'SET_INVITE_STATUS', payload: 'guest' });
+    } else {
+      // no need to do anything else in this function
+      return;
+    }
+
     yield put({ type: 'SET_GUEST_RESPONSES', payload: responses.data });
 
     // recheck if all responses have been provided

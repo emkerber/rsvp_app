@@ -20,7 +20,11 @@ function* fetchUser() {
     // the client-side code know the user is logged in
     yield put({ type: 'SET_USER', payload: response.data });
 
-    // is the user is an admin then fetch admin data
+    // in case of page refresh, get any existing Guest data
+    // only for Guest users who have previously registered
+    yield put({ type: 'FETCH_GUEST_RESPONSES_BY_USER_ID', payload: response.data.id});
+
+    // if the user is an admin then fetch admin data
     if (response.data.access_level === 2) {
       yield put({ type: 'FETCH_ADMIN_DATA' });
     }
