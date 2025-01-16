@@ -45,7 +45,8 @@ CREATE TABLE "guests"
  "parking"              VARCHAR (255),
  "duties_indicated"     BOOLEAN,
  "questions_comments"   VARCHAR (500),
- "welcome_message"      VARCHAR (500)   DEFAULT 'Hooray!');
+ "welcome_message"      VARCHAR (500)   DEFAULT 'Hooray!',
+ "invite_sent"          BOOLEAN         DEFAULT False);
 
 CREATE TABLE "duties" 
 ("id"           SERIAL     PRIMARY KEY,

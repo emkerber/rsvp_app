@@ -270,6 +270,23 @@ router.get('/admin/no-response', rejectNonAdmin, (req, res) => {
 });
 
 
+// fetch guests who have not yet been invited
+router.get('/admin/not-yet-invited', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    SELECT * FROM "guests"
+    WHERE "invite_sent" = False;
+  `;
+
+  pool
+    .query(queryText, [])
+    .then(result => res.send(result.rows))
+    .catch(error => {
+      console.log('Error getting guests who have not yet been invited:', error);
+      res.sendStatus(500);
+    });
+});
+
+
 // fetch details for a guest
 router.get('/admin/details/:id', rejectNonAdmin, (req, res) => {
   const queryText = `

@@ -9,6 +9,7 @@ function AdminGuestList() {
   const maybeList = useSelector(store => store.guest.maybeList);
   const notAttendingList = useSelector(store => store.guest.notAttendingList);
   const noResponseList = useSelector(store => store.guest.noResponseList);
+  const notYetInvitedList = useSelector(store => store.guest.notYetInvitedList);
 
   return (
     <div className="container">
@@ -29,6 +30,9 @@ function AdminGuestList() {
 
       <h2>No response</h2>
       <AdminGuestSubcategoryList list={noResponseList} />
+
+      <h2>Not yet invited</h2>
+      <AdminGuestSubcategoryList list={notYetInvitedList} />
 
     </div>
   );
