@@ -212,9 +212,22 @@ function* fetchNotYetInvitedList() {
     const notYetInvitedList = yield axios.get('/api/guests/admin/not-yet-invited');
 
     yield put({ type: 'SET_NOT_YET_INVITED_LIST', payload: notYetInvitedList.data });
-    
+
   } catch (error) {
     console.log('Error fetching guests who have not yet been invited:', error);
+  }
+}
+
+// update guests.invite_sent to True using guests.id
+function* updateInviteSent(action) {
+  try {
+    yield axios.put(`/api/guests/admin/invite-sent/${action.payload}`);
+
+    // refresh Not Yet Invited List
+    yield put({ type: 'FETCH_NOT_YET_INVITED_LIST' });
+    
+  } catch (error) {
+    console.log('Error updating invite_sent:', error);
   }
 }
 
@@ -380,6 +393,7 @@ function* guestSaga() {
   yield takeLatest('FETCH_NOT_ATTENDING_LIST', fetchNotAttendingList);
   yield takeLatest('FETCH_NO_RESPONSE_LIST', fetchNoResponseList);
   yield takeLatest('FETCH_NOT_YET_INVITED_LIST', fetchNotYetInvitedList);
+  yield takeLatest('UPDATE_INVITE_SENT', updateInviteSent);
   yield takeLatest('FETCH_GUEST_DETAILS', fetchGuestDetails);
   yield takeLatest('UNSET_ADMIN_DATA', unsetAdminData);
   yield takeLatest('BANISH_GUEST', banishGuest);

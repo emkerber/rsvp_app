@@ -287,6 +287,24 @@ router.get('/admin/not-yet-invited', rejectNonAdmin, (req, res) => {
 });
 
 
+// update guests.invite_sent to True using guests.id
+router.put('/admin/invite-sent/:id', rejectNonAdmin, (req, res) => {
+  const queryText = `
+    UPDATE "guests"
+    SET "invite_sent" = True
+    WHERE "id" = $1;
+  `;
+
+  pool
+    .query(queryText, [req.params.id])
+    .then(() => res.sendStatus(200))
+    .catch(error => {
+      console.log('Error updating guests.invite_sent:', error);
+      res.sendStatus(500);
+    });
+});
+
+
 // fetch details for a guest
 router.get('/admin/details/:id', rejectNonAdmin, (req, res) => {
   const queryText = `

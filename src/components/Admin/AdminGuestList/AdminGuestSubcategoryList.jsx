@@ -2,7 +2,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-function AdminGuestSubcategoryList({ list }) {
+// import { Button } from '@mui/material';
+import './AdminGuestSubcategoryList.css';
+
+function AdminGuestSubcategoryList({ list, displaySentButton }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -17,12 +20,30 @@ function AdminGuestSubcategoryList({ list }) {
     history.push(`/admin/guests/${id}`);
   }
 
+  // checks are not displayed for all renders of this component
+  const handleSentClick = (id) => {
+    dispatch({ type: 'UPDATE_INVITE_SENT', payload: id });
+  }
+
   return (
     <div>
       {list.map(person => (
-        <p key={person.id} onClick={() => handlePersonClick(person.id)}>
-          {person.first_name} {person.last_name}
-        </p>
+
+          <p key={person.id}>
+
+            <span onClick={() => handlePersonClick(person.id)}>
+              {person.first_name} {person.last_name}
+            </span>
+
+            {displaySentButton === "True" &&
+              <button 
+                class="small-button" 
+                onClick={() => handleSentClick(person.id)}
+              >✔</button>
+            }
+
+          </p>
+
       ))}
     </div>
   );
