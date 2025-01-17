@@ -85,6 +85,17 @@ const noResponseList = (state = [], action) => {
   }
 }
 
+const notYetInvitedList = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_NOT_YET_INVITED_LIST':
+      return action.payload;
+    case 'UNSET_NOT_YET_INVITED_LIST':
+      return [];
+    default:
+      return state;
+  }
+}
+
 const guestDetails = (state = {}, action) => {
   switch (action.type) {
     case 'SET_GUEST_DETAILS':
@@ -165,6 +176,7 @@ export default combineReducers({
   maybeList,
   notAttendingList,
   noResponseList,
+  notYetInvitedList,
   guestDetails,
   dietaryRestrictions,
   parkingDuring,

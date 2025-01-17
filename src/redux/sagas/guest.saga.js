@@ -139,6 +139,7 @@ function* fetchAdminData() {
     yield put({ type: 'FETCH_MAYBE_LIST' });
     yield put({ type: 'FETCH_NOT_ATTENDING_LIST' });
     yield put({ type: 'FETCH_NO_RESPONSE_LIST' });
+    yield put({ type: 'FETCH_NOT_YET_INVITED_LIST' });
     yield put({ type: 'FETCH_DIETARY_RESTRICTIONS' });
     yield put({ type: 'FETCH_PARKING_DURING' });
     yield put({ type: 'FETCH_PARKING_OVERNIGHT' });
@@ -205,6 +206,31 @@ function* fetchNoResponseList() {
   }
 }
 
+// get all guests where invite_sent = False
+function* fetchNotYetInvitedList() {
+  try {
+    const notYetInvitedList = yield axios.get('/api/guests/admin/not-yet-invited');
+
+    yield put({ type: 'SET_NOT_YET_INVITED_LIST', payload: notYetInvitedList.data });
+
+  } catch (error) {
+    console.log('Error fetching guests who have not yet been invited:', error);
+  }
+}
+
+// update guests.invite_sent to True using guests.id
+function* updateInviteSent(action) {
+  try {
+    yield axios.put(`/api/guests/admin/invite-sent/${action.payload}`);
+
+    // refresh Not Yet Invited List
+    yield put({ type: 'FETCH_NOT_YET_INVITED_LIST' });
+    
+  } catch (error) {
+    console.log('Error updating invite_sent:', error);
+  }
+}
+
 function* fetchGuestDetails(action) {
   try {
     const details = yield axios.get(`/api/guests/admin/details/${action.payload}`);
@@ -224,6 +250,7 @@ function* unsetAdminData() {
     yield put({ type: 'UNSET_MAYBE_LIST' });
     yield put({ type: 'UNSET_NOT_ATTENDING_LIST' });
     yield put({ type: 'UNSET_NO_RESPONSE_LIST' });
+    yield put({ type: 'UNSET_NOT_YET_INVITED_LIST' });
     yield put({ type: 'UNSET_GUEST_DETAILS' });
     yield put({ type: 'UNSET_DIETARY_RESTRICTIONS' });
     yield put({ type: 'UNSET_PARKING_DURING' });
@@ -365,6 +392,8 @@ function* guestSaga() {
   yield takeLatest('FETCH_MAYBE_LIST', fetchMaybeList);
   yield takeLatest('FETCH_NOT_ATTENDING_LIST', fetchNotAttendingList);
   yield takeLatest('FETCH_NO_RESPONSE_LIST', fetchNoResponseList);
+  yield takeLatest('FETCH_NOT_YET_INVITED_LIST', fetchNotYetInvitedList);
+  yield takeLatest('UPDATE_INVITE_SENT', updateInviteSent);
   yield takeLatest('FETCH_GUEST_DETAILS', fetchGuestDetails);
   yield takeLatest('UNSET_ADMIN_DATA', unsetAdminData);
   yield takeLatest('BANISH_GUEST', banishGuest);
