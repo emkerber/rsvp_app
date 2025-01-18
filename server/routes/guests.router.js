@@ -118,19 +118,33 @@ router.put('/register', (req, res) => {
 
 // when RSVP form is submitted and attendingResponse is YAY
 router.put('/update-responses/YAY', rejectUnauthenticated, (req, res) => {
+  // // in case phone number needs to again be collected
+  // const queryText = `
+  //   UPDATE "guests"
+  //   SET attending = true,
+  //     attending_code = 'YAY',
+  //     attending_deets = 'NA',
+  //     dietary_restrictions = $1,
+  //     additional_guests = $2,
+  //     parking = $3,
+  //     duties_indicated = $4,
+  //     questions_comments = $5,
+  //     phone = $6
+  //   WHERE id = $7;
+  // `;
+
   const queryText = `
-    UPDATE "guests"
-    SET attending = true,
-      attending_code = 'YAY',
-      attending_deets = 'NA',
-      dietary_restrictions = $1,
-      additional_guests = $2,
-      parking = $3,
-      duties_indicated = $4,
-      questions_comments = $5,
-      phone = $6
-    WHERE id = $7;
-  `;
+  UPDATE "guests"
+  SET attending = true,
+    attending_code = 'YAY',
+    attending_deets = 'NA',
+    dietary_restrictions = $1,
+    additional_guests = $2,
+    parking = $3,
+    duties_indicated = $4,
+    questions_comments = $5
+  WHERE id = $6;
+`;
 
   let queryParams = [];
   const rb = req.body;
@@ -139,8 +153,9 @@ router.put('/update-responses/YAY', rejectUnauthenticated, (req, res) => {
   queryParams[2] = rb.parking;
   queryParams[3] = rb.setupDuty || rb.cleanupDuty || rb.waterDuty || rb.photoDuty || rb.noDuty;
   queryParams[4] = rb.questionsComments;
-  queryParams[5] = rb.phone;
-  queryParams[6] = rb.guestId;
+  // queryParams[5] = rb.phone;
+  // queryParams[6] = rb.guestId;
+  queryParams[5] = rb.guestId;
 
   pool
     .query(queryText, queryParams)
@@ -467,15 +482,24 @@ router.post('/admin/add-guest', rejectNonAdmin, (req, res) => {
 
 // when a pending person is approved, insert their info into guests
 router.post('/admin/pending-to-guest', rejectNonAdmin, (req, res) => {
+  // // in case phone number needs to again be collected:
+  // const queryText = `
+  //   INSERT INTO guests
+  //     (party_id, user_id, first_name, last_name, welcome_message, phone)
+  //   VALUES
+  //     ($1, $2, $3, $4, $5, $6);
+  // `;
+
   const queryText = `
-    INSERT INTO guests
-      (party_id, user_id, first_name, last_name, welcome_message, phone)
-    VALUES
-      ($1, $2, $3, $4, $5, $6);
-  `;
+  INSERT INTO guests
+    (party_id, user_id, first_name, last_name, welcome_message)
+  VALUES
+    ($1, $2, $3, $4, $5);
+`;
 
   const rb = req.body; // pendings fields plus message
-  let queryParams = [rb.party_id, rb.user_id, rb.first_name, rb.last_name, rb.message, rb.phone];
+  // let queryParams = [rb.party_id, rb.user_id, rb.first_name, rb.last_name, rb.message, rb.phone];
+  let queryParams = [rb.party_id, rb.user_id, rb.first_name, rb.last_name, rb.message];
 
   pool
     .query(queryText, queryParams)

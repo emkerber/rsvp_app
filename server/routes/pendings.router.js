@@ -101,20 +101,21 @@ router.post('/new', (req, res) => {
 });
 
 
-// save phone of user who's pending or none
-router.put('/phone', (req, res) => {
-  const queryText = `
-    UPDATE "pendings" SET phone = $1 WHERE id = $2;
-  `;
+// will not be collecting phone number
+// // save phone of user who's pending or none
+// router.put('/phone', (req, res) => {
+//   const queryText = `
+//     UPDATE "pendings" SET phone = $1 WHERE id = $2;
+//   `;
 
-  pool
-    .query(queryText, [req.body.phone, req.body.idInfo])
-    .then(() => res.sendStatus(200))
-    .catch((err) => {
-      console.log('Error updating pendings phone:', err);
-      res.sendStatus(500);
-    });
-});
+//   pool
+//     .query(queryText, [req.body.phone, req.body.idInfo])
+//     .then(() => res.sendStatus(200))
+//     .catch((err) => {
+//       console.log('Error updating pendings phone:', err);
+//       res.sendStatus(500);
+//     });
+// });
 
 
 // - - - - - - - - - - - - - - - - - - - - - -
@@ -123,15 +124,27 @@ router.put('/phone', (req, res) => {
 
 // a guest was banished; insert their info and banishment explanation into pendings
 router.post('/admin/banished', rejectNonAdmin, (req, res) => {
+  
+  // in case phone number needs to again be collected:
+  // const queryText = `
+  //   INSERT INTO "pendings"
+  //   (user_id, party_id, first_name, last_name, phone, resolved, denial_message)
+  //   VALUES ($1, $2, $3, $4, $5, TRUE, $6);
+  // `;
+
   const queryText = `
     INSERT INTO "pendings"
-    (user_id, party_id, first_name, last_name, phone, resolved, denial_message)
-    VALUES ($1, $2, $3, $4, $5, TRUE, $6);
+    (user_id, party_id, first_name, last_name, resolved, denial_message)
+    VALUES ($1, $2, $3, $4, TRUE, $5);
   `;
 
   // req.body is { guest, explanation }
   const rbg = req.body.guest;
-  const queryParams = [rbg.user_id, rbg.party_id, rbg.first_name, rbg.last_name, rbg.phone, req.body.explanation];
+
+  // in case phone number needs to again be collected:
+  // const queryParams = [rbg.user_id, rbg.party_id, rbg.first_name, rbg.last_name, rbg.phone, req.body.explanation];
+
+  const queryParams = [rbg.user_id, rbg.party_id, rbg.first_name, rbg.last_name, req.body.explanation];
 
   pool
     .query(queryText, queryParams)
