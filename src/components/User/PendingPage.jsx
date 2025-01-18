@@ -9,7 +9,8 @@ function Pending() {
       
       <p>Thank you for your patience!</p>
 
-      <PendingPhone />
+      {/* no longer collecting phone numbers */}
+      {/* <PendingPhone /> */}
 
     </div>
   );
