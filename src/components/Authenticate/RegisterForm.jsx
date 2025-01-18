@@ -59,7 +59,7 @@ function RegisterForm() {
       )}
       <div>
         <label htmlFor="username">
-          Username:
+          Email:
           <TextField
             variant="standard"
             type="text"
