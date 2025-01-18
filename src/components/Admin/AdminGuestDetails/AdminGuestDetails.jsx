@@ -67,8 +67,9 @@ function AdminGuestDetails() {
       {/* their unique welcome message */}
       {guest?.welcome_message && <p>Welcome message: {guest.welcome_message}</p>}
 
+      {/* will not be collecting phone number */}
       {/* guest's phone number */}
-      {guest?.phone && <p>phone: {guest.phone}</p>}
+      {/* {guest?.phone && <p>phone: {guest.phone}</p>} */}
 
       {/* duties they signed up for */}
       <p>{guest?.first_name} signed up for:</p>
