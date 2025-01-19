@@ -40,7 +40,7 @@ router.get('/fetch-by-id/:id', rejectUnauthenticated, (req, res) => {
     SELECT "id", "party_id", "user_id", "first_name", "last_name",
     "attending", "attending_code", "attending_deets", "dietary_restrictions",
     "additional_guests", "parking", "duties_indicated", "questions_comments",
-    "welcome_message", "invite_sent"
+    "welcome_message"
     FROM "guests"
     WHERE id = $1;
   `;
@@ -60,7 +60,7 @@ router.get('/fetch-by-user-id/:id', rejectUnauthenticated, (req, res) => {
     SELECT "id", "party_id", "user_id", "first_name", "last_name",
     "attending", "attending_code", "attending_deets", "dietary_restrictions",
     "additional_guests", "parking", "duties_indicated", "questions_comments",
-    "welcome_message", "invite_sent"
+    "welcome_message"
     FROM "guests"
     WHERE user_id = $1;
   `;
