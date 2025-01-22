@@ -5,7 +5,7 @@ import RsvpAttending from './RsvpAttending';
 import RsvpWelcomeMessage from './RsvpWelcomeMessage';
 import RsvpAttendingDeets from './RsvpAttendingDeets';
 import RsvpBummerMessage from './RsvpBummerMessage';
-import RsvpPhone from './RsvpPhone';
+// import RsvpPhone from './RsvpPhone';
 import RsvpDietRestrictions from './RsvpDietRestrictions';
 import RsvpAdditionalGuests from './RsvpAdditionalGuests';
 import RsvpParking from './RsvpParking';
@@ -44,8 +44,9 @@ function RsvpPage() {
           {/* Hooray! Please provide all responses to access the Guest List! */}
           <RsvpWelcomeMessage />
 
+          {/* will not be collecting phone number */}
           {/* Please enter your phone number to receive party updates! */}
-          <RsvpPhone />
+          {/* <RsvpPhone /> */}
 
           {/* Any dietary restrictions? */}
           {/* Please elaborate! */}

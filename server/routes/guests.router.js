@@ -37,7 +37,11 @@ router.get('/search/:party/:firstName/:lastName', (req, res) => {
 // fetch guest's responses by guest.id
 router.get('/fetch-by-id/:id', rejectUnauthenticated, (req, res) => {
   const queryText = `
-    SELECT * FROM "guests"
+    SELECT "id", "party_id", "user_id", "first_name", "last_name",
+    "attending", "attending_code", "attending_deets", "dietary_restrictions",
+    "additional_guests", "parking", "duties_indicated", "questions_comments",
+    "welcome_message"
+    FROM "guests"
     WHERE id = $1;
   `;
   pool
@@ -53,7 +57,11 @@ router.get('/fetch-by-id/:id', rejectUnauthenticated, (req, res) => {
 // fetch guest's responses by guest.user_id
 router.get('/fetch-by-user-id/:id', rejectUnauthenticated, (req, res) => {
   const queryText = `
-    SELECT * FROM "guests"
+    SELECT "id", "party_id", "user_id", "first_name", "last_name",
+    "attending", "attending_code", "attending_deets", "dietary_restrictions",
+    "additional_guests", "parking", "duties_indicated", "questions_comments",
+    "welcome_message"
+    FROM "guests"
     WHERE user_id = $1;
   `;
   pool
@@ -118,6 +126,21 @@ router.put('/register', (req, res) => {
 
 // when RSVP form is submitted and attendingResponse is YAY
 router.put('/update-responses/YAY', rejectUnauthenticated, (req, res) => {
+  // // in case phone number needs to again be collected
+  // const queryText = `
+  //   UPDATE "guests"
+  //   SET attending = true,
+  //     attending_code = 'YAY',
+  //     attending_deets = 'NA',
+  //     dietary_restrictions = $1,
+  //     additional_guests = $2,
+  //     parking = $3,
+  //     duties_indicated = $4,
+  //     questions_comments = $5,
+  //     phone = $6
+  //   WHERE id = $7;
+  // `;
+
   const queryText = `
     UPDATE "guests"
     SET attending = true,
@@ -127,9 +150,8 @@ router.put('/update-responses/YAY', rejectUnauthenticated, (req, res) => {
       additional_guests = $2,
       parking = $3,
       duties_indicated = $4,
-      questions_comments = $5,
-      phone = $6
-    WHERE id = $7;
+      questions_comments = $5
+    WHERE id = $6;
   `;
 
   let queryParams = [];
@@ -139,8 +161,9 @@ router.put('/update-responses/YAY', rejectUnauthenticated, (req, res) => {
   queryParams[2] = rb.parking;
   queryParams[3] = rb.setupDuty || rb.cleanupDuty || rb.waterDuty || rb.photoDuty || rb.noDuty;
   queryParams[4] = rb.questionsComments;
-  queryParams[5] = rb.phone;
-  queryParams[6] = rb.guestId;
+  // queryParams[5] = rb.phone;
+  // queryParams[6] = rb.guestId;
+  queryParams[5] = rb.guestId;
 
   pool
     .query(queryText, queryParams)
@@ -201,7 +224,11 @@ router.put('/update-responses/NAY', rejectUnauthenticated, (req, res) => {
 // fetch guests who are attending
 router.get('/admin/attending', rejectNonAdmin, (req, res) => {
   const queryText = `
-    SELECT * FROM "guests"
+    SELECT "id", "party_id", "user_id", "first_name", "last_name",
+    "attending", "attending_code", "attending_deets", "dietary_restrictions",
+    "additional_guests", "parking", "duties_indicated", "questions_comments",
+    "welcome_message", "invite_sent"
+    FROM "guests"
     WHERE attending
     ORDER BY id;
   `;
@@ -219,7 +246,11 @@ router.get('/admin/attending', rejectNonAdmin, (req, res) => {
 // fetch guests who indicated they are maybe attending
 router.get('/admin/maybe', rejectNonAdmin, (req, res) => {
   const queryText = `
-    SELECT * FROM "guests"
+    SELECT "id", "party_id", "user_id", "first_name", "last_name",
+    "attending", "attending_code", "attending_deets", "dietary_restrictions",
+    "additional_guests", "parking", "duties_indicated", "questions_comments",
+    "welcome_message", "invite_sent"
+    FROM "guests"
     WHERE attending_code = 'TBD'
     ORDER BY id;
   `;
@@ -237,7 +268,11 @@ router.get('/admin/maybe', rejectNonAdmin, (req, res) => {
 // fetch guests who have indicated they will not attend
 router.get('/admin/not-attending', rejectNonAdmin, (req, res) => {
   const queryText = `
-    SELECT * FROM "guests"
+    SELECT "id", "party_id", "user_id", "first_name", "last_name",
+    "attending", "attending_code", "attending_deets", "dietary_restrictions",
+    "additional_guests", "parking", "duties_indicated", "questions_comments",
+    "welcome_message", "invite_sent"
+    FROM "guests"
     WHERE attending_code = 'NAY'
     ORDER BY id;
   `;
@@ -255,7 +290,11 @@ router.get('/admin/not-attending', rejectNonAdmin, (req, res) => {
 // fetch guests who have not yet RSVPd
 router.get('/admin/no-response', rejectNonAdmin, (req, res) => {
   const queryText = `
-    SELECT * FROM "guests"
+    SELECT "id", "party_id", "user_id", "first_name", "last_name",
+    "attending", "attending_code", "attending_deets", "dietary_restrictions",
+    "additional_guests", "parking", "duties_indicated", "questions_comments",
+    "welcome_message", "invite_sent"
+    FROM "guests"
     WHERE attending_code IS NULL
     ORDER BY first_name;
   `;
@@ -273,7 +312,11 @@ router.get('/admin/no-response', rejectNonAdmin, (req, res) => {
 // fetch guests who have not yet been invited
 router.get('/admin/not-yet-invited', rejectNonAdmin, (req, res) => {
   const queryText = `
-    SELECT * FROM "guests"
+    SELECT "id", "party_id", "user_id", "first_name", "last_name",
+    "attending", "attending_code", "attending_deets", "dietary_restrictions",
+    "additional_guests", "parking", "duties_indicated", "questions_comments",
+    "welcome_message", "invite_sent"
+    FROM "guests"
     WHERE "invite_sent" = False;
   `;
 
@@ -308,7 +351,11 @@ router.put('/admin/invite-sent/:id', rejectNonAdmin, (req, res) => {
 // fetch details for a guest
 router.get('/admin/details/:id', rejectNonAdmin, (req, res) => {
   const queryText = `
-    SELECT * FROM "guests"
+    SELECT "id", "party_id", "user_id", "first_name", "last_name",
+    "attending", "attending_code", "attending_deets", "dietary_restrictions",
+    "additional_guests", "parking", "duties_indicated", "questions_comments",
+    "welcome_message", "invite_sent"
+    FROM "guests"
     WHERE id = $1;
   `;
 
@@ -467,15 +514,24 @@ router.post('/admin/add-guest', rejectNonAdmin, (req, res) => {
 
 // when a pending person is approved, insert their info into guests
 router.post('/admin/pending-to-guest', rejectNonAdmin, (req, res) => {
+  // // in case phone number needs to again be collected:
+  // const queryText = `
+  //   INSERT INTO guests
+  //     (party_id, user_id, first_name, last_name, welcome_message, phone)
+  //   VALUES
+  //     ($1, $2, $3, $4, $5, $6);
+  // `;
+
   const queryText = `
     INSERT INTO guests
-      (party_id, user_id, first_name, last_name, welcome_message, phone)
+      (party_id, user_id, first_name, last_name, welcome_message)
     VALUES
-      ($1, $2, $3, $4, $5, $6);
+      ($1, $2, $3, $4, $5);
   `;
 
   const rb = req.body; // pendings fields plus message
-  let queryParams = [rb.party_id, rb.user_id, rb.first_name, rb.last_name, rb.message, rb.phone];
+  // let queryParams = [rb.party_id, rb.user_id, rb.first_name, rb.last_name, rb.message, rb.phone];
+  let queryParams = [rb.party_id, rb.user_id, rb.first_name, rb.last_name, rb.message];
 
   pool
     .query(queryText, queryParams)

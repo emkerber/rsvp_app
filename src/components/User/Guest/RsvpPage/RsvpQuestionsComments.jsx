@@ -26,8 +26,11 @@ function QuestionsComments() {
   }
 
   const prepareToRender = () => {
-    questionsCommentsResponse &&
+    if (questionsCommentsResponse === 'NA') {
+      setQuestionsCommentsTemp('');
+    } else if (questionsCommentsResponse) {
       setQuestionsCommentsTemp(questionsCommentsResponse);
+    }
   }
 
   useEffect(() => {
