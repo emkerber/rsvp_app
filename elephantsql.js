@@ -1,3 +1,5 @@
+// NOTE: ElephantSQL will not longer be available after Jan 25, 2025
+
 // for connecting to a PostgreSQL db hosted on https://www.elephantsql.com/
 // to use a local db instead, update pool.js
 const pg = require('pg');
