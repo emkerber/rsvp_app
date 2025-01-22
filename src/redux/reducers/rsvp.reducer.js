@@ -36,17 +36,18 @@ const attendingDeets = (state = '', action) => {
   }
 }
 
-// input, if null then allResponsesExist is false
-const phone = (state = '', action) => {
-  switch (action.type) {
-    case 'SET_RSVP_PHONE':
-      return action.payload;
-    case 'UNSET_RSVP_PHONE':
-      return '';
-    default:
-      return state;
-  }
-}
+// // will not be collecting phone number
+// // input, if null then allResponsesExist is false
+// const phone = (state = '', action) => {
+//   switch (action.type) {
+//     case 'SET_RSVP_PHONE':
+//       return action.payload;
+//     case 'UNSET_RSVP_PHONE':
+//       return '';
+//     default:
+//       return state;
+//   }
+// }
 
 // input, NA
 const dietRestrictions = (state = '', action) => {
@@ -145,12 +146,16 @@ const noDuty = (state = false, action) => {
 }
 
 // multiline text field, if null then allResponsesExist is false
-const questionsComments = (state = '', action) => {
+const questionsComments = (state = 'NA', action) => {
   switch (action.type) {
     case 'SET_RSVP_QUESTIONS_COMMENTS':
-      return action.payload;
+      if (action.payload === '') {
+        return 'NA'; // allow for NR to result in allResponsesExist = True
+      } else {
+        return action.payload;
+      }
     case 'UNSET_RSVP_QUESTIONS_COMMENTS':
-      return '';
+      return 'NA';
     default:
       return state;
   }
@@ -160,7 +165,7 @@ export default combineReducers({
   guestId,
   attendingCode,
   attendingDeets,
-  phone,
+  // phone,
   dietRestrictions,
   additionalGuests,
   parking,

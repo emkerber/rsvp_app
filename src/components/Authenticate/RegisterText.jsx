@@ -38,6 +38,7 @@ function RegisterText() {
     <div>
       <h1>{verbiageOne}</h1>
       <h2>{verbiageTwo}</h2>
+      <p id="communications-p">This email address will be used for communications.</p>
     </div>
   );
 }

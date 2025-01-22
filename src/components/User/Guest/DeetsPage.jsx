@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button } from '@mui/material';
 import './Guest.css';
 
 function DeetsPage() {
-  const dispatch = useDispatch();
   const history = useHistory();
   
   const party = useSelector(store => store.party);
@@ -18,10 +17,6 @@ function DeetsPage() {
   const handleGuestListClicked = () => {
     history.push('/guest-list');
   }
-
-  useEffect(() => {
-    allResponsesExist && dispatch({ type: 'FETCH_GUESTS_LIST' });
-  }, []);
 
   return (
     <div className="container deets-container">

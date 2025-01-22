@@ -69,7 +69,7 @@ function LoginForm() {
       )}
       <div>
         <label htmlFor="username">
-          Username:
+          Email:
           <TextField
             variant="standard"
             type="text"
