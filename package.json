@@ -44,5 +44,15 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "heroku-run-build-script": true
+  // "heroku-run-build-script": true
+  "AppRegistryApplicationStackAssociation": {
+    "Type": "AWS::ServiceCatalogAppRegistry::ResourceAssociation",
+    "Properties": {
+        "Application": arn:aws:servicecatalog:us-east-1:963719125262:/applications/060bh9u6foqt1qge7wnzat2fu7,
+        "Resource": {
+            "Ref": "AWS::StackId"
+        },
+        "ResourceType": "CFN_STACK"
+    }
+  }
 }
